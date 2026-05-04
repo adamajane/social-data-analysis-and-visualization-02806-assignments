@@ -1,0 +1,1618 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Fall and Rise of Drug Crimes in San Francisco</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"
+    />
+
+    <style>
+      :root {
+        --page-bg: #f4f1ea;
+        --card-bg: #fffdf8;
+        --text: #1c2a28;
+        --muted: #5c6a67;
+        --border: rgba(28, 42, 40, 0.12);
+        --accent: #7b3f00;
+        --shadow-sm: 0 8px 30px rgba(28, 42, 40, 0.06);
+        --shadow-md: 0 16px 48px rgba(28, 42, 40, 0.11);
+        --shadow-lg: 0 24px 60px rgba(28, 42, 40, 0.09);
+        --heading: "Playfair Display", Georgia, serif;
+        --body: "Lora", Georgia, serif;
+        --side-pad: 40px;
+        --step-w: 500px;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--body);
+        background: var(--page-bg);
+        color: var(--text);
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* HERO */
+      .hero {
+        min-height: 85vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 80px var(--side-pad) 68px;
+        background: linear-gradient(155deg, #1c2a28 0%, #2f1808 100%);
+        color: #fffdf8;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero__kicker {
+        font-family: var(--body);
+        font-size: 0.8rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 253, 248, 0.5);
+        margin-bottom: 20px;
+      }
+      .hero__headline {
+        font-family: var(--heading);
+        font-size: clamp(3rem, 6.5vw, 6.5rem);
+        font-weight: 900;
+        line-height: 1.03;
+        color: #fffdf8;
+        margin-bottom: 28px;
+        max-width: 900px;
+      }
+      .hero__headline em {
+        font-style: italic;
+        color: rgba(255, 200, 140, 0.9);
+      }
+      .hero__deck {
+        font-family: var(--body);
+        font-size: clamp(1rem, 1.4vw, 1.15rem);
+        line-height: 1.7;
+        color: rgba(255, 253, 248, 0.65);
+        max-width: 620px;
+        margin-bottom: 40px;
+      }
+      .hero__byline {
+        font-family: var(--body);
+        font-size: 0.85rem;
+        color: rgba(255, 253, 248, 0.38);
+        letter-spacing: 0.04em;
+        border-top: 1px solid rgba(255, 253, 248, 0.1);
+        padding-top: 20px;
+        max-width: 620px;
+      }
+
+      /* NAVIGATION */
+      nav {
+        background: var(--card-bg);
+        border-bottom: 1px solid var(--border);
+        padding: 12px var(--side-pad);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        position: sticky;
+        top: 0;
+        z-index: 500;
+        box-shadow: 0 2px 12px rgba(28, 42, 40, 0.06);
+      }
+      nav a {
+        font-family: var(--body);
+        font-size: 0.8rem;
+        color: var(--text);
+        text-decoration: none;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 6px 14px;
+        transition:
+          background 0.2s,
+          border-color 0.2s,
+          color 0.2s;
+        white-space: nowrap;
+      }
+      nav a:hover {
+        background: var(--page-bg);
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      /* INTRODUCTION */
+      .intro-section {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 72px var(--side-pad) 72px;
+      }
+      .intro-section p {
+        font-size: 1.06rem;
+        line-height: 1.8;
+        color: var(--muted);
+        margin-bottom: 22px;
+      }
+      .intro-section p:last-child {
+        margin-bottom: 0;
+      }
+      .intro-section strong {
+        color: var(--text);
+      }
+
+      /* ACT DIVIDER */
+      .act-divider {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 16px var(--side-pad);
+      }
+      .act-divider__line {
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+      }
+      .act-divider__numeral {
+        font-family: var(--heading);
+        font-style: italic;
+        font-size: 1rem;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      /* SCROLLYTELLING ACTS */
+      .act {
+        position: relative;
+      }
+      .act__inner {
+        display: flex;
+        align-items: flex-start;
+        max-width: 1460px;
+        margin: 0 auto;
+        padding: 0 var(--side-pad);
+      }
+
+      /* Sticky figure */
+      .act__figure {
+        position: sticky;
+        top: 46px;
+        width: 63%;
+        height: calc(100vh - 46px);
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 28px 20px 0;
+      }
+      .act__figure-inner {
+        flex: 1;
+        min-height: 0;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .chart-fill {
+        flex: 1;
+        min-height: 0;
+        position: relative;
+        width: 100%;
+      }
+      .chart-fill > div:not(.map-overlay) {
+        width: 100%;
+        height: 100%;
+      }
+      .act__figure-caption {
+        flex-shrink: 0;
+        font-family: var(--body);
+        font-style: italic;
+        font-size: 0.8rem;
+        color: var(--muted);
+        text-align: center;
+        padding: 10px 16px;
+        border-top: 1px solid var(--border);
+      }
+
+      /* Steps column */
+      .act__steps {
+        width: 37%;
+        padding-left: 36px;
+      }
+      .act__header {
+        padding: 68px 0 32px;
+      }
+      .act__act-label {
+        font-family: var(--body);
+        font-size: 0.76rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 10px;
+      }
+      .act__title {
+        font-family: var(--heading);
+        font-size: clamp(1.9rem, 2.8vw, 2.8rem);
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 18px;
+      }
+      .act__intro {
+        font-size: 1rem;
+        line-height: 1.72;
+        color: var(--muted);
+        max-width: var(--step-w);
+      }
+
+      /* Step cards */
+      .step {
+        min-height: 80vh;
+        padding: 44px 0;
+        display: flex;
+        align-items: center;
+      }
+      .step--spacer {
+        min-height: 35vh;
+        pointer-events: none;
+      }
+      .step__card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 26px 30px;
+        box-shadow: var(--shadow-sm);
+        max-width: var(--step-w);
+        width: 100%;
+        opacity: 0.36;
+        transform: translateY(10px);
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease,
+          box-shadow 0.4s ease,
+          border-color 0.4s ease;
+      }
+      .step__card.is-active {
+        opacity: 1;
+        transform: translateY(0);
+        box-shadow: var(--shadow-md);
+        border-color: rgba(123, 63, 0, 0.2);
+      }
+      .step__label {
+        font-family: var(--body);
+        font-size: 0.73rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 10px;
+      }
+      .step__heading {
+        font-family: var(--heading);
+        font-size: clamp(1.1rem, 1.7vw, 1.5rem);
+        font-weight: 700;
+        line-height: 1.25;
+        margin-bottom: 13px;
+      }
+      .step__body {
+        font-size: 0.96rem;
+        line-height: 1.73;
+        color: var(--muted);
+      }
+      .step__body p + p {
+        margin-top: 12px;
+      }
+      .citation {
+        color: var(--accent);
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      /* HEATMAP OVERLAYS */
+      #act2-map {
+        border-radius: 20px 20px 0 0;
+      }
+      .map-overlay {
+        position: absolute;
+        z-index: 800;
+        pointer-events: none;
+      }
+      .heatmap-year-badge {
+        top: 14px;
+        right: 14px;
+        background: rgba(28, 42, 40, 0.82);
+        color: #fffdf8;
+        font-family: var(--heading);
+        font-size: 2rem;
+        font-weight: 700;
+        padding: 8px 16px;
+        border-radius: 10px;
+        line-height: 1;
+      }
+      .heatmap-summary-box {
+        bottom: 14px;
+        left: 14px;
+        background: rgba(255, 253, 248, 0.92);
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-family: monospace;
+        font-size: 0.78rem;
+        line-height: 1.45;
+        padding: 8px 11px;
+        border-radius: 8px;
+        white-space: pre;
+      }
+      #district-hover-box {
+        position: fixed;
+        display: none;
+        z-index: 9999;
+        pointer-events: none;
+        background: rgba(255, 253, 248, 0.96);
+        border: 1px solid rgba(28, 42, 40, 0.2);
+        border-radius: 8px;
+        box-shadow: var(--shadow-sm);
+        padding: 8px 12px;
+        font-family: var(--body);
+        font-size: 0.85rem;
+        line-height: 1.5;
+        color: var(--text);
+      }
+
+      /* FIGURE CAPTIONS (below acts) */
+      .fig-caption-block {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 16px var(--side-pad) 60px;
+        font-size: 0.875rem;
+        line-height: 1.65;
+        color: var(--muted);
+      }
+      .fig-caption-block strong {
+        color: var(--text);
+      }
+
+      /* CODA */
+      .coda {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 72px var(--side-pad) 64px;
+        border-top: 1px solid var(--border);
+      }
+      .coda__act-label {
+        font-family: var(--body);
+        font-size: 0.76rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 12px;
+      }
+      .coda__title {
+        font-family: var(--heading);
+        font-size: clamp(1.8rem, 3vw, 2.8rem);
+        font-weight: 700;
+        line-height: 1.1;
+        margin-bottom: 28px;
+      }
+      .coda p {
+        font-size: 1.06rem;
+        line-height: 1.8;
+        color: var(--muted);
+        margin-bottom: 22px;
+      }
+      .coda p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* COLOPHON */
+      .colophon {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 40px var(--side-pad) 48px;
+        border-top: 1px solid var(--border);
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .colophon strong {
+        color: var(--text);
+      }
+
+      /* BIBLIOGRAPHY */
+      .bibliography {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 48px var(--side-pad) 100px;
+        border-top: 1px solid var(--border);
+      }
+      .bibliography__title {
+        font-family: var(--heading);
+        font-size: clamp(1.4rem, 2.2vw, 2rem);
+        font-weight: 700;
+        margin-bottom: 28px;
+      }
+      .bibliography ol {
+        padding-left: 22px;
+      }
+      .bibliography li {
+        font-size: 0.94rem;
+        line-height: 1.65;
+        color: var(--muted);
+        margin-bottom: 14px;
+      }
+      .bibliography a {
+        color: var(--accent);
+        text-underline-offset: 3px;
+      }
+
+      /* MOBILE */
+      @media (max-width: 860px) {
+        :root {
+          --side-pad: 18px;
+        }
+        nav {
+          padding: 10px var(--side-pad);
+          top: 0;
+        }
+        .act__inner {
+          flex-direction: column;
+        }
+        .act__figure {
+          position: relative;
+          top: 0;
+          width: 100%;
+          height: 55vw;
+          min-height: 280px;
+          padding: 12px 0;
+        }
+        .act__steps {
+          width: 100%;
+          padding-left: 0;
+        }
+        .act__header {
+          padding: 32px 0 20px;
+        }
+        .step {
+          min-height: unset;
+          padding: 16px 0;
+        }
+        .step--spacer {
+          min-height: 12px;
+        }
+        .step__card {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        .heatmap-year-badge {
+          font-size: 1.4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HERO -->
+    <header class="hero">
+      <p class="hero__kicker">
+        San Francisco &nbsp;·&nbsp; SFPD Incident Reports &nbsp;·&nbsp;
+        2003–2025
+      </p>
+      <h1 class="hero__headline">
+        The Fall and <em>Rise</em> of Drug&nbsp;Crimes in San&nbsp;Francisco
+      </h1>
+      <p class="hero__deck">
+        In 2008 the SFPD filed 8,405 drug offense reports. By 2021 that number
+        had fallen to 942 representing an 89% collapse over 13 years. Then,
+        suddenly, it turned around. This is the story of what the data shows,
+        and what it can't.
+      </p>
+      <p class="hero__byline">
+        San Francisco Police Department incident data &nbsp;·&nbsp; 2003–2025
+      </p>
+    </header>
+
+    <!-- NAV -->
+    <nav aria-label="Page sections">
+      <a href="#introduction">Introduction</a>
+      <a href="#act1">Annual Trend</a>
+      <a href="#act2">The Fall</a>
+      <a href="#act3">The Rise</a>
+      <a href="#coda">Conclusion</a>
+      <a href="#bibliography">References</a>
+    </nav>
+
+    <!-- INTRODUCTION -->
+    <section id="introduction" class="intro-section">
+      <p>
+        Between 2003 and 2025, the San Francisco Police Department recorded more
+        than 950,000 incidents across ten categories of crime. For this data
+        story, we focus on one of those categories:
+        <strong>drug offenses</strong>.
+      </p>
+      <p>
+        The dataset combines two SFPD incident report systems: the historical
+        archive covering 2003 to May 2018, and the current reporting system from
+        2018 onward. Each row is a single reported incident with a date, time,
+        police district, and category. A drug offense means a police officer
+        filed a report, which reflects enforcement activity as much as it
+        reflects actual drug use or dealing. This distinction matters, and we
+        will return to it.
+      </p>
+      <p>
+        This rise and fall is not spread evenly across the city. In our
+        analysis, one neighborhood stands out: the
+        <strong>Tenderloin</strong> neighborhood. A dense, historically
+        low-income district north of City Hall, the Tenderloin accounts for
+        about a third of all drug offense reports across the entire 22-year
+        span. The story of drug offenses in San Francisco is, largely, the story
+        of one neighborhood.
+      </p>
+      <p>
+        But what drives these swings? The data alone cannot tell us. A drop in
+        reported offenses might mean less drug activity. It can also mean fewer
+        arrests, a shift in enforcement priorities, or a policy change that
+        reclassified certain offenses. California's Proposition 47 (passed in
+        2014), the COVID-19 pandemic, and San Francisco's fentanyl crisis all
+        leave fingerprints in the data. The data cannot tell us which
+        fingerprint belongs to which hand.
+      </p>
+    </section>
+
+    <!-- ACT I -->
+    <div class="act-divider" aria-hidden="true">
+      <div class="act-divider__line"></div>
+      <span class="act-divider__numeral">Act I</span>
+      <div class="act-divider__line"></div>
+    </div>
+
+    <section class="act" id="act1">
+      <div class="act__inner">
+        <div class="act__figure">
+          <div class="act__figure-inner">
+            <div class="chart-fill"><div id="act1-timeseries"></div></div>
+            <p class="act__figure-caption">
+              Figure 1 — Annual drug offense reports filed by SFPD, 2003–2025
+            </p>
+          </div>
+        </div>
+
+        <div class="act__steps">
+          <div class="act__header">
+            <p class="act__act-label">Act I</p>
+            <h2 class="act__title">A City's Habit</h2>
+            <p class="act__intro">
+              The annual count of drug offense reports tells a story in four
+              distinct eras. Scroll to explore each one.
+            </p>
+          </div>
+
+          <div class="step js-step" data-step="1-1">
+            <div class="step__card">
+              <p class="step__label">2003–2008 · Peak Era</p>
+              <h3 class="step__heading">Eight thousand reports a year</h3>
+              <div class="step__body">
+                <p>
+                  Drug offense reporting started high and kept climbing. In
+                  2008, SFPD filed 8,405 reports — the highest single-year total
+                  in the dataset. Drug offenses were a dominant in the city's
+                  enforcement landscape, and concentrated in a handful of
+                  districts and kept rising year over year.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step js-step" data-step="1-2">
+            <div class="step__card">
+              <p class="step__label">2009–2019 · Long Decline</p>
+              <h3 class="step__heading">A thirteen-year slide</h3>
+              <div class="step__body">
+                <p>
+                  After the 2008 peak, reported drug offenses fell almost every
+                  year for more than a decade. Enforcement priorities shifted.
+                  California policy changed. Cannabis decriminalization reduced
+                  a major category of arrests. The decline was steady and driven
+                  by forces that go beyond the data itself.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step js-step" data-step="1-3">
+            <div class="step__card">
+              <p class="step__label">2020–2021 · COVID Trough</p>
+              <h3 class="step__heading">Nearly to zero</h3>
+              <div class="step__body">
+                <p>
+                  The pandemic accelerated the collapse. Street-level
+                  enforcement contracted sharply, which was a pattern documented
+                  statewide, with California arrests falling by roughly 40% in
+                  2020 <a class="citation" href="#ref-9">[9]</a>. In 2021, SFPD
+                  filed just 942 drug offense reports, an 89% drop from the 2008
+                  peak. By this measure, drug crime had nearly vanished from San
+                  Francisco. Unfortunately, it hadn't.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step js-step" data-step="1-4">
+            <div class="step__card">
+              <p class="step__label">2022–2025 · The Rebound</p>
+              <h3 class="step__heading">A sharp reversal</h3>
+              <div class="step__body">
+                <p>
+                  Starting in 2022, drug offense reports surged. By 2025, SFPD
+                  filed 4,451 reports representing a nearly five fold increase
+                  from the historical low in 2021. Drug offenses climbed from
+                  2.5% of selected crime categories in 2021 to 23% by late 2025,
+                  overtaking assault as the most reported category in this
+                  group.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step step--spacer" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="fig-caption-block">
+      <strong>Figure 1</strong> — Annual drug offense reports filed by SFPD,
+      2003–2025. The 2021 trough of 942 represents an 89% drop from the 2008
+      peak of 8,405. Shaded regions highlight the four eras as you scroll. Note
+      that reported incidents reflect enforcement choices as much as underlying
+      drug activity.
+    </div>
+
+    <!-- ACT II -->
+    <div class="act-divider" aria-hidden="true">
+      <div class="act-divider__line"></div>
+      <span class="act-divider__numeral">Act II</span>
+      <div class="act-divider__line"></div>
+    </div>
+
+    <section class="act" id="act2">
+      <div class="act__inner">
+        <div class="act__figure">
+          <div class="act__figure-inner">
+            <div class="chart-fill">
+              <div id="act2-map"></div>
+              <div class="map-overlay heatmap-year-badge" id="heatmap-year">
+                2003
+              </div>
+              <div
+                class="map-overlay heatmap-summary-box"
+                id="heatmap-summary"
+              ></div>
+            </div>
+            <p class="act__figure-caption">
+              Figure 2 — Drug offense concentration by district, 2003–2025.
+              Scroll steps advance the year.
+            </p>
+          </div>
+        </div>
+
+        <div class="act__steps">
+          <div class="act__header">
+            <p class="act__act-label">Act II</p>
+            <h2 class="act__title">The Fall</h2>
+            <p class="act__intro">
+              From 7,468 incidents in 2003 to 913 in 2021. Watch the heat
+              collapse into one neighborhood.
+            </p>
+          </div>
+
+          <div
+            class="step js-step"
+            data-step="2-1"
+            data-year="2015"
+            data-prev-year="2003"
+          >
+            <div class="step__card">
+              <p class="step__label">Policy · November 2014</p>
+              <h3 class="step__heading">Proposition 47 changes the rules</h3>
+              <div class="step__body">
+                <p>
+                  California's Proposition 47 downgraded simple drug possession
+                  from a felony to a misdemeanor. According to PPIC, arrests for
+                  drug and property crimes fell after those offenses were
+                  reclassified making Prop 47 a plausible contributor to San
+                  Francisco's long and steady decline
+                  <a class="citation" href="#ref-4">[4]</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="step js-step"
+            data-step="2-2"
+            data-year="2017"
+            data-prev-year="2015"
+          >
+            <div class="step__card">
+              <p class="step__label">Policy · 2006–2016</p>
+              <h3 class="step__heading">Cannabis drops off the radar</h3>
+              <div class="step__body">
+                <p>
+                  A large US study found cannabis decriminalization cut
+                  possession arrest rates 40%–80% during the 2010s
+                  <a class="citation" href="#ref-5">[5]</a>. San Francisco
+                  reinforced this in 2006, making adult marijuana enforcement
+                  its lowest law enforcement priority
+                  <a class="citation" href="#ref-6">[6]</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="step js-step"
+            data-step="2-3"
+            data-year="2021"
+            data-prev-year="2017"
+          >
+            <div class="step__card">
+              <p class="step__label">Geography · 2003–2021</p>
+              <h3 class="step__heading">
+                Everything funnels into the Tenderloin
+              </h3>
+              <div class="step__body">
+                <p>
+                  As citywide incidents fell, the remaining activity became more
+                  concentrated in the Tenderloin neighborhood. By 2021, it
+                  accounted for 55% of all drug offense reports, up from 27% in
+                  2003. The collapse was uneven: as the city cooled, one
+                  neighborhood stayed hot
+                  <a class="citation" href="#ref-7">[7]</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step step--spacer" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <div id="district-hover-box"></div>
+
+    <div class="fig-caption-block">
+      <strong>Figure 2</strong> — Heatmap of recorded drug offense incidents by
+      location and police district, 2003–2025. Warmer colors indicate higher
+      concentrations. District outlines show how the geography of enforcement
+      shifted over time.
+    </div>
+
+    <!-- ACT III -->
+    <div class="act-divider" aria-hidden="true">
+      <div class="act-divider__line"></div>
+      <span class="act-divider__numeral">Act III</span>
+      <div class="act-divider__line"></div>
+    </div>
+
+    <section class="act" id="act3">
+      <div class="act__inner">
+        <div class="act__figure">
+          <div class="act__figure-inner">
+            <div class="chart-fill">
+              <div id="crime-ratio-plot-px-only" class="plotly-graph-div"></div>
+            </div>
+            <p class="act__figure-caption">
+              Figure 3 — Drug offenses as a share of selected crime types,
+              2003–2025
+            </p>
+          </div>
+        </div>
+
+        <div class="act__steps">
+          <div class="act__header">
+            <p class="act__act-label">Act III</p>
+            <h2 class="act__title">The Rise</h2>
+            <p class="act__intro">
+              Around 2022, drug offense reports reversed sharply. From 2.5% of
+              selected crimes in 2021 to 23% by late 2025, drug offenses
+              overtook assault as the most reported category in this group.
+            </p>
+          </div>
+
+          <div class="step js-step" data-step="3-1">
+            <div class="step__card">
+              <p class="step__label">Context · 2019–2022</p>
+              <h3 class="step__heading">The fentanyl crisis arrives</h3>
+              <div class="step__body">
+                <p>
+                  San Francisco is dealing with an opioid epidemic. Fentanyl and
+                  other synthetic opioids surged rapidly from 2019 onward, and
+                  are significantly cheaper in San Francisco compared to other
+                  US cities
+                  <a class="citation" href="#ref-1">[1]</a>.
+                </p>
+                <p>
+                  From 2018 to 2020, drug overdose deaths in San Francisco
+                  almost tripled — from 259 to 726 — with most attributed to
+                  fentanyl <a class="citation" href="#ref-2">[2]</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step js-step" data-step="3-2">
+            <div class="step__card">
+              <p class="step__label">Response · 2019–2023</p>
+              <h3 class="step__heading">A billion dollars for intervention</h3>
+              <div class="step__body">
+                <p>
+                  Between 2019 and 2023, California spent around $1 billion to
+                  address the crisis, roughly half from the state's general fund
+                  and half from the federal government. These efforts focused on
+                  prevention, treatment, and medication-assisted care
+                  <a class="citation" href="#ref-8">[8]</a>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step js-step" data-step="3-3">
+            <div class="step__card">
+              <p class="step__label">Enforcement · November 2023</p>
+              <h3 class="step__heading">All Hands on Deck</h3>
+              <div class="step__body">
+                <p>
+                  In November 2023, the "All Hands on Deck" initiative brought
+                  together local, state, and federal agents to tackle the
+                  epidemic in San Francisco's Tenderloin neighborhood
+                  <a class="citation" href="#ref-3">[3]</a>.
+                </p>
+                <p>
+                  The surge in reported drug offenses since 2022 reflects both
+                  this enforcement intensity and the underlying crisis. The data
+                  cannot tell us which force is driving the number higher.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step step--spacer" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="fig-caption-block">
+      <strong>Figure 3</strong> — Share of selected crime categories over time,
+      with drug offenses highlighted. Drug offenses rose from 2.5% of this group
+      in 2021 to 23% by late 2025, overtaking assault. Click legend entries to
+      show/hide crime types; use the buttons to switch between yearly and
+      monthly views.
+    </div>
+
+    <!-- CODA -->
+    <section id="coda" class="coda">
+      <p class="coda__act-label">Conclusion</p>
+      <h2 class="coda__title">Which fingerprint, which hand?</h2>
+      <p>
+        The data presents a clear pattern — a long fall followed by a sharp rise
+        — but it resists a single clean explanation. The same movement in a
+        crime report count can mean many different things: more policing, less
+        policing; more drug use, less drug use; a new law, an old habit. The
+        numbers are real, but they mirror enforcement decisions just as much as
+        they mirror underlying criminal activity.
+      </p>
+      <p>
+        What the data <i>does</i> show clearly is geography. The Tenderloin area
+        has been at the center of this story for more than two decades. As drug
+        reports fell citywide, they fell slowest there. As they rose again, they
+        rose fastest there. Any meaningful response to San Francisco's drug
+        crisis will have to investigate what has made the Tenderloin
+        neighborhood its persistent epicenter.
+      </p>
+      <p>
+        Do the 2025 numbers reflect progress, or just more policing? The
+        fingerprints are there, but matching them to the right hand remains the
+        harder task.
+      </p>
+    </section>
+
+    <!-- COLOPHON -->
+    <div class="colophon">
+      <p><strong>02806 Social Data Analysis and Visualization</strong></p>
+      <p>Created by Group 70</p>
+      <p>Sævar Reynisson (s260166)</p>
+      <p>Brynjar Bjarkason (s253549)</p>
+      <p>Adam Ajane (s211048)</p>
+      <p>
+        <i
+          >Data: San Francisco Police Department Incident Reports, 2003–2025
+          (DataSF)</i
+        >
+      </p>
+    </div>
+
+    <!-- BIBLIOGRAPHY -->
+    <section id="bibliography" class="bibliography">
+      <h2 class="bibliography__title">References</h2>
+      <ol>
+        <li id="ref-1">
+          Wikipedia contributors.
+          <a href="https://en.wikipedia.org/wiki/California_opioid_crisis"
+            >California opioid crisis</a
+          >.
+        </li>
+        <li id="ref-2">
+          ABC7 News.
+          <a
+            href="https://abc7news.com/post/san-francisco-record-overdose-deaths-fentanyl-wastewater-drug-testing/14186379/"
+            >2023 is SF's deadliest year ever for drug overdoses; solution to
+            crisis may be in wastewater</a
+          >.
+        </li>
+        <li id="ref-3">
+          U.S. Drug Enforcement Administration.
+          <a
+            href="https://www.dea.gov/press-releases/2023/11/02/us-attorney-and-federal-law-enforcement-officials-assemble-state-law"
+            >U.S. Attorney and Federal Law Enforcement Officials Assemble with
+            State Law Enforcement Officers and Local Dignitaries in Show of
+            Unity Against Fentanyl Trafficking in the Tenderloin District of San
+            Francisco</a
+          >.
+        </li>
+        <li id="ref-4">
+          Public Policy Institute of California.
+          <a
+            href="https://www.ppic.org/publication/crime-after-proposition-47-and-the-pandemic/"
+            >Crime after Proposition 47 and the Pandemic</a
+          >, September 2024.
+        </li>
+        <li id="ref-5">
+          National Library of Medicine.
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9855298/"
+            >Association of Recreational Cannabis Legalization With Cannabis
+            Possession Arrest Rates in the US</a
+          >, December 2022.
+        </li>
+        <li id="ref-6">
+          American Legal Publishing's Code Library.
+          <a
+            href="https://codelibrary.amlegal.com/codes/san_francisco/latest/sf_admin/0-0-0-58206"
+            >Cannabis Policy Reform</a
+          >, November 2006.
+        </li>
+        <li id="ref-7">
+          The San Francisco Standard.
+          <a
+            href="https://sfstandard.com/2022/10/20/how-serious-is-tenderloins-drug-problem-heres-what-city-data-says/"
+            >How serious is the Tenderloin's drug problem? Here's what city data
+            says</a
+          >, October 20, 2022.
+        </li>
+        <li id="ref-8">
+          CalMatters.
+          <a href="https://calmatters.org/explainers/california-opioid-crisis/"
+            >California Opioid Crisis</a
+          >.
+        </li>
+        <li id="ref-9">
+          Public Policy Institute of California.
+          <a
+            href="https://www.ppic.org/publication/assessing-the-impact-of-covid-19-on-arrests-in-california/"
+            >Assessing the Impact of COVID-19 on Arrests in California</a
+          >.
+        </li>
+      </ol>
+    </section>
+
+    <!-- DEPENDENCIES -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/pa7_hm.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/pa7_leaflet_hm.min.js"></script>
+    <script
+      charset="utf-8"
+      src="https://cdn.plot.ly/plotly-3.4.0.min.js"
+      integrity="sha256-KEmPoupLpFyGMyGAiOsiNDbKDKAvxXAn/W+oQa0ZAfk="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/scrollama@3.2.0/build/scrollama.js"></script>
+
+    <!-- Data globals -->
+    <script src="./src/district-geojson.js"></script>
+    <script src="./src/heatmap-meta.js"></script>
+    <script src="./src/heatmap-data.js"></script>
+    <!-- Plotly ratio chart (calls Plotly.newPlot on #crime-ratio-plot-px-only) -->
+    <script src="./src/plotly-init.js"></script>
+
+    <!-- Main app -->
+    <script>
+      (function () {
+        "use strict";
+
+        var isMobile = window.matchMedia("(max-width: 860px)").matches;
+
+        /* ── ACT 1: Plotly Timeseries ──────────── */
+        var act1Years = [
+          2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013,
+          2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024,
+          2025,
+        ];
+        var act1Counts = [
+          7468, 7459, 6615, 6843, 7635, 8405, 7807, 5871, 4365, 4004, 4271,
+          3424, 2674, 2664, 2047, 2256, 1878, 1171, 942, 1916, 2100, 2275, 4451,
+        ];
+
+        var act1EraRanges = {
+          "1-1": ["2003-01-01", "2009-01-01"],
+          "1-2": ["2009-01-01", "2020-01-01"],
+          "1-3": ["2020-01-01", "2022-01-01"],
+          "1-4": ["2022-01-01", "2026-01-01"],
+        };
+        var eraFill = {
+          "1-1": "rgba(180,100,30,0.13)",
+          "1-2": "rgba(80,130,90,0.12)",
+          "1-3": "rgba(50,110,160,0.13)",
+          "1-4": "rgba(170,60,40,0.13)",
+        };
+
+        Plotly.newPlot(
+          "act1-timeseries",
+          [
+            {
+              x: act1Years.map(function (y) {
+                return y + "-01-01";
+              }),
+              y: act1Counts,
+              type: "scatter",
+              mode: "lines+markers",
+              line: { color: "#7b3f00", width: 2.5 },
+              marker: { color: "#7b3f00", size: 6 },
+              fill: "tozeroy",
+              fillcolor: "rgba(123,63,0,0.07)",
+              hovertemplate: "<b>%{x|%Y}</b><br>%{y:,} reports<extra></extra>",
+            },
+          ],
+          {
+            paper_bgcolor: "transparent",
+            plot_bgcolor: "transparent",
+            margin: { t: 24, r: 24, b: 48, l: 68 },
+            xaxis: {
+              showgrid: false,
+              linecolor: "rgba(28,42,40,0.18)",
+              tickformat: "%Y",
+              dtick: "M24",
+              tickfont: {
+                family: "Lora, Georgia, serif",
+                size: 11,
+                color: "#5c6a67",
+              },
+            },
+            yaxis: {
+              showgrid: true,
+              gridcolor: "rgba(28,42,40,0.07)",
+              tickformat: ",",
+              range: [0, 9400],
+              title: {
+                text: "Drug offense reports",
+                font: { size: 11, color: "#5c6a67" },
+                standoff: 12,
+              },
+              tickfont: {
+                family: "Lora, Georgia, serif",
+                size: 11,
+                color: "#5c6a67",
+              },
+            },
+            shapes: [],
+            annotations: [
+              {
+                xref: "x",
+                yref: "y",
+                x: "2008-01-01",
+                y: 8405,
+                text: "8,405<br><i>2008 peak</i>",
+                showarrow: true,
+                arrowhead: 2,
+                arrowcolor: "#7b3f00",
+                arrowsize: 0.8,
+                ax: 32,
+                ay: -44,
+                font: {
+                  family: "Lora, Georgia, serif",
+                  size: 11,
+                  color: "#7b3f00",
+                },
+                bgcolor: "rgba(255,253,248,0.9)",
+                borderpad: 4,
+                bordercolor: "rgba(123,63,0,0.25)",
+                borderwidth: 1,
+              },
+              {
+                xref: "x",
+                yref: "y",
+                x: "2021-01-01",
+                y: 942,
+                text: "942<br><i>2021 low</i>",
+                showarrow: true,
+                arrowhead: 2,
+                arrowcolor: "#5c6a67",
+                arrowsize: 0.8,
+                ax: 38,
+                ay: 44,
+                font: {
+                  family: "Lora, Georgia, serif",
+                  size: 11,
+                  color: "#5c6a67",
+                },
+                bgcolor: "rgba(255,253,248,0.9)",
+                borderpad: 4,
+                bordercolor: "rgba(92,106,103,0.25)",
+                borderwidth: 1,
+              },
+            ],
+            font: { family: "Lora, Georgia, serif", color: "#1c2a28" },
+            showlegend: false,
+            hoverlabel: {
+              bgcolor: "#fffdf8",
+              bordercolor: "rgba(28,42,40,0.2)",
+              font: { family: "Lora, Georgia, serif" },
+            },
+          },
+          { responsive: true, displayModeBar: false },
+        );
+
+        function updateAct1(stepKey) {
+          var range = act1EraRanges[stepKey];
+          if (!range) {
+            Plotly.relayout("act1-timeseries", { shapes: [] });
+            return;
+          }
+          Plotly.relayout("act1-timeseries", {
+            shapes: [
+              {
+                type: "rect",
+                xref: "x",
+                yref: "paper",
+                x0: range[0],
+                x1: range[1],
+                y0: 0,
+                y1: 1,
+                fillcolor: eraFill[stepKey],
+                line: { width: 0 },
+              },
+            ],
+          });
+        }
+
+        /* ── ACT 2: Leaflet Heatmap ─────────────── */
+        var heatMapInstance = null;
+        var heatLayer = null;
+        var currentHeatYear = 2003;
+        var heatMapReady = false;
+        var animTimer = null;
+
+        function initAct2Map() {
+          if (heatMapReady) return;
+          heatMapReady = true;
+
+          heatMapInstance = L.map("act2-map", {
+            center: [37.7749, -122.4194],
+            zoom: 12,
+            zoomControl: true,
+            attributionControl: true,
+          });
+
+          L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 19,
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+          }).addTo(heatMapInstance);
+
+          var geoLayer = L.geoJSON(window.districtGeoJSON, {
+            style: function () {
+              return {
+                color: "#2f2f2f",
+                fillColor: "transparent",
+                opacity: 0.75,
+                weight: 1.5,
+                fillOpacity: 0,
+              };
+            },
+          });
+          geoLayer.eachLayer(function (layer) {
+            var district = String(layer.feature.properties.DISTRICT || "")
+              .trim()
+              .toUpperCase();
+            layer.on({
+              mouseover: function (e) {
+                showDistrictInfo(district, e.originalEvent);
+              },
+              mousemove: function (e) {
+                moveDistrictInfo(e.originalEvent);
+              },
+              mouseout: function () {
+                hideDistrictInfo();
+              },
+            });
+          });
+          geoLayer.addTo(heatMapInstance);
+
+          heatLayer = new HeatmapOverlay({
+            radius: 11,
+            blur: 0.6,
+            maxOpacity: 0.55,
+            minOpacity: 0.15,
+            scaleRadius: false,
+            useLocalExtrema: false,
+            latField: "lat",
+            lngField: "lng",
+            valueField: "count",
+            gradient: {
+              0.35: "blue",
+              0.55: "lime",
+              0.75: "orange",
+              1.0: "red",
+            },
+          });
+          heatLayer.addTo(heatMapInstance);
+
+          setHeatmapYear(2003);
+          setTimeout(function () {
+            heatMapInstance.invalidateSize();
+          }, 120);
+        }
+
+        function setHeatmapYear(year) {
+          if (!heatLayer || !window.heatmapData) return;
+          var idx = year - 2003;
+          if (idx < 0 || idx >= window.heatmapData.length) return;
+          var raw = window.heatmapData[idx];
+          heatLayer.setData({
+            data: raw.map(function (d) {
+              return { lat: d[0], lng: d[1], count: d.length > 2 ? d[2] : 1 };
+            }),
+          });
+          currentHeatYear = year;
+          var badge = document.getElementById("heatmap-year");
+          if (badge) badge.textContent = year;
+          var box = document.getElementById("heatmap-summary");
+          if (
+            box &&
+            window.yearSummaries &&
+            window.yearSummaries[String(year)]
+          ) {
+            box.textContent = window.yearSummaries[String(year)];
+          }
+        }
+
+        function animateToYear(targetYear, direction) {
+          clearTimeout(animTimer);
+          if (direction === "up") {
+            setHeatmapYear(targetYear);
+            return;
+          }
+          var step = currentHeatYear <= targetYear ? 1 : -1;
+          (function tick() {
+            currentHeatYear += step;
+            setHeatmapYear(currentHeatYear);
+            if (currentHeatYear !== targetYear) {
+              animTimer = setTimeout(tick, 55);
+            }
+          })();
+        }
+
+        /* District hover */
+        var hoverBox = document.getElementById("district-hover-box");
+        function showDistrictInfo(district, evt) {
+          if (!hoverBox) return;
+          var stats =
+            (window.districtStatsByYear &&
+              window.districtStatsByYear[String(currentHeatYear)]) ||
+            {};
+          var d = stats[district] || {};
+          hoverBox.innerHTML =
+            "<strong>" +
+            district +
+            "</strong><br>" +
+            "Incidents: " +
+            (d.incidents || "—") +
+            "<br>" +
+            "Share: " +
+            (d.share || "—");
+          hoverBox.style.display = "block";
+          hoverBox.style.left = evt.clientX + 14 + "px";
+          hoverBox.style.top = evt.clientY + 14 + "px";
+        }
+        function moveDistrictInfo(evt) {
+          if (!hoverBox || hoverBox.style.display === "none") return;
+          hoverBox.style.left = evt.clientX + 14 + "px";
+          hoverBox.style.top = evt.clientY + 14 + "px";
+        }
+        function hideDistrictInfo() {
+          if (hoverBox) hoverBox.style.display = "none";
+        }
+
+        /* ── ACT 3: Plotly ratio chart post-style ─ */
+        setTimeout(function () {
+          if (!document.getElementById("crime-ratio-plot-px-only")) return;
+          Plotly.relayout("crime-ratio-plot-px-only", {
+            paper_bgcolor: "transparent",
+            plot_bgcolor: "rgba(255,253,248,0.3)",
+            /* Move Yearly/Monthly buttons to top-right so they don't
+               collide with the rangeselector (5y/10y/All) on the left */
+            "updatemenus[0].x": 0.99,
+            "updatemenus[0].xanchor": "right",
+            "updatemenus[0].y": 1.08,
+            "updatemenus[0].yanchor": "top",
+            /* Give the top margin enough room for two button rows */
+            "margin.t": 116,
+          });
+          var el = document.getElementById("crime-ratio-plot-px-only");
+          if (el) Plotly.Plots.resize(el);
+        }, 80);
+
+        var act3States = {
+          "3-1": {
+            shapes: [
+              {
+                type: "line",
+                xref: "x",
+                yref: "paper",
+                x0: "2019-07-01",
+                x1: "2019-07-01",
+                y0: 0,
+                y1: 1,
+                line: {
+                  color: "rgba(123,63,0,0.65)",
+                  dash: "dash",
+                  width: 1.8,
+                },
+              },
+            ],
+            annotations: [
+              {
+                xref: "x",
+                yref: "paper",
+                x: "2019-07-01",
+                y: 0.97,
+                text: "Fentanyl crisis<br>escalates",
+                showarrow: false,
+                xanchor: "left",
+                font: {
+                  family: "Lora, Georgia, serif",
+                  size: 11,
+                  color: "#7b3f00",
+                },
+                bgcolor: "rgba(255,253,248,0.88)",
+                bordercolor: "rgba(123,63,0,0.3)",
+                borderwidth: 1,
+                borderpad: 5,
+              },
+            ],
+          },
+          "3-2": {
+            shapes: [
+              {
+                type: "rect",
+                xref: "x",
+                yref: "paper",
+                x0: "2019-07-01",
+                x1: "2023-07-01",
+                y0: 0,
+                y1: 1,
+                fillcolor: "rgba(123,63,0,0.07)",
+                line: { width: 0 },
+              },
+              {
+                type: "line",
+                xref: "x",
+                yref: "paper",
+                x0: "2019-07-01",
+                x1: "2019-07-01",
+                y0: 0,
+                y1: 1,
+                line: { color: "rgba(123,63,0,0.5)", dash: "dash", width: 1.5 },
+              },
+            ],
+            annotations: [
+              {
+                xref: "x",
+                yref: "paper",
+                x: "2019-07-01",
+                y: 0.97,
+                text: "Fentanyl crisis<br>escalates",
+                showarrow: false,
+                xanchor: "left",
+                font: {
+                  family: "Lora, Georgia, serif",
+                  size: 11,
+                  color: "#7b3f00",
+                },
+                bgcolor: "rgba(255,253,248,0.88)",
+                bordercolor: "rgba(123,63,0,0.3)",
+                borderwidth: 1,
+                borderpad: 5,
+              },
+            ],
+          },
+          "3-3": {
+            shapes: [
+              {
+                type: "rect",
+                xref: "x",
+                yref: "paper",
+                x0: "2019-07-01",
+                x1: "2023-07-01",
+                y0: 0,
+                y1: 1,
+                fillcolor: "rgba(123,63,0,0.07)",
+                line: { width: 0 },
+              },
+              {
+                type: "line",
+                xref: "x",
+                yref: "paper",
+                x0: "2019-07-01",
+                x1: "2019-07-01",
+                y0: 0,
+                y1: 1,
+                line: {
+                  color: "rgba(123,63,0,0.45)",
+                  dash: "dash",
+                  width: 1.5,
+                },
+              },
+              {
+                type: "line",
+                xref: "x",
+                yref: "paper",
+                x0: "2023-07-01",
+                x1: "2023-07-01",
+                y0: 0,
+                y1: 1,
+                line: { color: "#7b3f00", dash: "dot", width: 2.2 },
+              },
+            ],
+            annotations: [
+              {
+                xref: "x",
+                yref: "paper",
+                x: "2019-07-01",
+                y: 0.97,
+                text: "Fentanyl crisis",
+                showarrow: false,
+                xanchor: "left",
+                font: {
+                  family: "Lora, Georgia, serif",
+                  size: 10,
+                  color: "#7b3f00",
+                },
+                bgcolor: "rgba(255,253,248,0.85)",
+                bordercolor: "rgba(123,63,0,0.25)",
+                borderwidth: 1,
+                borderpad: 4,
+              },
+              {
+                xref: "x",
+                yref: "paper",
+                x: "2023-07-01",
+                y: 0.97,
+                text: '"All Hands on Deck"<br>Nov 2023',
+                showarrow: false,
+                xanchor: "left",
+                font: {
+                  family: "Lora, Georgia, serif",
+                  size: 11,
+                  color: "#7b3f00",
+                },
+                bgcolor: "rgba(255,253,248,0.94)",
+                bordercolor: "#7b3f00",
+                borderwidth: 1.5,
+                borderpad: 5,
+              },
+            ],
+          },
+        };
+
+        function updateAct3(stepKey) {
+          var state = act3States[stepKey];
+          if (!state) {
+            Plotly.relayout("crime-ratio-plot-px-only", {
+              shapes: [],
+              annotations: [],
+            });
+            return;
+          }
+          Plotly.relayout("crime-ratio-plot-px-only", {
+            shapes: state.shapes,
+            annotations: state.annotations,
+          });
+        }
+
+        /* ── SCROLLAMA ──────────────────────────── */
+        var act1Scroller = scrollama();
+        act1Scroller
+          .setup({ step: "#act1 .js-step", offset: 0.55 })
+          .onStepEnter(function (res) {
+            var card = res.element.querySelector(".step__card");
+            if (card) card.classList.add("is-active");
+            if (!isMobile) updateAct1(res.element.dataset.step);
+          })
+          .onStepExit(function (res) {
+            if (res.direction === "up") {
+              var card = res.element.querySelector(".step__card");
+              if (card) card.classList.remove("is-active");
+            }
+          });
+
+        var act2Scroller = scrollama();
+        act2Scroller
+          .setup({ step: "#act2 .js-step", offset: 0.55 })
+          .onStepEnter(function (res) {
+            var card = res.element.querySelector(".step__card");
+            if (card) card.classList.add("is-active");
+            if (!heatMapReady) initAct2Map();
+            else heatMapInstance.invalidateSize();
+            if (!isMobile) {
+              var yr = parseInt(res.element.dataset.year, 10);
+              animateToYear(yr, res.direction);
+            }
+          })
+          .onStepExit(function (res) {
+            if (res.direction === "up") {
+              var card = res.element.querySelector(".step__card");
+              if (card) card.classList.remove("is-active");
+              var prevYr = parseInt(res.element.dataset.prevYear || "2003", 10);
+              if (!isMobile) animateToYear(prevYr, "up");
+            }
+          });
+
+        var act3Scroller = scrollama();
+        act3Scroller
+          .setup({ step: "#act3 .js-step", offset: 0.55 })
+          .onStepEnter(function (res) {
+            var card = res.element.querySelector(".step__card");
+            if (card) card.classList.add("is-active");
+            if (!isMobile) updateAct3(res.element.dataset.step);
+          })
+          .onStepExit(function (res) {
+            if (res.direction === "up") {
+              var card = res.element.querySelector(".step__card");
+              if (card) card.classList.remove("is-active");
+              var prev = res.element.previousElementSibling;
+              if (prev && prev.classList.contains("js-step")) {
+                if (!isMobile) updateAct3(prev.dataset.step);
+              } else {
+                if (!isMobile) updateAct3(null);
+              }
+            }
+          });
+
+        window.addEventListener("resize", function () {
+          act1Scroller.resize();
+          act2Scroller.resize();
+          act3Scroller.resize();
+          if (heatMapInstance) heatMapInstance.invalidateSize();
+        });
+
+        /* Activate first card in each act */
+        document.querySelectorAll(".act").forEach(function (actEl) {
+          var first = actEl.querySelector(".js-step .step__card");
+          if (first) first.classList.add("is-active");
+        });
+      })();
+    </script>
+  </body>
+</html>
