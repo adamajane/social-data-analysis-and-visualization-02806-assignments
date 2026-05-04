@@ -1,0 +1,32 @@
+[
+  {
+    "year": 2013,
+    "label": "NY SAFE Act",
+    "description": "Post-Sandy Hook: ban on assault weapons, universal background checks, mental health provisions"
+  },
+  {
+    "year": 2013,
+    "label": "Stop-and-frisk curtailed",
+    "description": "Floyd v. City of New York ruled stop-and-frisk unconstitutional as practiced"
+  },
+  {
+    "year": 2020,
+    "label": "COVID-19 pandemic",
+    "description": "Lockdowns, economic disruption, social upheaval"
+  },
+  {
+    "year": 2022,
+    "label": "NYSRPA v. Bruen",
+    "description": "Supreme Court strikes down NY concealed carry restrictions"
+  },
+  {
+    "year": 2022,
+    "label": "Bipartisan Safer Communities Act",
+    "description": "First major federal gun safety legislation in decades"
+  },
+  {
+    "year": 2023,
+    "label": "NY CCIA",
+    "description": "NY Concealed Carry Improvement Act — response to Bruen ruling"
+  }
+]
