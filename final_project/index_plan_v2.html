@@ -769,8 +769,19 @@
           Behind every dot on the map is a person.
         </h3>
         <p style="color: var(--muted)">
-          Almost 29,000 victims since 2006. The demographic profile is
-          remarkably narrow.
+          Roughly 29,000 named victims since 2006 sit in the merged person-level
+          file. In the aggregate the portrait is narrow: injury concentrates among
+          young adults and men, and city research repeatedly ties shootings to
+          place — a small share of geography carries most of the burden.<sup
+            ><a href="#ref2">2</a></sup
+          >
+          <sup><a href="#ref3">3</a></sup>
+        </p>
+        <p style="color: var(--muted)">
+          The scroll sections below stick to what the charts show — age, sex, one
+          lethality view, then offender ages. Race is not treated here as an
+          explanatory axis on its own; structural forces live in housing, economics,
+          and institutions more than in a single demographic slice.
         </p>
       </div>
     </div>
@@ -785,83 +796,81 @@
         <div class="step" data-step="demo-1">
           <h3>Mostly young.</h3>
           <p>
-            Over <span class="stat">82%</span> of NYC shooting victims are
-            between 18 and 44. The single largest group is 25–44; the second is
-            18–24. Older victims are rare; victims over 65 are rarer still.
+            Horizontal bars are victim counts by age group. The tallest bars are
+            25–44 and 18–24. More than <span class="stat">82%</span> of listed
+            victims are 18–44; children under 18 are the smaller bar on the left.
           </p>
         </div>
         <div class="step" data-step="demo-2">
           <h3>And too often, very young.</h3>
           <p>
-            <span class="stat">2,989 victims</span> — about one in ten — were
-            under 18 when they were shot. Children are not collateral; they are
-            roughly a tenth of the entire dataset.
+            Same layout, emphasis on minors:
+            <span class="stat">2,989</span> victims — about <strong>one in
+            ten</strong> — are under 18. The bar for &lt;18 lights up so you can
+            read it against the rest.
           </p>
         </div>
         <div class="step" data-step="demo-3">
           <h3>Almost entirely men.</h3>
           <p>
-            <span class="stat">91% male.</span> Gun violence in NYC is, in the
-            aggregate, a phenomenon that happens to men. Female victims exist
-            and matter, but the volume is overwhelmingly male.
+            The view switches to a donut: <span class="stat">91% male</span> in
+            the records where sex is listed. The chart is the whole pool — not a
+            comment on any one person’s story.
           </p>
         </div>
         <div class="step" data-step="demo-4">
           <h3>Lethality, by age.</h3>
           <p>
-            About <span class="stat">1 in 6</span> of all shooting victims die.
-            That headline rate is roughly stable across age groups, but it
-            climbs sharply for the oldest victims — older bodies survive gunshot
-            wounds less often.
-          </p>
-          <p
-            style="font-size: 0.85rem; color: var(--muted); font-style: italic"
-          >
-            We are deliberately not leading with race here. The racial
-            distribution of victims tracks the geography of where shootings
-            happen, which in turn reflects decades of housing policy, economic
-            inequality, and policing patterns. Treating it as a stand-alone
-            cause would invert the actual chain of cause and effect.
+            Bars now show the share of victims in each age band who died from the
+            shooting. Overall about <span class="stat">1 in 6</span> die; the
+            tallest fatality rates sit on the oldest brackets on the axis.
           </p>
         </div>
       </div>
     </section>
 
-    <figure class="viz">
-      <div
-        id="victim-age-years-viz"
-        style="min-height: 420px; background: var(--bg-deep); border-radius: 4px"
-      ></div>
-      <figcaption>
-        Victims per year, stacked by age group (from person-level victim
-        records). When shootings fell, every cohort fell together — the profile
-        did not reshape dramatically.
-      </figcaption>
-    </figure>
-
-    <figure class="viz">
-      <div
-        id="perp-unknown-viz"
-        style="min-height: 260px; background: var(--bg-deep); border-radius: 4px"
-      ></div>
-      <figcaption>
-        Share of incidents with no identified offender in the merged NYPD file.
-        Perpetrator demographics, where they exist, must be read with this gap
-        in mind.
-      </figcaption>
-    </figure>
-
-    <figure class="viz">
-      <div
-        id="offender-age-viz"
-        style="min-height: 280px; background: var(--bg-deep); border-radius: 4px"
-      ></div>
-      <figcaption>
-        Recorded offenders (one row per person in the offenders file) by age
-        group. This excludes everyone police never identified — see the bar
-        above.
-      </figcaption>
-    </figure>
+    <section class="scrolly" id="sec-offender-flow">
+      <div class="sticky-viz">
+        <div class="viz-inner" id="offender-age-viz">
+          <div class="loading">Loading offender records…</div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step is-active" data-step="ob-1">
+          <h3>Youth and young adults.</h3>
+          <p>
+            Police logged ages for thousands of named suspects — the bulk falls
+            in the three youngest brackets before older ages even enter the
+            frame.
+          </p>
+        </div>
+        <div class="step" data-step="ob-2">
+          <h3>The core band.</h3>
+          <p>
+            <span class="stat">18–24</span> and
+            <span class="stat">25–44</span> drive the counts when NYPD attached
+            an age — together they dwarf what appears below them on the axis.
+          </p>
+        </div>
+        <div class="step" data-step="ob-3">
+          <h3>Rarer with age.</h3>
+          <p>
+            Recorded rows thin sharply for <span class="stat">45–64</span> and
+            <span class="stat">65+</span> — still real cases, but not where the
+            distribution concentrates.
+          </p>
+        </div>
+        <div class="step" data-step="ob-4">
+          <h3>The missing slice.</h3>
+          <p>
+            The grey bar is <span class="stat">UNKNOWN</span> — rows where the
+            file never recorded an age bucket. It sits beside the named brackets;
+            it does not mean “young adult in disguise,” just missing metadata. The
+            horizontal bars are only people NYPD logged this way.
+          </p>
+        </div>
+      </div>
+    </section>
 
     <!-- ─── Chapter 4 intro ─── -->
     <div class="section-intro">
@@ -877,8 +886,14 @@
           Gun violence runs on a clock and a calendar.
         </h3>
         <p style="color: var(--muted)">
-          Aggregate twenty years of incidents by hour and day. A shape emerges,
-          and it has not changed.
+          Crime and injury data often show seasonality (more in warm months) and
+          concentration on weekend nights — routines and weather shape when people
+          cross paths.
+        </p>
+        <p style="color: var(--muted)">
+          The next section is only NYPD incident timestamps: first a week × hour
+          heatmap, then the same clock with the weekend band called out, then
+          shootings totaled by calendar month.
         </p>
       </div>
     </div>
@@ -891,30 +906,27 @@
         <div class="step" data-step="time-1">
           <h3>168 cells, twenty years of incidents.</h3>
           <p>
-            Each cell is one hour of one day of the week, summed across every
-            year from 2006 to 2025. Darker means more shootings. The shape is
-            unmistakable.
+            Each cell is one hour of the week (rows = weekday, columns = hour).
+            Color is darker where more incidents stack in that slot. Scan for the
+            whole rhythm before zooming in.
           </p>
         </div>
         <div class="step" data-step="time-2">
           <h3>Saturday night. Sunday night. Late.</h3>
           <p>
-            The cluster glowing at the bottom-left and bottom-right is the
-            <span class="stat">weekend late-night peak</span> — roughly 10pm
-            Friday through 4am Sunday. Sunday alone records nearly
-            <span class="stat">4,700 shootings</span>. The early-morning hours
-            of weekdays — your daily commute, the school run — are by far the
-            safest.
+            Same grid — read the hot diagonal band: late Friday through Sunday
+            morning (
+            <span class="stat">≈10pm Fri–4am Sun</span>). Sunday alone accounts
+            for about <span class="stat">4,700</span> incidents in the pool;
+            weekday early morning stays pale.
           </p>
         </div>
         <div class="step" data-step="time-3">
           <h3>Now switch to the calendar.</h3>
           <p>
-            By month, July is the peak:
-            <span class="stat">2,778 incidents</span> cumulatively, more than
-            double February's <span class="stat">1,254</span>. Heat, daylight
-            hours, time spent outside — gun violence rises with the temperature,
-            every year, like a physical law.
+            The chart flips to twelve bars — total incidents by month of year.
+            July reaches <span class="stat">2,778</span> in this dataset;
+            February is lowest at <span class="stat">1,254</span>.
           </p>
         </div>
       </div>
@@ -934,9 +946,17 @@
           Incidents are not all equally lethal.
         </h3>
         <p style="color: var(--muted)">
-          The headline count is shooting incidents. Beneath it sits the split
-          between shootings where someone died and those where every victim
-          survived — and whether that share moves when totals move.
+          The city counts <em>incidents</em>; each can injure more than one
+          person. Fatality is not the same as “how bad the year felt” — ED-based
+          injury surveillance shows nonfatal gun wounds greatly outnumber deaths
+          nationally, though no dataset captures every wound.<sup
+            ><a href="#ref4">4</a></sup
+          >
+        </p>
+        <p style="color: var(--muted)">
+          What follows is NYPD’s own split: fatal vs nonfatal incidents by year,
+          then share of victims who died, weighted by borough. “Fatal” here follows
+          the department’s murder flag, not a clinical exam.
         </p>
       </div>
     </div>
@@ -951,17 +971,17 @@
         <div class="step" data-step="fatal-1">
           <h3>Fatal and non-fatal incidents, year by year.</h3>
           <p>
-            Each bar stacks incidents with at least one homicide flag against
-            those with none. When shootings surged in 2020, <em>both</em> stacks
-            grew — the mix did not flip to “more lethal” overnight.
+            Stacked bars: each year’s incidents split into fatal (someone died)
+            vs nonfatal. Both segments rise in high-volume years — the chart shows
+            volume and the fatal share together.
           </p>
         </div>
         <div class="step" data-step="fatal-2">
           <h3>Lethality by borough.</h3>
           <p>
-            Among victims (not incidents), what share die? The pattern varies
-            modestly by borough — small numbers can move rates — but nothing
-            erases the central fact that most shootings do not kill.
+            Switches to victim-weighted rates: for each borough, what fraction of
+            <em>victims</em> died from their wounds. Bars are similar in height —
+            most shootings in the file do not kill; citywide variation is modest.
           </p>
         </div>
       </div>
@@ -1089,7 +1109,7 @@
     </section>
 
     <section class="refs" aria-labelledby="refs-heading">
-      <h2 id="refs-heading">Data sources</h2>
+      <h2 id="refs-heading">Data sources &amp; references</h2>
       <ol>
         <li id="ref1">
           New York Police Department. NYPD Shooting Incident Data (Historic),
@@ -1104,24 +1124,34 @@
           </div>
         </li>
         <li id="ref2">
-          Everytown Research &amp; Policy. "Gun Violence and COVID-19 in 2020:
-          A Year of Colliding Crises." Published May 7, 2021.
+          Kochanek KD, Gardner R, Silva MA. <em>Trends in Death Rates for Leading
+          Methods of Injury: United States, 2003–2023.</em> NCHS Data Brief 526.
+          National Center for Health Statistics (CDC), June 2025.
           <div class="meta">
-            Report:
-            <a
-              href="https://everytownresearch.org/report/gun-violence-and-covid-19-in-2020-a-year-of-colliding-crises/"
-              >everytownresearch.org</a
+            <a href="https://www.cdc.gov/nchs/products/databriefs/db526.htm"
+              >cdc.gov/nchs/products/databriefs/db526.htm</a
             >
           </div>
         </li>
         <li id="ref3">
-          New York State Office of NICS Appeals and SAFE Act. New York Secure
-          Ammunition and Firearms Enforcement (SAFE) Act.
+          Butts JA, Moreno G, Espinobarros R. <em>Neighbors at Risk</em> —
+          geographic concentration of shooting incidents across NYC census block
+          groups (most neighborhoods saw few or no shootings; disadvantage
+          correlates with elevated rates). John Jay College Research &amp;
+          Evaluation Center, April 2022.
           <div class="meta">
-            Overview:
-            <a
-              href="https://nics.ny.gov/new-york-secure-ammunition-and-firearms-enforcement-safe-act"
-              >nics.ny.gov</a
+            <a href="https://johnjayrec.nyc/2022/04/26/atrisk2022/"
+              >johnjayrec.nyc/2022/04/26/atrisk2022</a
+            >
+          </div>
+        </li>
+        <li id="ref4">
+          CDC. Web-Based Injury Statistics Query and Reporting System (WISQARS) —
+          technical notes on nonfatal firearm injury estimates (NEISS sampling,
+          confidence intervals, and limits for national counts).
+          <div class="meta">
+            <a href="https://www.cdc.gov/wisqars/about/nonfatal-injury-data.html"
+              >cdc.gov/wisqars/about/nonfatal-injury-data.html</a
             >
           </div>
         </li>
@@ -1204,11 +1234,11 @@
         buildTrendChart();
         buildMap();
         buildFatalChart();
-        buildPerpUnknownChart();
         buildTimeViz();
         buildExploration();
-        loadVictimLayerCharts();
+        await loadVictimLayerCharts();
         setupScrollama();
+        if (state.offenderFlow) renderOffenderFlowStep("ob-1");
         renderChapter1Step("boro-1");
       }
 
@@ -2185,98 +2215,22 @@
         );
       }
 
-      function buildPerpUnknownChart() {
-        const el = d3.select("#perp-unknown-viz");
-        el.html("");
-        const I = state.incidents.filter(
-          (d) =>
-            d.year >= TREND_START_YEAR && d.year <= TREND_END_YEAR,
-        );
-        const no = I.filter((d) => !d.hasOffenderData).length;
-        const yes = I.length - no;
-        const margin = { top: 48, right: 28, bottom: 44, left: 28 };
-        const W = 880;
-        const H = 260;
-        const iw = W - margin.left - margin.right;
-        const ih = H - margin.top - margin.bottom;
-
-        const svg = el
-          .append("svg")
-          .attr("class", "chart")
-          .attr("viewBox", `0 0 ${W} ${H}`)
-          .attr("preserveAspectRatio", "xMidYMid meet");
-
-        svg
-          .append("text")
-          .attr("x", margin.left)
-          .attr("y", 28)
-          .attr("font-family", "Playfair Display, serif")
-          .attr("font-weight", 700)
-          .attr("font-size", 16)
-          .attr("fill", COLORS.primary)
-          .text("Identified offenders");
-
-        const g = svg
-          .append("g")
-          .attr("transform", `translate(${margin.left},${margin.top})`);
-
-        const x = d3.scaleLinear().domain([0, 100]).range([0, iw]);
-
-        g.append("rect")
-          .attr("width", x((100 * yes) / I.length))
-          .attr("height", ih)
-          .attr("fill", COLORS.primary)
-          .attr("opacity", 0.85);
-        g.append("rect")
-          .attr("x", x((100 * yes) / I.length))
-          .attr("width", x((100 * no) / I.length))
-          .attr("height", ih)
-          .attr("fill", COLORS.secondary)
-          .attr("opacity", 0.55);
-
-        svg
-          .append("text")
-          .attr("x", margin.left + 8)
-          .attr("y", margin.top + ih / 2 + 5)
-          .attr("fill", "#fff")
-          .attr("font-size", 13)
-          .text(
-            "With offender record: " +
-              d3.format(".1f")((100 * yes) / I.length) +
-              "%",
-          );
-        svg
-          .append("text")
-          .attr(
-            "x",
-            margin.left + x((100 * yes) / I.length) + 8,
-          )
-          .attr("y", margin.top + ih / 2 + 5)
-          .attr("fill", "#1f1d1a")
-          .attr("font-size", 13)
-          .text(
-            "No identified shooter: " +
-              d3.format(".1f")((100 * no) / I.length) +
-              "%",
-          );
-      }
-
       async function loadVictimLayerCharts() {
         await ensureVictims();
-        buildVictimAgeYearsChart();
         if (state.offendersMinimal && state.offendersMinimal.length) {
-          buildOffenderAgeChart(state.offendersMinimal);
+          buildOffenderAgeFlowChart(state.offendersMinimal);
         } else {
           const offenders = await d3.csv("data/nypd_offenders_clean.csv", (d) => ({
             age: d.PERP_AGE_GROUP || "UNKNOWN",
           }));
-          buildOffenderAgeChart(offenders);
+          buildOffenderAgeFlowChart(offenders);
         }
       }
 
-      function buildOffenderAgeChart(offenders) {
-        const el = d3.select("#offender-age-viz");
-        if (el.empty()) return;
+      function buildOffenderAgeFlowChart(offenders) {
+        const container = document.getElementById("offender-age-viz");
+        if (!container) return;
+        const el = d3.select(container);
         el.html("");
         const order = ["<18", "18-24", "25-44", "45-64", "65+", "UNKNOWN"];
         const counts = d3.rollup(
@@ -2289,9 +2243,9 @@
           .map((a) => ({ age: a, n: counts.get(a) }))
           .sort((a, b) => order.indexOf(a.age) - order.indexOf(b.age));
 
-        const margin = { top: 48, right: 24, bottom: 44, left: 100 };
+        const margin = { top: 76, right: 24, bottom: 44, left: 100 };
         const W = 880;
-        const H = 280;
+        const H = 320;
         const iw = W - margin.left - margin.right;
         const ih = H - margin.top - margin.bottom;
 
@@ -2303,13 +2257,25 @@
 
         svg
           .append("text")
+          .attr("class", "off-title")
           .attr("x", margin.left)
-          .attr("y", 26)
+          .attr("y", 28)
           .attr("font-family", "Playfair Display, serif")
           .attr("font-weight", 700)
           .attr("font-size", 16)
           .attr("fill", COLORS.primary)
           .text("Recorded offenders by age group");
+
+        svg
+          .append("text")
+          .attr("class", "off-sub")
+          .attr("x", margin.left)
+          .attr("y", 50)
+          .attr("font-family", "Source Serif 4, serif")
+          .attr("font-style", "italic")
+          .attr("font-size", 12)
+          .attr("fill", COLORS.muted)
+          .text("");
 
         const g = svg
           .append("g")
@@ -2333,11 +2299,13 @@
           .attr("transform", `translate(0,${ih})`)
           .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(",")));
 
-        g.selectAll(".ob")
+        const barsByAge = new Map();
+        const labelsByAge = new Map();
+
+        g.selectAll(".ob-bar")
           .data(data)
-          .enter()
-          .append("rect")
-          .attr("class", "ob")
+          .join("rect")
+          .attr("class", "ob-bar")
           .attr("x", 0)
           .attr("y", (d) => y(d.age))
           .attr("height", y.bandwidth())
@@ -2345,153 +2313,97 @@
           .attr("fill", (d) =>
             d.age === "UNKNOWN" ? COLORS.secondary : COLORS.primary,
           )
-          .transition()
-          .duration(700)
-          .attr("width", (d) => x(d.n));
+          .attr("stroke", "none")
+          .each(function (d) {
+            barsByAge.set(d.age, d3.select(this));
+          });
 
-        g.selectAll(".obl")
+        g.selectAll(".ob-label")
           .data(data)
-          .enter()
-          .append("text")
-          .attr("x", (d) => x(d.n) + 6)
+          .join("text")
+          .attr("class", "ob-label")
+          .attr("x", 6)
           .attr("y", (d) => y(d.age) + y.bandwidth() / 2 + 4)
           .attr("font-size", 11)
           .attr("fill", COLORS.muted)
           .text((d) => d3.format(",")(d.n))
           .style("opacity", 0)
-          .transition()
-          .delay(500)
-          .style("opacity", 1);
+          .each(function (d) {
+            labelsByAge.set(d.age, d3.select(this));
+          });
+
+        state.offenderFlow = {
+          svg,
+          g,
+          x,
+          y,
+          data,
+          barsByAge,
+          labelsByAge,
+        };
       }
 
-      function buildVictimAgeYearsChart() {
-        const el = d3.select("#victim-age-years-viz");
-        el.html("");
-        const keyToYear = new Map(
-          state.incidents.map((d) => [d.key, d.year]),
-        );
-        const ageOrder = ["<18", "18-24", "25-44", "45-64", "65+"];
-        const rows = state.victims
-          .filter((v) => {
-            const y = keyToYear.get(v.incident);
-            return (
-              y &&
-              y >= TREND_START_YEAR &&
-              y <= TREND_END_YEAR &&
-              ageOrder.includes(v.age)
-            );
-          })
-          .map((v) => ({
-            year: keyToYear.get(v.incident),
-            age: v.age,
-          }));
+      function renderOffenderFlowStep(step) {
+        const F = state.offenderFlow;
+        if (!F) return;
+        const dur = 520;
+        const { svg, data, x, barsByAge, labelsByAge } = F;
 
-        const years = d3.range(TREND_START_YEAR, TREND_END_YEAR + 1);
-        const wide = years.map((year) => {
-          const o = { year };
-          let t = 0;
-          ageOrder.forEach((a) => {
-            o[a] = rows.filter((r) => r.year === year && r.age === a).length;
-            t += o[a];
-          });
-          o.total = t;
-          return o;
-        });
-
-        const margin = { top: 52, right: 28, bottom: 48, left: 52 };
-        const W = 880;
-        const H = 420;
-        const iw = W - margin.left - margin.right;
-        const ih = H - margin.top - margin.bottom;
-
-        const svg = el
-          .append("svg")
-          .attr("class", "chart")
-          .attr("viewBox", `0 0 ${W} ${H}`)
-          .attr("preserveAspectRatio", "xMidYMid meet");
-
+        const subtitles = {
+          "ob-1":
+            "One row per person in the offenders file — revealing the dense youth and young-adult bands first.",
+          "ob-2":
+            "18–24 and 25–44 are the two largest bars when NYPD attached an age — minors sit below them on the axis.",
+          "ob-3":
+            "Older brackets fill in but stay thin next to the core working-age counts.",
+          "ob-4":
+            "Last bar: no age on file — not a proxy for youth, just missing data.",
+        };
         svg
-          .append("text")
-          .attr("x", margin.left)
-          .attr("y", 28)
-          .attr("font-family", "Playfair Display, serif")
-          .attr("font-weight", 700)
-          .attr("font-size", 16)
-          .attr("fill", COLORS.primary)
-          .text("Victims per year, stacked by age group");
+          .select(".off-sub")
+          .text(subtitles[step] || subtitles["ob-4"]);
 
-        const g = svg
-          .append("g")
-          .attr("transform", `translate(${margin.left},${margin.top})`);
+        const visible = {
+          "ob-1": new Set(["<18", "18-24", "25-44"]),
+          "ob-2": new Set(["<18", "18-24", "25-44"]),
+          "ob-3": new Set(["<18", "18-24", "25-44", "45-64", "65+"]),
+          "ob-4": new Set(orderOffenderAges(data)),
+        };
+        const vis = visible[step] || visible["ob-4"];
+        const hi =
+          step === "ob-2" ? new Set(["18-24", "25-44"]) : null;
 
-        const x = d3
-          .scaleLinear()
-          .domain([TREND_START_YEAR, TREND_END_YEAR])
-          .range([0, iw]);
-        const y = d3
-          .scaleLinear()
-          .domain([
-            0,
-            d3.max(wide, (d) => d.total) * 1.08,
-          ])
-          .range([ih, 0]);
+        data.forEach((d) => {
+          const rect = barsByAge.get(d.age);
+          const lab = labelsByAge.get(d.age);
+          if (!rect || !lab) return;
+          const show = vis.has(d.age);
+          const w = show ? x(d.n) : 0;
+          let opacity = 1;
+          if (step === "ob-2" && show && hi && !hi.has(d.age)) {
+            opacity = d.age === "<18" ? 0.42 : 1;
+          }
+          rect
+            .transition()
+            .duration(dur)
+            .attr("width", w)
+            .attr("opacity", opacity)
+            .attr("stroke", hi && hi.has(d.age) ? COLORS.accent : "none")
+            .attr("stroke-width", hi && hi.has(d.age) ? 2.5 : 0);
 
-        const color = d3
-          .scaleOrdinal()
-          .domain(ageOrder)
-          .range([
-            COLORS.accentSoft,
-            COLORS.highlight,
-            COLORS.primary,
-            COLORS.secondary,
-            COLORS.muted,
-          ]);
-
-        const stack = d3.stack().keys(ageOrder)(wide);
-        const area = d3
-          .area()
-          .curve(d3.curveMonotoneX)
-          .x((d) => x(d.data.year))
-          .y0((d) => y(d[0]))
-          .y1((d) => y(d[1]));
-
-        g.selectAll("path.layer-age")
-          .data(stack)
-          .join("path")
-          .attr("class", "layer-age")
-          .attr("fill", (d) => color(d.key))
-          .attr("d", area);
-
-        g.append("g")
-          .attr("class", "axis")
-          .attr("transform", `translate(0,${ih})`)
-          .call(
-            d3
-              .axisBottom(x)
-              .tickValues(yearTickRange(TREND_START_YEAR, TREND_END_YEAR))
-              .tickFormat(d3.format("d")),
-          );
-        g.append("g").attr("class", "axis").call(d3.axisLeft(y).ticks(6));
-
-        const leg = svg.append("g").attr(
-          "transform",
-          `translate(${margin.left},${H - 22})`,
-        );
-        ageOrder.forEach((a, i) => {
-          leg
-            .append("rect")
-            .attr("x", i * 118)
-            .attr("width", 11)
-            .attr("height", 9)
-            .attr("fill", color(a));
-          leg
-            .append("text")
-            .attr("x", i * 118 + 16)
-            .attr("y", 9)
-            .attr("font-size", 10)
-            .attr("fill", COLORS.muted)
-            .text(a);
+          lab.transition()
+            .duration(dur)
+            .style("opacity", show ? 1 : 0)
+            .attr("x", show ? x(d.n) + 6 : 6);
         });
+      }
+
+      /** Stable category order for offender-flow visibility (all rows in data). */
+      function orderOffenderAges(data) {
+        const order = ["<18", "18-24", "25-44", "45-64", "65+", "UNKNOWN"];
+        return data.map((d) => d.age).sort(
+          (a, b) => order.indexOf(a) - order.indexOf(b),
+        );
       }
 
       // ───────────── 3.3 Demographics ─────────────
@@ -3213,6 +3125,7 @@
           "sec-chapter1": renderChapter1Step,
           "sec-map": renderMapStep,
           "sec-demo": renderDemoStep,
+          "sec-offender-flow": renderOffenderFlowStep,
           "sec-time": renderTimeStep,
           "sec-fatal": renderFatalStep,
         };
@@ -3235,6 +3148,10 @@
 
             if (id === "sec-demo" && !state.demo) {
               buildDemographics().then(() => renderDemoStep(stepKey));
+            } else if (id === "sec-offender-flow" && !state.offenderFlow) {
+              loadVictimLayerCharts().then(() =>
+                renderOffenderFlowStep(stepKey),
+              );
             } else {
               handler(stepKey);
             }
