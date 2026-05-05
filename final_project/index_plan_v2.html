@@ -992,73 +992,17 @@
     </section>
 
     <div class="exploration">
-      <div class="explore-grid">
-        <div class="explore-map" id="explore-map"></div>
-        <div class="explore-controls">
-          <label>Borough</label>
-          <select id="ctrl-boro">
-            <option value="ALL">All boroughs</option>
-            <option value="BRONX">Bronx</option>
-            <option value="BROOKLYN">Brooklyn</option>
-            <option value="MANHATTAN">Manhattan</option>
-            <option value="QUEENS">Queens</option>
-            <option value="STATEN ISLAND">Staten Island</option>
-          </select>
-
-          <label>Year range</label>
-          <div class="year-display" id="year-display">2006 — 2025</div>
-          <div class="year-range">
-            <input
-              type="range"
-              id="ctrl-year-min"
-              min="2006"
-              max="2025"
-              value="2006"
-            />
-            <input
-              type="range"
-              id="ctrl-year-max"
-              min="2006"
-              max="2025"
-              value="2025"
-            />
-          </div>
-
-          <label>Victim age groups</label>
-          <div class="checks" id="ctrl-age">
-            <button data-v="<18" class="on">&lt;18</button>
-            <button data-v="18-24" class="on">18–24</button>
-            <button data-v="25-44" class="on">25–44</button>
-            <button data-v="45-64" class="on">45–64</button>
-            <button data-v="65+" class="on">65+</button>
-          </div>
-
-          <label>Victim sex</label>
-          <div class="checks" id="ctrl-sex">
-            <button data-v="MALE" class="on">Male</button>
-            <button data-v="FEMALE" class="on">Female</button>
-          </div>
-
-          <div class="stats-readout">
-            <div class="stat-line">
-              <span class="l">Incidents</span>
-              <span class="v" id="stat-incidents">—</span>
-            </div>
-            <div class="stat-line">
-              <span class="l">Victims</span>
-              <span class="v" id="stat-victims">—</span>
-            </div>
-            <div class="stat-line">
-              <span class="l">Fatal</span>
-              <span class="v" id="stat-fatal">—</span>
-            </div>
-            <div class="stat-line">
-              <span class="l">Fatality rate</span>
-              <span class="v" id="stat-rate">—</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <iframe
+        src="output/nyc_shootings_precinct_map_explorer.html"
+        title="NYC shooting precinct map explorer"
+        style="
+          width: 100%;
+          height: min(880px, 92vh);
+          border: 1px solid var(--rule);
+          border-radius: 6px;
+          background: var(--bg-deep);
+        "
+      ></iframe>
     </div>
 
     <section class="prose" style="margin-top: 3rem">
@@ -1216,7 +1160,7 @@
         buildFatalChart();
         buildPerpUnknownChart();
         buildTimeViz();
-        buildExploration();
+        // The open exploration is embedded from output/nyc_shootings_precinct_map_explorer.html.
         loadVictimLayerCharts();
         setupScrollama();
         renderChapter1Step("boro-1");
