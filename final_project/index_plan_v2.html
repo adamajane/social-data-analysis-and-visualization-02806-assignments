@@ -1,0 +1,3318 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>How New York Almost Solved Gun Violence — NYC Shootings, 2006–Present</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/scrollama@3"></script>
+
+    <style>
+      :root {
+        --bg: #f5f1eb;
+        --bg-deep: #ece6d8;
+        --fg: #1f1d1a;
+        --muted: #5a554e;
+        --rule: #c9c1ae;
+        --link: #7d2a1f;
+        --primary: #2c3e50;
+        --accent: #b03a2e;
+        --accent-soft: #d98e84;
+        --secondary: #7f8c8d;
+        --highlight: #c79c2c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        background: var(--bg);
+        color: var(--fg);
+      }
+
+      body {
+        font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+        font-size: 1.06rem;
+        line-height: 1.65;
+        margin: 0;
+        padding: 0;
+      }
+
+      .prose {
+        max-width: 38rem;
+        margin: 0 auto;
+        padding: 0 1.25rem;
+      }
+
+      main.prose {
+        margin-top: 3rem;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -0.005em;
+        color: var(--fg);
+      }
+
+      h1 {
+        font-size: clamp(1.85rem, 4vw, 2.6rem);
+        margin: 0.4rem 0 1.4rem;
+      }
+
+      h2 {
+        font-size: clamp(1.55rem, 3vw, 2.1rem);
+        margin: 0.4rem 0 1.2rem;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 1.4rem 0 0.6rem;
+      }
+
+      p {
+        margin: 0 0 1.05rem;
+      }
+
+      a {
+        color: var(--link);
+        text-decoration: underline;
+        text-decoration-thickness: 0.05em;
+        text-underline-offset: 0.18em;
+      }
+
+      a sup {
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .act-label {
+        display: block;
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        font-weight: 600;
+        margin-bottom: 0.6rem;
+      }
+
+      .meta {
+        color: var(--muted);
+        font-size: 0.92em;
+      }
+
+      hr {
+        border: none;
+        border-top: 1px solid var(--rule);
+        margin: 3.5rem auto;
+        max-width: 38rem;
+      }
+
+      /* Acts I & II inline figures */
+      figure.viz {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(960px, calc(100vw - 2.5rem));
+        margin: 2rem 0 0.75rem;
+      }
+      figure.viz img,
+      figure.viz iframe {
+        width: 100%;
+        display: block;
+        border-radius: 4px;
+        background: var(--bg-deep);
+      }
+      figure.viz iframe {
+        border: none;
+      }
+      figcaption {
+        font-family: "Source Serif 4", Georgia, serif;
+        font-style: italic;
+        font-size: 0.88rem;
+        color: var(--muted);
+        margin-top: 0.55rem;
+        text-align: center;
+        line-height: 1.45;
+        max-width: 38rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* References */
+      .refs {
+        margin: 4rem auto;
+        padding: 1.5rem 1.25rem 0;
+        border-top: 1px solid var(--rule);
+        max-width: 38rem;
+        font-size: 0.94rem;
+      }
+      .refs h2 {
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--muted);
+        margin: 0 0 0.85rem;
+        font-weight: 700;
+      }
+      .refs ol {
+        margin: 0;
+        padding-left: 1.25rem;
+      }
+      .refs li {
+        margin-bottom: 0.85rem;
+      }
+      .refs .meta {
+        font-size: 0.86em;
+      }
+
+      /* ─────── Act III ─────── */
+
+      .act3-intro {
+        background: var(--bg);
+        padding: 2rem 0 1.5rem;
+      }
+
+      .scrolly {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1.5rem 1.5rem 4rem;
+      }
+
+      .scrolly .sticky-viz {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: start;
+      }
+
+      .scrolly .viz-inner {
+        width: 100%;
+        height: 86vh;
+        background: var(--bg);
+        border-radius: 6px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .scrolly .viz-inner svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .scrolly .viz-inner .leaflet-container,
+      .scrolly .viz-inner .map-container {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Chapter 1: borough + trend charts stacked in one sticky panel */
+      .scrolly .viz-stack {
+        position: relative;
+        width: 100%;
+        height: 86vh;
+      }
+      .scrolly .viz-stack > .viz-inner {
+        position: absolute;
+        inset: 0;
+        height: auto;
+      }
+      .scrolly .viz-stack > .viz-inner.ch1-hidden {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .scrolly .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 60vh;
+        padding: 35vh 0;
+      }
+
+      .scrolly .step {
+        background: rgba(245, 241, 235, 0.92);
+        border-left: 3px solid var(--rule);
+        padding: 1rem 1.1rem;
+        transition:
+          border-color 0.4s ease,
+          background 0.4s ease;
+        backdrop-filter: blur(2px);
+      }
+
+      .scrolly .step.is-active {
+        border-left-color: var(--accent);
+        background: rgba(245, 241, 235, 1);
+      }
+
+      .scrolly .step h3 {
+        margin: 0 0 0.4rem;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+
+      .scrolly .step p {
+        margin: 0 0 0.5rem;
+        font-size: 0.98rem;
+        line-height: 1.55;
+      }
+
+      .scrolly .step p:last-child {
+        margin-bottom: 0;
+      }
+
+      .step .stat {
+        display: inline-block;
+        font-family: "Playfair Display", Georgia, serif;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .section-intro {
+        max-width: 1200px;
+        margin: 4rem auto 0;
+        padding: 0 1.5rem;
+      }
+      .section-intro .inner {
+        max-width: 38rem;
+      }
+      .section-intro h2 {
+        margin-top: 0;
+      }
+
+      /* viz overlay text inside sticky panels */
+      .viz-overlay {
+        position: absolute;
+        pointer-events: none;
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      .viz-title {
+        position: absolute;
+        top: 14px;
+        left: 18px;
+        font-family: "Playfair Display", Georgia, serif;
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--fg);
+        pointer-events: none;
+      }
+      .viz-subtitle {
+        position: absolute;
+        top: 38px;
+        left: 18px;
+        font-size: 0.82rem;
+        color: var(--muted);
+        font-style: italic;
+        pointer-events: none;
+        max-width: 75%;
+      }
+
+      /* loading state */
+      .loading {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--muted);
+        font-style: italic;
+        font-size: 0.9rem;
+      }
+
+      /* exploration / martini glass */
+      .exploration {
+        max-width: 1200px;
+        margin: 2rem auto 4rem;
+        padding: 0 1.5rem;
+      }
+      .exploration h3 {
+        margin-top: 0;
+      }
+      .explore-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 280px;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+      .explore-map {
+        height: 520px;
+        background: var(--bg-deep);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .explore-controls {
+        background: var(--bg-deep);
+        border-radius: 6px;
+        padding: 1.1rem 1.2rem;
+        font-size: 0.92rem;
+      }
+      .explore-controls label {
+        display: block;
+        font-weight: 600;
+        margin: 0.85rem 0 0.35rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-size: 0.72rem;
+      }
+      .explore-controls label:first-child {
+        margin-top: 0;
+      }
+      .explore-controls select,
+      .explore-controls input[type="range"] {
+        width: 100%;
+        font-family: inherit;
+        font-size: 0.95rem;
+        padding: 0.35rem 0.5rem;
+        border: 1px solid var(--rule);
+        background: var(--bg);
+        border-radius: 4px;
+        color: var(--fg);
+      }
+      .explore-controls .year-range {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+      .explore-controls .year-range input {
+        flex: 1;
+      }
+      .explore-controls .year-display {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: var(--fg);
+        margin: 0.25rem 0 0.5rem;
+      }
+      .explore-controls .checks {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+      }
+      .explore-controls .checks button {
+        font-family: inherit;
+        font-size: 0.82rem;
+        padding: 0.25rem 0.55rem;
+        border: 1px solid var(--rule);
+        background: var(--bg);
+        border-radius: 999px;
+        cursor: pointer;
+        color: var(--muted);
+      }
+      .explore-controls .checks button.on {
+        background: var(--primary);
+        color: #fff;
+        border-color: var(--primary);
+      }
+      .stats-readout {
+        margin-top: 1.25rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--rule);
+      }
+      .stats-readout .stat-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin: 0.4rem 0;
+        font-size: 0.92rem;
+      }
+      .stats-readout .stat-line .v {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--fg);
+      }
+      .stats-readout .stat-line .l {
+        color: var(--muted);
+      }
+
+      /* SVG chart styling */
+      .chart text {
+        font-family: "Source Serif 4", Georgia, serif;
+        fill: var(--muted);
+      }
+      .chart .axis path,
+      .chart .axis line {
+        stroke: var(--rule);
+      }
+      .chart .grid line {
+        stroke: var(--rule);
+        stroke-dasharray: 2 3;
+        opacity: 0.55;
+      }
+      .chart .grid path {
+        display: none;
+      }
+      .chart .axis-label {
+        font-size: 0.78rem;
+        fill: var(--muted);
+      }
+      .chart .annotation-label {
+        font-size: 0.72rem;
+        fill: var(--muted);
+      }
+      .chart .annotation-line {
+        stroke: var(--secondary);
+        stroke-dasharray: 3 3;
+        stroke-width: 1;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .chart .annotation-line.on {
+        opacity: 0.8;
+      }
+      .chart .annotation-label {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+      .chart .annotation-label.on {
+        opacity: 1;
+      }
+      .chart .trend-line {
+        fill: none;
+        stroke: var(--primary);
+        stroke-width: 2.4;
+      }
+      .chart .trend-line.spike {
+        stroke: var(--accent);
+        stroke-width: 3;
+      }
+      .chart .trend-line.dim {
+        stroke: var(--secondary);
+        opacity: 0.35;
+      }
+      .chart .trend-dot {
+        fill: var(--primary);
+      }
+      .chart .trend-dot.spike {
+        fill: var(--accent);
+      }
+      .chart .fatality-line {
+        fill: none;
+        stroke: var(--accent);
+        stroke-width: 1.8;
+        stroke-dasharray: 4 3;
+      }
+
+      /* Mobile */
+      @media (max-width: 800px) {
+        .scrolly {
+          grid-template-columns: 1fr;
+          gap: 0;
+          padding: 1rem 0.75rem 3rem;
+        }
+        .scrolly .sticky-viz {
+          height: 60vh;
+          z-index: 5;
+          background: var(--bg);
+        }
+        .scrolly .viz-stack {
+          height: 56vh;
+        }
+        .scrolly .viz-inner {
+          height: 56vh;
+        }
+        .scrolly .steps {
+          gap: 50vh;
+          padding: 20vh 0.75rem;
+        }
+        .scrolly .step {
+          background: rgba(245, 241, 235, 0.96);
+        }
+        .explore-grid {
+          grid-template-columns: 1fr;
+        }
+        .explore-map {
+          height: 380px;
+        }
+      }
+
+      /* Tooltip */
+      .tooltip {
+        position: absolute;
+        pointer-events: none;
+        background: var(--fg);
+        color: var(--bg);
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+        border-radius: 4px;
+        font-family: "Source Serif 4", Georgia, serif;
+        opacity: 0;
+        transition: opacity 0.15s;
+        z-index: 1000;
+      }
+      .tooltip.show {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="prose">
+      <article>
+        <span class="act-label">Central question</span>
+        <h1>Shootings in New York City are at an all-time low.</h1>
+
+        <p>Let that sentence land. Then complicate it.</p>
+
+        <p>
+          <em>How did we get here?</em> <em>Did everyone benefit equally?</em>
+          And what does twenty years of NYPD records actually say about
+          <em>who</em> gun violence happens to — and <em>when</em>?
+        </p>
+
+        <p>
+          This page uses a <strong>martini glass</strong> structure (Segel &amp;
+          Heer): a guided path through five chapters of charts and maps, then an
+          open exploration where you hold the filters. Primary sources are the
+          merged incident file plus person-level victims and offenders released on
+          NYC Open Data.<a href="#ref1"><sup>1</sup></a> Annual charts use
+          complete calendar years through 2025; 2026 includes partial
+          year-to-date rows.
+        </p>
+      </article>
+    </main>
+
+    <hr />
+
+    <!-- ─── Chapter 1 narrative ─── -->
+    <section class="act3-intro">
+      <div class="prose">
+        <span class="act-label">Chapter 1 — The long decline</span>
+        <h2>The arc of the city — and of each borough.</h2>
+        <p>
+          In 2006 the NYPD logged on the order of two thousand shooting incidents
+          citywide. A long decline brought that number to 777 in 2019. In 2020 it
+          nearly doubled in a single year. Since then the trend has fallen again;
+          recent complete years register below that pre-pandemic floor.
+        </p>
+        <p>
+          The citywide line hides geography: Brooklyn and the Bronx together
+          account for roughly seven in ten incidents over the full period. The
+          steps below start with the NYC total and borough lines, then switch to
+          the annotated citywide trend — legislation markers and the victim
+          fatality share — without leaving this chapter.
+        </p>
+      </div>
+    </section>
+
+    <!-- ─── Chapter 1: Borough lines + annotated trend (single scrolly) ─── -->
+    <div class="section-intro">
+      <div class="inner">
+        <span class="act-label">Chapter 1 — Citywide, boroughs &amp; context</span>
+        <h3
+          style="
+            font-family: &quot;Playfair Display&quot;, serif;
+            font-size: 1.5rem;
+            margin: 0 0 0.8rem;
+          "
+        >
+          One arc — two views of the same years.
+        </h3>
+        <p style="color: var(--muted)">
+          Start with raw counts: NYC total and each borough’s track (not rates per
+          100k). Mid-scroll the graphic switches to the annotated citywide trend:
+          milestones and the share of victims killed. The dashed line in the last
+          step is victim-weighted lethality.
+        </p>
+      </div>
+    </div>
+
+    <section class="scrolly" id="sec-chapter1">
+      <div class="sticky-viz">
+        <div class="viz-stack">
+          <div class="viz-inner" id="borough-viz">
+            <div class="loading">Loading borough series…</div>
+          </div>
+          <div class="viz-inner ch1-hidden" id="trend-viz">
+            <div class="loading">Loading trend…</div>
+          </div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step is-active" data-step="boro-1">
+          <h3>The city total.</h3>
+          <p>
+            One line: every shooting incident the NYPD recorded in New York
+            City, summed by calendar year. This is the spine the rest of the
+            story hangs on.
+          </p>
+        </div>
+        <div class="step" data-step="boro-2">
+          <h3>Five boroughs underneath.</h3>
+          <p>
+            The same years, split by where the incident happened. Brooklyn and
+            the Bronx trace the highest paths; Manhattan and Staten Island sit
+            lower — different scales, same 2020 shock.
+          </p>
+        </div>
+        <div class="step" data-step="boro-3">
+          <h3>Who drove the long decline?</h3>
+          <p>
+            From 2006 through 2019 the drop was broad-based: every borough fell.
+            The Bronx and Brooklyn still dominated volume — but the
+            <em>direction</em> was shared.
+          </p>
+        </div>
+        <div class="step" data-step="boro-4">
+          <h3>2020 hit everywhere.</h3>
+          <p>
+            The surge was not a single-borough story. Every borough logged a
+            sharp increase; the neighborhoods that were already hot bore the
+            largest counts, but no line was flat.
+          </p>
+        </div>
+        <div class="step" data-step="boro-5">
+          <h3>Afterward: uneven recovery.</h3>
+          <p>
+            Totals fall again after the peak — but geography still matters. The
+            citywide “all-time low” is not equally distributed block by block.
+          </p>
+        </div>
+        <div class="step" data-step="trend-1">
+          <h3>The shape of two decades.</h3>
+          <p>
+            Every year since 2006, the NYPD has logged each shooting incident in
+            the city. Plotted year by year, the line falls, then it collapses,
+            then it spikes — and then it begins to fall again.
+          </p>
+        </div>
+        <div class="step" data-step="trend-2">
+          <h3>From 2006 to 2019: shootings cut in half.</h3>
+          <p>
+            <span class="stat">1,566 → 777</span> incidents per year over
+            thirteen years. A 50% decline. Whatever combination of policing,
+            policy, demographics, and economic conditions drove that drop, it
+            was real, sustained, and enormous in human terms.
+          </p>
+        </div>
+        <div class="step" data-step="trend-3">
+          <h3>Then, in a single year, it almost doubled.</h3>
+          <p>
+            <span class="stat">2020.</span> Shootings jumped from 777 to 1,532.
+            A decade of progress erased in one summer. Whatever you believe
+            caused it — COVID, the police pullback after the 2020 protests,
+            economic collapse, the largest spike in firearm sales in U.S.
+            history — the line on this chart does not care about explanations.
+            It just spikes.
+          </p>
+        </div>
+        <div class="step" data-step="trend-4">
+          <h3>The legal context, overlaid.</h3>
+          <p>
+            Here are the laws and rulings most often credited or blamed for New
+            York's gun-violence trajectory. None of them produces a clean
+            inflection in the data. Reform is slow, and noisy.
+          </p>
+        </div>
+        <div class="step" data-step="trend-5">
+          <h3>One number that doesn't move: lethality.</h3>
+          <p>
+            The dashed line is the share of shooting victims who die from their
+            wounds. Year after year — through the long decline, through the 2020
+            spike, through the partial recovery — it sits between
+            <span class="stat">15% and 18%</span>. Volume changes; the
+            <em>rate</em> at which shootings kill does not.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Chapter 2: Where it happens ─── -->
+    <div class="section-intro">
+      <div class="inner">
+        <span class="act-label">Chapter 2 — Where it happens</span>
+        <h3
+          style="
+            font-family: &quot;Playfair Display&quot;, serif;
+            font-size: 1.5rem;
+            margin: 0 0 0.8rem;
+          "
+        >
+          Gun violence in NYC has a ZIP code.
+        </h3>
+        <p style="color: var(--muted)">
+          The citywide trend obscures something important: shootings are not
+          spread evenly across New York. They are concentrated, sharply, in a
+          handful of neighborhoods.
+        </p>
+      </div>
+    </div>
+
+    <section class="scrolly" id="sec-map">
+      <div class="sticky-viz">
+        <div class="viz-inner" id="map-viz">
+          <div class="map-container" id="leaflet-map"></div>
+          <div class="viz-title" id="map-title">All shootings, 2006–2025</div>
+          <div class="viz-subtitle" id="map-subtitle">
+            Heatmap of every NYPD-recorded shooting incident
+          </div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step" data-step="map-1">
+          <h3>Every shooting, on one map.</h3>
+          <p>
+            More than 24,000 incidents over twenty years. The hotspots are not
+            subtle: a thick band running through northern Brooklyn, a cluster
+            covering most of the Bronx, scattered density in northern Manhattan
+            and southeast Queens. Wide stretches of the city — Staten Island,
+            much of Manhattan, much of Queens — sit nearly empty.
+          </p>
+        </div>
+        <div class="step" data-step="map-2">
+          <h3>Two boroughs carry most of the weight.</h3>
+          <p>
+            <span class="stat">Brooklyn (40%) and the Bronx (29%)</span> account
+            for nearly seven in ten NYC shootings. That is not because they are
+            biggest — Queens has roughly the same population as Brooklyn — it is
+            because the same conditions that produce gun violence (concentrated
+            poverty, segregated housing, under-investment) are concentrated in
+            the same neighborhoods.
+          </p>
+        </div>
+        <div class="step" data-step="map-3">
+          <h3>Three precincts. One small piece of Brooklyn.</h3>
+          <p>
+            <span class="stat">Precincts 75, 73, and 67</span> — East New York,
+            Brownsville, East Flatbush — together cover a few square miles. They
+            alone account for a strikingly disproportionate share of the entire
+            city's shootings. The same neighborhoods that were the most
+            dangerous in 2006 are still the most dangerous today.
+          </p>
+        </div>
+        <div class="step" data-step="map-4">
+          <h3>2019: the floor.</h3>
+          <p>
+            By 2019, the long decline had thinned the map dramatically. Even the
+            historic hotspots looked manageable. This was the safest the city
+            had been in living memory.
+          </p>
+        </div>
+        <div class="step" data-step="map-5">
+          <h3>2020: the surge didn't hit equally.</h3>
+          <p>
+            One year later, the same map fills back in — but unevenly. The
+            increase concentrates in the same neighborhoods that had
+            historically borne the worst of it. The places already hit hardest
+            paid the highest price for whatever 2020 was.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Chapter 3: Who it happens to ─── -->
+    <div class="section-intro">
+      <div class="inner">
+        <span class="act-label">Chapter 3 — Who it happens to</span>
+        <h3
+          style="
+            font-family: &quot;Playfair Display&quot;, serif;
+            font-size: 1.5rem;
+            margin: 0 0 0.8rem;
+          "
+        >
+          Behind every dot on the map is a person.
+        </h3>
+        <p style="color: var(--muted)">
+          Almost 29,000 victims since 2006. The demographic profile is
+          remarkably narrow.
+        </p>
+      </div>
+    </div>
+
+    <section class="scrolly" id="sec-demo">
+      <div class="sticky-viz">
+        <div class="viz-inner" id="demo-viz">
+          <div class="loading">Loading victim records…</div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step" data-step="demo-1">
+          <h3>Mostly young.</h3>
+          <p>
+            Over <span class="stat">82%</span> of NYC shooting victims are
+            between 18 and 44. The single largest group is 25–44; the second is
+            18–24. Older victims are rare; victims over 65 are rarer still.
+          </p>
+        </div>
+        <div class="step" data-step="demo-2">
+          <h3>And too often, very young.</h3>
+          <p>
+            <span class="stat">2,989 victims</span> — about one in ten — were
+            under 18 when they were shot. Children are not collateral; they are
+            roughly a tenth of the entire dataset.
+          </p>
+        </div>
+        <div class="step" data-step="demo-3">
+          <h3>Almost entirely men.</h3>
+          <p>
+            <span class="stat">91% male.</span> Gun violence in NYC is, in the
+            aggregate, a phenomenon that happens to men. Female victims exist
+            and matter, but the volume is overwhelmingly male.
+          </p>
+        </div>
+        <div class="step" data-step="demo-4">
+          <h3>Lethality, by age.</h3>
+          <p>
+            About <span class="stat">1 in 6</span> of all shooting victims die.
+            That headline rate is roughly stable across age groups, but it
+            climbs sharply for the oldest victims — older bodies survive gunshot
+            wounds less often.
+          </p>
+          <p
+            style="font-size: 0.85rem; color: var(--muted); font-style: italic"
+          >
+            We are deliberately not leading with race here. The racial
+            distribution of victims tracks the geography of where shootings
+            happen, which in turn reflects decades of housing policy, economic
+            inequality, and policing patterns. Treating it as a stand-alone
+            cause would invert the actual chain of cause and effect.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <figure class="viz">
+      <div
+        id="victim-age-years-viz"
+        style="min-height: 420px; background: var(--bg-deep); border-radius: 4px"
+      ></div>
+      <figcaption>
+        Victims per year, stacked by age group (from person-level victim
+        records). When shootings fell, every cohort fell together — the profile
+        did not reshape dramatically.
+      </figcaption>
+    </figure>
+
+    <figure class="viz">
+      <div
+        id="perp-unknown-viz"
+        style="min-height: 260px; background: var(--bg-deep); border-radius: 4px"
+      ></div>
+      <figcaption>
+        Share of incidents with no identified offender in the merged NYPD file.
+        Perpetrator demographics, where they exist, must be read with this gap
+        in mind.
+      </figcaption>
+    </figure>
+
+    <figure class="viz">
+      <div
+        id="offender-age-viz"
+        style="min-height: 280px; background: var(--bg-deep); border-radius: 4px"
+      ></div>
+      <figcaption>
+        Recorded offenders (one row per person in the offenders file) by age
+        group. This excludes everyone police never identified — see the bar
+        above.
+      </figcaption>
+    </figure>
+
+    <!-- ─── Chapter 4 intro ─── -->
+    <div class="section-intro">
+      <div class="inner">
+        <span class="act-label">Chapter 4 — When it happens</span>
+        <h3
+          style="
+            font-family: &quot;Playfair Display&quot;, serif;
+            font-size: 1.5rem;
+            margin: 0 0 0.8rem;
+          "
+        >
+          Gun violence runs on a clock and a calendar.
+        </h3>
+        <p style="color: var(--muted)">
+          Aggregate twenty years of incidents by hour and day. A shape emerges,
+          and it has not changed.
+        </p>
+      </div>
+    </div>
+
+    <section class="scrolly" id="sec-time">
+      <div class="sticky-viz">
+        <div class="viz-inner" id="time-viz"></div>
+      </div>
+      <div class="steps">
+        <div class="step" data-step="time-1">
+          <h3>168 cells, twenty years of incidents.</h3>
+          <p>
+            Each cell is one hour of one day of the week, summed across every
+            year from 2006 to 2025. Darker means more shootings. The shape is
+            unmistakable.
+          </p>
+        </div>
+        <div class="step" data-step="time-2">
+          <h3>Saturday night. Sunday night. Late.</h3>
+          <p>
+            The cluster glowing at the bottom-left and bottom-right is the
+            <span class="stat">weekend late-night peak</span> — roughly 10pm
+            Friday through 4am Sunday. Sunday alone records nearly
+            <span class="stat">4,700 shootings</span>. The early-morning hours
+            of weekdays — your daily commute, the school run — are by far the
+            safest.
+          </p>
+        </div>
+        <div class="step" data-step="time-3">
+          <h3>Now switch to the calendar.</h3>
+          <p>
+            By month, July is the peak:
+            <span class="stat">2,778 incidents</span> cumulatively, more than
+            double February's <span class="stat">1,254</span>. Heat, daylight
+            hours, time spent outside — gun violence rises with the temperature,
+            every year, like a physical law.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Chapter 5: Fatal vs non-fatal ─── -->
+    <div class="section-intro">
+      <div class="inner">
+        <span class="act-label">Chapter 5 — Fatal vs. non-fatal</span>
+        <h3
+          style="
+            font-family: &quot;Playfair Display&quot;, serif;
+            font-size: 1.5rem;
+            margin: 0 0 0.8rem;
+          "
+        >
+          Incidents are not all equally lethal.
+        </h3>
+        <p style="color: var(--muted)">
+          The headline count is shooting incidents. Beneath it sits the split
+          between shootings where someone died and those where every victim
+          survived — and whether that share moves when totals move.
+        </p>
+      </div>
+    </div>
+
+    <section class="scrolly" id="sec-fatal">
+      <div class="sticky-viz">
+        <div class="viz-inner" id="fatal-viz">
+          <div class="loading">Loading fatality breakdown…</div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step" data-step="fatal-1">
+          <h3>Fatal and non-fatal incidents, year by year.</h3>
+          <p>
+            Each bar stacks incidents with at least one homicide flag against
+            those with none. When shootings surged in 2020, <em>both</em> stacks
+            grew — the mix did not flip to “more lethal” overnight.
+          </p>
+        </div>
+        <div class="step" data-step="fatal-2">
+          <h3>Lethality by borough.</h3>
+          <p>
+            Among victims (not incidents), what share die? The pattern varies
+            modestly by borough — small numbers can move rates — but nothing
+            erases the central fact that most shootings do not kill.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Limitations + exploration ─── -->
+    <section class="act3-intro">
+      <div class="prose">
+        <span class="act-label">Honesty — what this data cannot prove</span>
+        <h2>Limits sit beside every chart.</h2>
+        <p>
+          Nothing in Chapter 1's trend lines proves that any specific law caused —
+          or failed to cause — the pattern you see. The 2013 SAFE Act and the
+          curtailment of stop-and-frisk landed in the same year as a decline that
+          was already under way. The 2020 spike has competing explanations; this
+          notebook shows correlations on a map, not causes in a lab.
+        </p>
+        <p>
+          About
+          <span style="font-weight: 700"
+            >39% of incidents in this dataset have no identified shooter at
+            all</span
+          >, which means any analysis of perpetrators starts from a base that is
+          fundamentally incomplete. The data also tells us nothing about where
+          the guns themselves came from — that would require ATF firearm-trace
+          data New York doesn't control. And the dataset captures
+          <em>reported</em> shootings; underreporting, especially of non-fatal
+          incidents, is plausible.
+        </p>
+        <p>With those caveats sitting on the table, the rest is yours.</p>
+
+        <h2 style="margin-top: 2.5rem">Now explore it yourself.</h2>
+        <p>
+          Filter the map by year, by borough, by victim demographics. The
+          summary updates as you go. This is the &ldquo;bowl&rdquo; of the
+          martini glass — after the guided tour, the data without the narration.
+        </p>
+      </div>
+    </section>
+
+    <div class="exploration">
+      <div class="explore-grid">
+        <div class="explore-map" id="explore-map"></div>
+        <div class="explore-controls">
+          <label>Borough</label>
+          <select id="ctrl-boro">
+            <option value="ALL">All boroughs</option>
+            <option value="BRONX">Bronx</option>
+            <option value="BROOKLYN">Brooklyn</option>
+            <option value="MANHATTAN">Manhattan</option>
+            <option value="QUEENS">Queens</option>
+            <option value="STATEN ISLAND">Staten Island</option>
+          </select>
+
+          <label>Year range</label>
+          <div class="year-display" id="year-display">2006 — 2025</div>
+          <div class="year-range">
+            <input
+              type="range"
+              id="ctrl-year-min"
+              min="2006"
+              max="2025"
+              value="2006"
+            />
+            <input
+              type="range"
+              id="ctrl-year-max"
+              min="2006"
+              max="2025"
+              value="2025"
+            />
+          </div>
+
+          <label>Victim age groups</label>
+          <div class="checks" id="ctrl-age">
+            <button data-v="<18" class="on">&lt;18</button>
+            <button data-v="18-24" class="on">18–24</button>
+            <button data-v="25-44" class="on">25–44</button>
+            <button data-v="45-64" class="on">45–64</button>
+            <button data-v="65+" class="on">65+</button>
+          </div>
+
+          <label>Victim sex</label>
+          <div class="checks" id="ctrl-sex">
+            <button data-v="MALE" class="on">Male</button>
+            <button data-v="FEMALE" class="on">Female</button>
+          </div>
+
+          <div class="stats-readout">
+            <div class="stat-line">
+              <span class="l">Incidents</span>
+              <span class="v" id="stat-incidents">—</span>
+            </div>
+            <div class="stat-line">
+              <span class="l">Victims</span>
+              <span class="v" id="stat-victims">—</span>
+            </div>
+            <div class="stat-line">
+              <span class="l">Fatal</span>
+              <span class="v" id="stat-fatal">—</span>
+            </div>
+            <div class="stat-line">
+              <span class="l">Fatality rate</span>
+              <span class="v" id="stat-rate">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="prose" style="margin-top: 3rem">
+      <h2 style="font-family: &quot;Playfair Display&quot;, serif">
+        An unfinished story, written in rows.
+      </h2>
+      <p>
+        New York’s trajectory is neither a simple victory nor a simple failure.
+        Complete-year counts through 2025 sit below the old 2019 floor — an
+        enormous human gain — while geography remains stubbornly uneven, offender
+        records remain incomplete for a large share of incidents, and no local
+        dataset answers where firearms originate.
+      </p>
+      <p>
+        The martini glass stem ends here; the bowl below is yours to tilt.
+      </p>
+    </section>
+
+    <section class="refs" aria-labelledby="refs-heading">
+      <h2 id="refs-heading">Data sources</h2>
+      <ol>
+        <li id="ref1">
+          New York Police Department. NYPD Shooting Incident Data (Historic),
+          Year-to-Date, and derived victim/offender tables — cleaned and merged for
+          this project. NYC Open Data, accessed 2026.
+          <div class="meta">
+            Portal:
+            <a
+              href="https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Historic-/833y-fsy8"
+              >data.cityofnewyork.us</a
+            >
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+      // ───────────── State ─────────────
+      const state = {
+        incidents: null,
+        victims: null,
+        legislation: null,
+        agg: {},
+        leafletMap: null,
+        heatLayer: null,
+        exploreMap: null,
+        exploreHeat: null,
+        offendersMinimal: null,
+        exploreSel: {
+          boro: "ALL",
+          yMin: 2006,
+          yMax: 2025,
+          ages: new Set(["<18", "18-24", "25-44", "45-64", "65+"]),
+          sexes: new Set(["MALE", "FEMALE"]),
+        },
+      };
+
+      const COLORS = {
+        primary: "#2c3e50",
+        accent: "#b03a2e",
+        accentSoft: "#d98e84",
+        secondary: "#7f8c8d",
+        highlight: "#c79c2c",
+        muted: "#5a554e",
+        bg: "#f5f1eb",
+        bgDeep: "#ece6d8",
+      };
+
+      // ───────────── Data load ─────────────
+      const TREND_END_YEAR = 2025;
+      const TREND_START_YEAR = 2006;
+
+      /** Integer calendar years on x-axis (avoid 2008.5-style “nice” ticks). */
+      function yearTickRange(lo, hi) {
+        const a = [];
+        for (let y = lo; y <= hi; y++) a.push(y);
+        return a;
+      }
+
+      async function init() {
+        let dash = null;
+        try {
+          dash = await d3.json("generated/dashboard_data.json");
+        } catch (_) {
+          /* fall back to CSV pipeline */
+        }
+
+        if (dash?.incidents?.length && dash?.agg) {
+          state.incidents = dash.incidents;
+          state.legislation = dash.legislation;
+          state.agg = dash.agg;
+          state.victims = dash.victims || null;
+          state.offendersMinimal = dash.offenders_minimal || null;
+          console.info(
+            "Loaded generated/dashboard_data.json — skipping CSV aggregate.",
+          );
+        } else {
+          const [rows, leg] = await Promise.all([
+            d3.csv("data/nypd_shootings_combined.csv", parseRow),
+            d3.json("data/legislation_events.json"),
+          ]);
+          state.incidents = rows;
+          state.legislation = leg;
+          aggregate();
+        }
+
+        buildBoroughChart();
+        buildTrendChart();
+        buildMap();
+        buildFatalChart();
+        buildPerpUnknownChart();
+        buildTimeViz();
+        buildExploration();
+        loadVictimLayerCharts();
+        setupScrollama();
+        renderChapter1Step("boro-1");
+      }
+
+      function parseRow(d) {
+        return {
+          key: d.INCIDENT_KEY,
+          date: d.OCCUR_DATE,
+          boro: d.BORO,
+          precinct: +d.PRECINCT,
+          locClass: d.LOC_CLASSFCTN_DESC,
+          lat: +d.Latitude,
+          lon: +d.Longitude,
+          year: +d.year,
+          month: +d.month,
+          dow: d.day_of_week,
+          hour: +d.hour,
+          numVictims: +d.num_victims || 0,
+          numMurdered: +d.num_murdered || 0,
+          fatal: d.has_fatality === "True",
+          victimAgeGroups: d.victim_age_groups,
+          victimSexes: d.victim_sexes,
+          hasOffenderData: d.has_offender_data === "True",
+        };
+      }
+
+      function aggregate() {
+        const I = state.incidents.filter(
+          (d) => d.year >= TREND_START_YEAR && d.year <= TREND_END_YEAR,
+        );
+        // yearly incident count + victim/murder totals
+        const yearlyMap = d3.rollup(
+          I,
+          (v) => ({
+            n: v.length,
+            victims: d3.sum(v, (d) => d.numVictims),
+            murdered: d3.sum(v, (d) => d.numMurdered),
+          }),
+          (d) => d.year,
+        );
+        state.agg.yearly = Array.from(yearlyMap, ([year, vals]) => ({
+          year,
+          ...vals,
+          rate: vals.victims ? vals.murdered / vals.victims : 0,
+        })).sort((a, b) => a.year - b.year);
+
+        // monthly aggregation (across all years)
+        state.agg.monthly = Array.from(
+          d3.rollup(
+            I,
+            (v) => v.length,
+            (d) => d.month,
+          ),
+          ([m, n]) => ({ month: m, n }),
+        ).sort((a, b) => a.month - b.month);
+
+        // day-of-week × hour
+        const DOW = [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ];
+        const dhMap = d3.rollup(
+          I,
+          (v) => v.length,
+          (d) => d.dow,
+          (d) => d.hour,
+        );
+        const dhRows = [];
+        DOW.forEach((day, di) => {
+          for (let h = 0; h < 24; h++) {
+            const n = dhMap.get(day)?.get(h) || 0;
+            dhRows.push({ day, di, hour: h, n });
+          }
+        });
+        state.agg.dayHour = dhRows;
+        state.agg.dows = DOW;
+
+        // borough totals
+        state.agg.byBoro = Array.from(
+          d3.rollup(
+            I,
+            (v) => v.length,
+            (d) => d.boro,
+          ),
+          ([b, n]) => ({ boro: b, n }),
+        ).sort((a, b) => b.n - a.n);
+
+        // borough × year for surge analysis
+        state.agg.boroYear = d3.rollup(
+          I,
+          (v) => v.length,
+          (d) => d.boro,
+          (d) => d.year,
+        );
+
+        // precinct totals
+        state.agg.byPrecinct = Array.from(
+          d3.rollup(
+            I,
+            (v) => v.length,
+            (d) => d.precinct,
+          ),
+          ([p, n]) => ({ precinct: p, n }),
+        ).sort((a, b) => b.n - a.n);
+
+        // per-year × borough (for multi-line chart)
+        const BOROS = [
+          "BRONX",
+          "BROOKLYN",
+          "MANHATTAN",
+          "QUEENS",
+          "STATEN ISLAND",
+        ];
+        state.agg.boroYearRows = [];
+        for (let y = TREND_START_YEAR; y <= TREND_END_YEAR; y++) {
+          const slice = I.filter((d) => d.year === y);
+          const row = { year: y, NYC: slice.length };
+          BOROS.forEach((b) => {
+            row[b] = slice.filter((d) => d.boro === b).length;
+          });
+          state.agg.boroYearRows.push(row);
+        }
+
+        // valid coords
+        state.agg.coords = state.incidents
+          .filter(
+            (d) =>
+              d.lat &&
+              d.lon &&
+              !isNaN(d.lat) &&
+              !isNaN(d.lon) &&
+              d.lat > 40 &&
+              d.lat < 41,
+          )
+          .map((d) => ({
+            lat: d.lat,
+            lon: d.lon,
+            year: d.year,
+            boro: d.boro,
+            precinct: d.precinct,
+          }));
+      }
+
+      const BORO_ORDER = [
+        "BRONX",
+        "BROOKLYN",
+        "MANHATTAN",
+        "QUEENS",
+        "STATEN ISLAND",
+      ];
+      const BORO_SHORT = {
+        BRONX: "Bronx",
+        BROOKLYN: "Brooklyn",
+        MANHATTAN: "Manhattan",
+        QUEENS: "Queens",
+        "STATEN ISLAND": "St. Isl.",
+      };
+      const BORO_LINE_COLORS = {
+        BRONX: "#8b5a2b",
+        BROOKLYN: "#b03a2e",
+        MANHATTAN: "#2c3e50",
+        QUEENS: "#5d6d7e",
+        "STATEN ISLAND": "#95a5a6",
+      };
+
+      // ───────────── Chapter 1: borough + trend (one scrolly) ─────────────
+      function renderChapter1Step(step) {
+        const bEl = document.getElementById("borough-viz");
+        const tEl = document.getElementById("trend-viz");
+        const isBoro = step.startsWith("boro-");
+        if (bEl) bEl.classList.toggle("ch1-hidden", !isBoro);
+        if (tEl) tEl.classList.toggle("ch1-hidden", isBoro);
+        if (isBoro) renderBoroughStep(step);
+        else renderTrendStep(step);
+      }
+
+      // ───────────── Chapter 1 borough lines ─────────────
+      function buildBoroughChart() {
+        const container = document.getElementById("borough-viz");
+        container.innerHTML = "";
+        const margin = { top: 70, right: 28, bottom: 48, left: 56 };
+        const W = 880;
+        const H = 560;
+        const iw = W - margin.left - margin.right;
+        const ih = H - margin.top - margin.bottom;
+        const svg = d3
+          .select(container)
+          .append("svg")
+          .attr("class", "chart")
+          .attr("viewBox", `0 0 ${W} ${H}`)
+          .attr("preserveAspectRatio", "xMidYMid meet");
+
+        svg
+          .append("text")
+          .attr("x", margin.left)
+          .attr("y", 26)
+          .attr("font-family", "Playfair Display, serif")
+          .attr("font-weight", 700)
+          .attr("font-size", 17)
+          .attr("fill", COLORS.primary)
+          .text("Shooting incidents per year — NYC total and boroughs");
+
+        svg
+          .append("text")
+          .attr("x", margin.left)
+          .attr("y", 46)
+          .attr("font-family", "Source Serif 4, serif")
+          .attr("font-style", "italic")
+          .attr("font-size", 12)
+          .attr("fill", COLORS.muted)
+          .text(
+            "Raw counts by precinct borough. Complete years 2006–2025. Source: NYC Open Data.",
+          );
+
+        const g = svg
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const data = state.agg.boroYearRows;
+        const x = d3
+          .scaleLinear()
+          .domain([TREND_START_YEAR, TREND_END_YEAR])
+          .range([0, iw]);
+        const yMax =
+          d3.max(data, (d) =>
+            Math.max(d.NYC, ...BORO_ORDER.map((b) => d[b])),
+          ) * 1.08;
+        const y = d3.scaleLinear().domain([0, yMax]).range([ih, 0]).nice();
+
+        g.append("g")
+          .attr("class", "grid")
+          .call(d3.axisLeft(y).tickSize(-iw).tickFormat("").ticks(6));
+        g.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0,${ih})`)
+          .call(
+            d3
+              .axisBottom(x)
+              .tickValues(yearTickRange(TREND_START_YEAR, TREND_END_YEAR))
+              .tickFormat(d3.format("d")),
+          );
+        g.append("g").attr("class", "axis").call(d3.axisLeft(y).ticks(6));
+
+        g.append("text")
+          .attr("class", "axis-label")
+          .attr("transform", "rotate(-90)")
+          .attr("x", -ih / 2)
+          .attr("y", -42)
+          .attr("text-anchor", "middle")
+          .text("Incident count");
+
+        const line = d3
+          .line()
+          .x((d) => x(d.year))
+          .curve(d3.curveMonotoneX);
+
+        const nycPath = g
+          .append("path")
+          .datum(data)
+          .attr("fill", "none")
+          .attr("stroke", COLORS.primary)
+          .attr("stroke-width", 3.4)
+          .attr("d", line.y((d) => y(d.NYC)));
+
+        const boroPaths = {};
+        BORO_ORDER.forEach((b) => {
+          boroPaths[b] = g
+            .append("path")
+            .datum(data)
+            .attr("fill", "none")
+            .attr("stroke", BORO_LINE_COLORS[b])
+            .attr("stroke-width", 2)
+            .attr("opacity", 0)
+            .attr("d", line.y((d) => y(d[b])));
+        });
+
+        const dotNyc = g
+          .selectAll(".dot-nyc")
+          .data(data)
+          .enter()
+          .append("circle")
+          .attr("class", "dot-nyc")
+          .attr("cx", (d) => x(d.year))
+          .attr("cy", (d) => y(d.NYC))
+          .attr("r", 3)
+          .attr("fill", COLORS.primary);
+
+        const bandDecline = g
+          .append("rect")
+          .attr("x", x(2006))
+          .attr("width", x(2019) - x(2006))
+          .attr("y", 0)
+          .attr("height", ih)
+          .attr("fill", COLORS.highlight)
+          .attr("opacity", 0);
+
+        const line2020 = g
+          .append("line")
+          .attr("x1", x(2020))
+          .attr("x2", x(2020))
+          .attr("y1", 0)
+          .attr("y2", ih)
+          .attr("stroke", COLORS.accent)
+          .attr("stroke-dasharray", "4 3")
+          .attr("opacity", 0);
+
+        const leg = svg
+          .append("g")
+          .attr(
+            "transform",
+            `translate(${margin.left + iw - 8},${margin.top + 8})`,
+          );
+        leg
+          .append("text")
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("text-anchor", "end")
+          .attr("font-size", 11)
+          .attr("fill", COLORS.primary)
+          .attr("font-weight", 700)
+          .text("NYC total");
+        let ly = 16;
+        BORO_ORDER.forEach((b) => {
+          leg
+            .append("line")
+            .attr("x1", -42)
+            .attr("x2", -6)
+            .attr("y1", ly - 4)
+            .attr("y2", ly - 4)
+            .attr("stroke", BORO_LINE_COLORS[b])
+            .attr("stroke-width", 2);
+          leg
+            .append("text")
+            .attr("x", 0)
+            .attr("y", ly)
+            .attr("text-anchor", "end")
+            .attr("font-size", 10)
+            .attr("fill", COLORS.muted)
+            .text(BORO_SHORT[b]);
+          ly += 14;
+        });
+
+        state.borough = {
+          g,
+          nycPath,
+          boroPaths,
+          bandDecline,
+          line2020,
+          dotNyc,
+          y,
+          x,
+        };
+      }
+
+      function renderBoroughStep(step) {
+        const b = state.borough;
+        if (!b) return;
+        const { nycPath, boroPaths, bandDecline, line2020, dotNyc } = b;
+        const showBoro = step !== "boro-1";
+        const showBand = step === "boro-3";
+        const show2020 = step === "boro-4" || step === "boro-5";
+
+        BORO_ORDER.forEach((k) => {
+          boroPaths[k]
+            .transition()
+            .duration(450)
+            .attr("opacity", showBoro ? 0.92 : 0);
+        });
+
+        bandDecline.transition().duration(400).attr("opacity", showBand ? 0.09 : 0);
+
+        line2020.transition().duration(400).attr("opacity", show2020 ? 0.55 : 0);
+
+        nycPath
+          .transition()
+          .duration(350)
+          .attr("stroke-width", step === "boro-1" || step === "boro-3" ? 3.8 : 2.8);
+
+        dotNyc
+          .transition()
+          .duration(350)
+          .attr("opacity", step === "boro-5" ? 0.85 : 1);
+      }
+
+      // ───────────── 3.1 Trend chart ─────────────
+      function buildTrendChart() {
+        const container = document.getElementById("trend-viz");
+        container.innerHTML = "";
+
+        const margin = { top: 70, right: 30, bottom: 50, left: 55 };
+        const W = 880;
+        const H = 560;
+        const iw = W - margin.left - margin.right;
+        const ih = H - margin.top - margin.bottom;
+
+        const svg = d3
+          .select(container)
+          .append("svg")
+          .attr("class", "chart")
+          .attr("viewBox", `0 0 ${W} ${H}`)
+          .attr("preserveAspectRatio", "xMidYMid meet");
+
+        // title
+        svg
+          .append("text")
+          .attr("x", margin.left)
+          .attr("y", 28)
+          .attr("font-family", "Playfair Display, serif")
+          .attr("font-weight", 700)
+          .attr("font-size", 17)
+          .attr("fill", COLORS.primary)
+          .text("NYPD shooting incidents per year");
+
+        svg
+          .append("text")
+          .attr("x", margin.left)
+          .attr("y", 48)
+          .attr("font-family", "Source Serif 4, serif")
+          .attr("font-style", "italic")
+          .attr("font-size", 12)
+          .attr("fill", COLORS.muted)
+          .text(
+            "Each point: one calendar year. 2006 through 2025. Source: NYC Open Data.",
+          );
+
+        const g = svg
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const data = state.agg.yearly;
+        const x = d3
+          .scaleLinear()
+          .domain([TREND_START_YEAR, TREND_END_YEAR])
+          .range([0, iw]);
+        const y = d3.scaleLinear().domain([0, 1700]).range([ih, 0]).nice();
+
+        // grid
+        g.append("g")
+          .attr("class", "grid")
+          .call(d3.axisLeft(y).tickSize(-iw).tickFormat("").ticks(6));
+
+        g.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0,${ih})`)
+          .call(
+            d3
+              .axisBottom(x)
+              .tickValues(yearTickRange(TREND_START_YEAR, TREND_END_YEAR))
+              .tickFormat(d3.format("d")),
+          );
+
+        g.append("g").attr("class", "axis").call(d3.axisLeft(y).ticks(6));
+
+        g.append("text")
+          .attr("class", "axis-label")
+          .attr("transform", "rotate(-90)")
+          .attr("x", -ih / 2)
+          .attr("y", -42)
+          .attr("text-anchor", "middle")
+          .text("Shooting incidents per year");
+
+        // legislation overlays (created hidden)
+        const legGroup = g.append("g").attr("class", "leg-group");
+        const legByYear = d3.group(state.legislation, (d) => d.year);
+        const legYears = Array.from(legByYear.keys()).sort();
+        legYears.forEach((yr) => {
+          const labels = legByYear.get(yr).map((d) => d.label);
+          const xx = x(yr);
+          legGroup
+            .append("line")
+            .attr("class", "annotation-line")
+            .attr("x1", xx)
+            .attr("x2", xx)
+            .attr("y1", 0)
+            .attr("y2", ih);
+          labels.forEach((lab, i) => {
+            legGroup
+              .append("text")
+              .attr("class", "annotation-label")
+              .attr("x", xx + 4)
+              .attr("y", 14 + i * 13)
+              .attr("font-size", 11)
+              .text(lab);
+          });
+        });
+
+        // single full line for the curve
+        const lineGen = d3
+          .line()
+          .x((d) => x(d.year))
+          .y((d) => y(d.n))
+          .curve(d3.curveMonotoneX);
+
+        const fullLine = g
+          .append("path")
+          .datum(data)
+          .attr("class", "trend-line")
+          .attr("d", lineGen);
+
+        const total = fullLine.node().getTotalLength();
+        fullLine
+          .attr("stroke-dasharray", `${total} ${total}`)
+          .attr("stroke-dashoffset", total);
+
+        // segment for spike (2019-2021)
+        const spikeData = data.filter((d) => d.year >= 2019 && d.year <= 2021);
+        const spikeLine = g
+          .append("path")
+          .datum(spikeData)
+          .attr("class", "trend-line spike")
+          .attr("d", lineGen)
+          .style("opacity", 0);
+
+        // dots
+        const dots = g
+          .selectAll(".trend-dot")
+          .data(data)
+          .enter()
+          .append("circle")
+          .attr("class", (d) =>
+            d.year >= 2020 && d.year <= 2021 ? "trend-dot spike" : "trend-dot",
+          )
+          .attr("cx", (d) => x(d.year))
+          .attr("cy", (d) => y(d.n))
+          .attr("r", 0);
+
+        // fatality rate (right-side y-scale, 0–25%)
+        const yRate = d3.scaleLinear().domain([0, 0.25]).range([ih, 0]);
+        const rateLine = d3
+          .line()
+          .x((d) => x(d.year))
+          .y((d) => yRate(d.rate))
+          .curve(d3.curveMonotoneX);
+
+        const fatLine = g
+          .append("path")
+          .datum(data)
+          .attr("class", "fatality-line")
+          .attr("d", rateLine)
+          .style("opacity", 0);
+
+        const yRateAxis = g
+          .append("g")
+          .attr("class", "axis fatality-axis")
+          .attr("transform", `translate(${iw},0)`)
+          .call(d3.axisRight(yRate).ticks(5).tickFormat(d3.format(".0%")))
+          .style("opacity", 0);
+
+        const fatLabel = g
+          .append("text")
+          .attr("class", "fatality-label")
+          .attr("x", iw + 8)
+          .attr("y", 10)
+          .attr("font-size", 11)
+          .attr("fill", COLORS.accent)
+          .style("opacity", 0)
+          .text("share of victims killed");
+
+        // expose
+        state.trend = {
+          fullLine,
+          spikeLine,
+          dots,
+          fatLine,
+          yRateAxis,
+          fatLabel,
+          legGroup,
+          total,
+        };
+      }
+
+      function renderTrendStep(step) {
+        const t = state.trend;
+        if (!t) return;
+
+        // line draw + dot pop
+        t.fullLine
+          .interrupt()
+          .transition()
+          .duration(1400)
+          .attr("stroke-dashoffset", 0);
+        t.dots
+          .interrupt()
+          .transition()
+          .delay((d, i) => 60 * i)
+          .duration(400)
+          .attr("r", 4);
+
+        // step states
+        const showSpike =
+          step === "trend-3" || step === "trend-4" || step === "trend-5";
+        const showLeg = step === "trend-4" || step === "trend-5";
+        const showFat = step === "trend-5";
+        const dimDecline =
+          step === "trend-3" || step === "trend-4" || step === "trend-5";
+        const highlightDecline = step === "trend-2";
+
+        t.fullLine.classed("dim", false).style("stroke", COLORS.primary);
+        t.dots.classed("spike", function (d) {
+          return d.year >= 2020 && d.year <= 2021;
+        });
+
+        if (highlightDecline) {
+          // highlight 2006-2019 by drawing a colored overlay segment
+          // (we just keep main line, use color)
+          t.fullLine.style("stroke", COLORS.primary).attr("stroke-width", 3);
+          t.dots
+            .transition()
+            .duration(300)
+            .attr("r", (d) => (d.year <= 2019 ? 6 : 3))
+            .style("fill", (d) =>
+              d.year <= 2019 ? COLORS.highlight : COLORS.primary,
+            );
+        } else {
+          t.fullLine.attr("stroke-width", 2.4);
+          t.dots
+            .transition()
+            .duration(300)
+            .attr("r", 4)
+            .style("fill", function (d) {
+              if (d.year >= 2020 && d.year <= 2021 && showSpike)
+                return COLORS.accent;
+              return COLORS.primary;
+            });
+        }
+
+        t.spikeLine
+          .transition()
+          .duration(500)
+          .style("opacity", showSpike ? 1 : 0);
+
+        t.legGroup.selectAll(".annotation-line").classed("on", showLeg);
+        t.legGroup.selectAll(".annotation-label").classed("on", showLeg);
+
+        t.fatLine
+          .transition()
+          .duration(500)
+          .style("opacity", showFat ? 1 : 0);
+        t.yRateAxis
+          .transition()
+          .duration(500)
+          .style("opacity", showFat ? 1 : 0);
+        t.fatLabel
+          .transition()
+          .duration(500)
+          .style("opacity", showFat ? 1 : 0);
+      }
+
+      // ───────────── 3.2 Map ─────────────
+      function buildMap() {
+        const map = L.map("leaflet-map", {
+          zoomControl: false,
+          scrollWheelZoom: false,
+          attributionControl: false,
+          preferCanvas: true,
+          zoomSnap: 0.5,
+        }).setView([40.72, -73.93], 11);
+
+        L.control.attribution({ prefix: false }).addTo(map);
+
+        L.tileLayer(
+          "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
+          {
+            attribution: "© OpenStreetMap, © CARTO",
+            maxZoom: 19,
+            subdomains: "abcd",
+          },
+        ).addTo(map);
+        L.tileLayer(
+          "https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png",
+          {
+            maxZoom: 19,
+            subdomains: "abcd",
+            pane: "shadowPane",
+          },
+        ).addTo(map);
+
+        state.leafletMap = map;
+        setTimeout(() => map.invalidateSize(), 100);
+        renderMapStep("map-1");
+      }
+
+      function renderMapStep(step) {
+        const map = state.leafletMap;
+        if (!map) return;
+        const titleEl = document.getElementById("map-title");
+        const subEl = document.getElementById("map-subtitle");
+
+        // remove old heat
+        if (state.heatLayer) {
+          map.removeLayer(state.heatLayer);
+          state.heatLayer = null;
+        }
+
+        let pts = state.agg.coords;
+        let title = "All shootings, 2006–2025";
+        let subtitle = "Heatmap of every NYPD-recorded shooting incident";
+        let center = [40.72, -73.93];
+        let zoom = 11;
+        let radius = 9;
+        let blur = 14;
+
+        if (step === "map-2") {
+          pts = pts.filter((d) => d.boro === "BROOKLYN" || d.boro === "BRONX");
+          title = "Brooklyn + the Bronx";
+          subtitle = "69% of all NYC shootings, in two boroughs";
+        } else if (step === "map-3") {
+          pts = pts.filter((d) => [75, 73, 67].includes(d.precinct));
+          title = "Precincts 75, 73, 67";
+          subtitle = "East New York, Brownsville, East Flatbush";
+          center = [40.665, -73.91];
+          zoom = 12.5;
+          radius = 14;
+          blur = 18;
+        } else if (step === "map-4") {
+          pts = pts.filter((d) => d.year === 2019);
+          title = "2019: the floor";
+          subtitle = "777 incidents — the lowest year in the dataset";
+        } else if (step === "map-5") {
+          pts = pts.filter((d) => d.year === 2020);
+          title = "2020: the surge";
+          subtitle = "1,532 incidents — nearly double, in one year";
+        }
+
+        titleEl.textContent = title;
+        subEl.textContent = subtitle;
+
+        const heatPts = pts.map((d) => [d.lat, d.lon, 0.6]);
+        state.heatLayer = L.heatLayer(heatPts, {
+          radius: radius,
+          blur: blur,
+          maxZoom: 15,
+          minOpacity: 0.25,
+          gradient: {
+            0.2: "#fdf3c4",
+            0.4: "#f4c66c",
+            0.6: "#e08e3d",
+            0.8: "#b03a2e",
+            1.0: "#7d1e16",
+          },
+        }).addTo(map);
+
+        map.flyTo(center, zoom, { duration: 1.0 });
+      }
+
+      // ───────────── Chapter 5 fatal chart ─────────────
+      function buildFatalChart() {
+        const container = document.getElementById("fatal-viz");
+        container.innerHTML = "";
+        const margin = { top: 64, right: 28, bottom: 56, left: 54 };
+        const W = 880;
+        const H = 560;
+        const iw = W - margin.left - margin.right;
+        const ih = H - margin.top - margin.bottom;
+
+        const svg = d3
+          .select(container)
+          .append("svg")
+          .attr("class", "chart")
+          .attr("viewBox", `0 0 ${W} ${H}`)
+          .attr("preserveAspectRatio", "xMidYMid meet");
+
+        const I = state.incidents.filter(
+          (d) =>
+            d.year >= TREND_START_YEAR && d.year <= TREND_END_YEAR,
+        );
+        const rows = Array.from(
+          d3.rollup(
+            I,
+            (v) => ({
+              fatal: v.filter((d) => d.fatal).length,
+              nonfatal: v.filter((d) => !d.fatal).length,
+            }),
+            (d) => d.year,
+          ),
+          ([year, v]) => ({ year, ...v }),
+        ).sort((a, b) => a.year - b.year);
+
+        const titleTop = svg
+          .append("text")
+          .attr("x", margin.left)
+          .attr("y", 26)
+          .attr("font-family", "Playfair Display, serif")
+          .attr("font-weight", 700)
+          .attr("font-size", 17)
+          .attr("fill", COLORS.primary);
+
+        const subTop = svg
+          .append("text")
+          .attr("x", margin.left)
+          .attr("y", 46)
+          .attr("font-family", "Source Serif 4, serif")
+          .attr("font-style", "italic")
+          .attr("font-size", 12)
+          .attr("fill", COLORS.muted);
+
+        const g0 = svg
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const years = rows.map((d) => d.year);
+        const x = d3.scaleBand().domain(years).range([0, iw]).padding(0.15);
+        const y = d3
+          .scaleLinear()
+          .domain([
+            0,
+            d3.max(rows, (d) => d.fatal + d.nonfatal) * 1.08,
+          ])
+          .range([ih, 0]);
+
+        const stack = d3
+          .stack()
+          .keys(["nonfatal", "fatal"])(rows);
+
+        g0.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0,${ih})`)
+          .call(d3.axisBottom(x).tickValues(x.domain()));
+
+        g0.append("g")
+          .attr("class", "axis")
+          .call(d3.axisLeft(y).ticks(6).tickFormat(d3.format(",")));
+
+        const sg = g0.append("g").attr("class", "fatal-stack-layer");
+
+        const lyr = sg
+          .selectAll("g.layer")
+          .data(stack)
+          .enter()
+          .append("g")
+          .attr("class", "layer")
+          .attr("fill", (d, i) =>
+            i === 0 ? COLORS.primary : COLORS.accent,
+          );
+
+        lyr
+          .selectAll("rect")
+          .data((d) => d)
+          .enter()
+          .append("rect")
+          .attr("x", (d) => x(d.data.year))
+          .attr("y", ih)
+          .attr("width", x.bandwidth())
+          .attr("height", 0)
+          .transition()
+          .duration(700)
+          .attr("y", (d) => y(d[1]))
+          .attr("height", (d) => y(d[0]) - y(d[1]));
+
+        // Legend mini
+        const leg = svg.append("g").attr(
+          "transform",
+          `translate(${margin.left},${margin.top + ih + 36})`,
+        );
+        leg
+          .append("rect")
+          .attr("width", 14)
+          .attr("height", 10)
+          .attr("fill", COLORS.primary);
+        leg
+          .append("text")
+          .attr("x", 20)
+          .attr("y", 10)
+          .attr("font-size", 11)
+          .attr("fill", COLORS.muted)
+          .text("No homicide flag");
+        leg
+          .append("rect")
+          .attr("x", 130)
+          .attr("width", 14)
+          .attr("height", 10)
+          .attr("fill", COLORS.accent);
+        leg
+          .append("text")
+          .attr("x", 150)
+          .attr("y", 10)
+          .attr("font-size", 11)
+          .attr("fill", COLORS.muted)
+          .text("At least one fatality");
+
+        const g1 = svg
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`)
+          .style("opacity", 0);
+
+        const boroFatal = BORO_ORDER.map((b) => {
+          const slice = I.filter((d) => d.boro === b);
+          const vic = d3.sum(slice, (d) => d.numVictims);
+          const mur = d3.sum(slice, (d) => d.numMurdered);
+          return {
+            boro: b,
+            label: BORO_SHORT[b],
+            rate: vic ? mur / vic : 0,
+            vic,
+          };
+        }).sort((a, b) => b.rate - a.rate);
+
+        const yb = d3
+          .scaleBand()
+          .domain(boroFatal.map((d) => d.boro))
+          .range([0, ih])
+          .padding(0.22);
+        const xb = d3
+          .scaleLinear()
+          .domain([0, d3.max(boroFatal, (d) => d.rate) * 1.15])
+          .range([0, iw]);
+
+        g1.append("g")
+          .attr("class", "axis")
+          .call(d3.axisLeft(yb).tickFormat((d) => BORO_SHORT[d]));
+        g1.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0,${ih})`)
+          .call(d3.axisBottom(xb).tickFormat(d3.format(".0%")).ticks(5));
+
+        g1.selectAll(".bf-bar")
+          .data(boroFatal)
+          .enter()
+          .append("rect")
+          .attr("class", "bf-bar")
+          .attr("x", 0)
+          .attr("y", (d) => yb(d.boro))
+          .attr("height", yb.bandwidth())
+          .attr("width", 0)
+          .attr("fill", COLORS.accent)
+          .transition()
+          .duration(800)
+          .attr("width", (d) => xb(d.rate));
+
+        g1.selectAll(".bf-lab")
+          .data(boroFatal)
+          .enter()
+          .append("text")
+          .attr("x", (d) => xb(d.rate) + 6)
+          .attr("y", (d) => yb(d.boro) + yb.bandwidth() / 2 + 4)
+          .attr("font-size", 11)
+          .attr("fill", COLORS.muted)
+          .text((d) => d3.format(".1%")(d.rate));
+
+        state.fatal = {
+          titleTop,
+          subTop,
+          g0,
+          g1,
+          stackLayer: sg,
+        };
+
+        titleTop.text("Fatal vs. non-fatal incidents by year");
+        subTop.text(
+          "Incident counts — “fatal” means ≥1 victim killed (NYPD flags). 2006–2025.",
+        );
+        renderFatalStep("fatal-1");
+      }
+
+      function renderFatalStep(step) {
+        const f = state.fatal;
+        if (!f) return;
+        const showBoro = step === "fatal-2";
+        f.g0.transition().duration(450).style("opacity", showBoro ? 0 : 1);
+        f.g1.transition().duration(450).style("opacity", showBoro ? 1 : 0);
+        f.titleTop.text(
+          showBoro
+            ? "Victims killed / victims shot, by borough"
+            : "Fatal vs. non-fatal incidents by year",
+        );
+        f.subTop.text(
+          showBoro
+            ? "Share of all victims in each borough who died from their wounds (victim-weighted)."
+            : "Incident counts — “fatal” means ≥1 victim killed (NYPD flags). 2006–2025.",
+        );
+      }
+
+      function buildPerpUnknownChart() {
+        const el = d3.select("#perp-unknown-viz");
+        el.html("");
+        const I = state.incidents.filter(
+          (d) =>
+            d.year >= TREND_START_YEAR && d.year <= TREND_END_YEAR,
+        );
+        const no = I.filter((d) => !d.hasOffenderData).length;
+        const yes = I.length - no;
+        const margin = { top: 48, right: 28, bottom: 44, left: 28 };
+        const W = 880;
+        const H = 260;
+        const iw = W - margin.left - margin.right;
+        const ih = H - margin.top - margin.bottom;
+
+        const svg = el
+          .append("svg")
+          .attr("class", "chart")
+          .attr("viewBox", `0 0 ${W} ${H}`)
+          .attr("preserveAspectRatio", "xMidYMid meet");
+
+        svg
+          .append("text")
+          .attr("x", margin.left)
+          .attr("y", 28)
+          .attr("font-family", "Playfair Display, serif")
+          .attr("font-weight", 700)
+          .attr("font-size", 16)
+          .attr("fill", COLORS.primary)
+          .text("Identified offenders");
+
+        const g = svg
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const x = d3.scaleLinear().domain([0, 100]).range([0, iw]);
+
+        g.append("rect")
+          .attr("width", x((100 * yes) / I.length))
+          .attr("height", ih)
+          .attr("fill", COLORS.primary)
+          .attr("opacity", 0.85);
+        g.append("rect")
+          .attr("x", x((100 * yes) / I.length))
+          .attr("width", x((100 * no) / I.length))
+          .attr("height", ih)
+          .attr("fill", COLORS.secondary)
+          .attr("opacity", 0.55);
+
+        svg
+          .append("text")
+          .attr("x", margin.left + 8)
+          .attr("y", margin.top + ih / 2 + 5)
+          .attr("fill", "#fff")
+          .attr("font-size", 13)
+          .text(
+            "With offender record: " +
+              d3.format(".1f")((100 * yes) / I.length) +
+              "%",
+          );
+        svg
+          .append("text")
+          .attr(
+            "x",
+            margin.left + x((100 * yes) / I.length) + 8,
+          )
+          .attr("y", margin.top + ih / 2 + 5)
+          .attr("fill", "#1f1d1a")
+          .attr("font-size", 13)
+          .text(
+            "No identified shooter: " +
+              d3.format(".1f")((100 * no) / I.length) +
+              "%",
+          );
+      }
+
+      async function loadVictimLayerCharts() {
+        await ensureVictims();
+        buildVictimAgeYearsChart();
+        if (state.offendersMinimal && state.offendersMinimal.length) {
+          buildOffenderAgeChart(state.offendersMinimal);
+        } else {
+          const offenders = await d3.csv("data/nypd_offenders_clean.csv", (d) => ({
+            age: d.PERP_AGE_GROUP || "UNKNOWN",
+          }));
+          buildOffenderAgeChart(offenders);
+        }
+      }
+
+      function buildOffenderAgeChart(offenders) {
+        const el = d3.select("#offender-age-viz");
+        if (el.empty()) return;
+        el.html("");
+        const order = ["<18", "18-24", "25-44", "45-64", "65+", "UNKNOWN"];
+        const counts = d3.rollup(
+          offenders,
+          (v) => v.length,
+          (d) => d.age,
+        );
+        const data = order
+          .filter((a) => counts.has(a))
+          .map((a) => ({ age: a, n: counts.get(a) }))
+          .sort((a, b) => order.indexOf(a.age) - order.indexOf(b.age));
+
+        const margin = { top: 48, right: 24, bottom: 44, left: 100 };
+        const W = 880;
+        const H = 280;
+        const iw = W - margin.left - margin.right;
+        const ih = H - margin.top - margin.bottom;
+
+        const svg = el
+          .append("svg")
+          .attr("class", "chart")
+          .attr("viewBox", `0 0 ${W} ${H}`)
+          .attr("preserveAspectRatio", "xMidYMid meet");
+
+        svg
+          .append("text")
+          .attr("x", margin.left)
+          .attr("y", 26)
+          .attr("font-family", "Playfair Display, serif")
+          .attr("font-weight", 700)
+          .attr("font-size", 16)
+          .attr("fill", COLORS.primary)
+          .text("Recorded offenders by age group");
+
+        const g = svg
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const y = d3
+          .scaleBand()
+          .domain(data.map((d) => d.age))
+          .range([0, ih])
+          .padding(0.2);
+        const x = d3
+          .scaleLinear()
+          .domain([0, d3.max(data, (d) => d.n) * 1.05])
+          .range([0, iw]);
+
+        g.append("g")
+          .attr("class", "axis")
+          .call(d3.axisLeft(y));
+        g.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0,${ih})`)
+          .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(",")));
+
+        g.selectAll(".ob")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("class", "ob")
+          .attr("x", 0)
+          .attr("y", (d) => y(d.age))
+          .attr("height", y.bandwidth())
+          .attr("width", 0)
+          .attr("fill", (d) =>
+            d.age === "UNKNOWN" ? COLORS.secondary : COLORS.primary,
+          )
+          .transition()
+          .duration(700)
+          .attr("width", (d) => x(d.n));
+
+        g.selectAll(".obl")
+          .data(data)
+          .enter()
+          .append("text")
+          .attr("x", (d) => x(d.n) + 6)
+          .attr("y", (d) => y(d.age) + y.bandwidth() / 2 + 4)
+          .attr("font-size", 11)
+          .attr("fill", COLORS.muted)
+          .text((d) => d3.format(",")(d.n))
+          .style("opacity", 0)
+          .transition()
+          .delay(500)
+          .style("opacity", 1);
+      }
+
+      function buildVictimAgeYearsChart() {
+        const el = d3.select("#victim-age-years-viz");
+        el.html("");
+        const keyToYear = new Map(
+          state.incidents.map((d) => [d.key, d.year]),
+        );
+        const ageOrder = ["<18", "18-24", "25-44", "45-64", "65+"];
+        const rows = state.victims
+          .filter((v) => {
+            const y = keyToYear.get(v.incident);
+            return (
+              y &&
+              y >= TREND_START_YEAR &&
+              y <= TREND_END_YEAR &&
+              ageOrder.includes(v.age)
+            );
+          })
+          .map((v) => ({
+            year: keyToYear.get(v.incident),
+            age: v.age,
+          }));
+
+        const years = d3.range(TREND_START_YEAR, TREND_END_YEAR + 1);
+        const wide = years.map((year) => {
+          const o = { year };
+          let t = 0;
+          ageOrder.forEach((a) => {
+            o[a] = rows.filter((r) => r.year === year && r.age === a).length;
+            t += o[a];
+          });
+          o.total = t;
+          return o;
+        });
+
+        const margin = { top: 52, right: 28, bottom: 48, left: 52 };
+        const W = 880;
+        const H = 420;
+        const iw = W - margin.left - margin.right;
+        const ih = H - margin.top - margin.bottom;
+
+        const svg = el
+          .append("svg")
+          .attr("class", "chart")
+          .attr("viewBox", `0 0 ${W} ${H}`)
+          .attr("preserveAspectRatio", "xMidYMid meet");
+
+        svg
+          .append("text")
+          .attr("x", margin.left)
+          .attr("y", 28)
+          .attr("font-family", "Playfair Display, serif")
+          .attr("font-weight", 700)
+          .attr("font-size", 16)
+          .attr("fill", COLORS.primary)
+          .text("Victims per year, stacked by age group");
+
+        const g = svg
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const x = d3
+          .scaleLinear()
+          .domain([TREND_START_YEAR, TREND_END_YEAR])
+          .range([0, iw]);
+        const y = d3
+          .scaleLinear()
+          .domain([
+            0,
+            d3.max(wide, (d) => d.total) * 1.08,
+          ])
+          .range([ih, 0]);
+
+        const color = d3
+          .scaleOrdinal()
+          .domain(ageOrder)
+          .range([
+            COLORS.accentSoft,
+            COLORS.highlight,
+            COLORS.primary,
+            COLORS.secondary,
+            COLORS.muted,
+          ]);
+
+        const stack = d3.stack().keys(ageOrder)(wide);
+        const area = d3
+          .area()
+          .curve(d3.curveMonotoneX)
+          .x((d) => x(d.data.year))
+          .y0((d) => y(d[0]))
+          .y1((d) => y(d[1]));
+
+        g.selectAll("path.layer-age")
+          .data(stack)
+          .join("path")
+          .attr("class", "layer-age")
+          .attr("fill", (d) => color(d.key))
+          .attr("d", area);
+
+        g.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0,${ih})`)
+          .call(
+            d3
+              .axisBottom(x)
+              .tickValues(yearTickRange(TREND_START_YEAR, TREND_END_YEAR))
+              .tickFormat(d3.format("d")),
+          );
+        g.append("g").attr("class", "axis").call(d3.axisLeft(y).ticks(6));
+
+        const leg = svg.append("g").attr(
+          "transform",
+          `translate(${margin.left},${H - 22})`,
+        );
+        ageOrder.forEach((a, i) => {
+          leg
+            .append("rect")
+            .attr("x", i * 118)
+            .attr("width", 11)
+            .attr("height", 9)
+            .attr("fill", color(a));
+          leg
+            .append("text")
+            .attr("x", i * 118 + 16)
+            .attr("y", 9)
+            .attr("font-size", 10)
+            .attr("fill", COLORS.muted)
+            .text(a);
+        });
+      }
+
+      // ───────────── 3.3 Demographics ─────────────
+      async function ensureVictims() {
+        if (state.victims) return state.victims;
+        const rows = await d3.csv("data/nypd_victims_clean.csv", (d) => ({
+          incident: d.INCIDENT_KEY,
+          age: d.VICTIM_AGE_GROUP,
+          sex: d.VICTIM_SEX,
+          race: d.VICTIM_RACE,
+          murder: d.is_murder === "True",
+        }));
+        state.victims = rows;
+        // pre-aggregate
+        const ageOrder = ["<18", "18-24", "25-44", "45-64", "65+", "UNKNOWN"];
+        const byAge = d3.rollup(
+          rows,
+          (v) => ({ n: v.length, killed: v.filter((d) => d.murder).length }),
+          (d) => d.age,
+        );
+        state.agg.victimsByAge = ageOrder
+          .filter((a) => byAge.has(a))
+          .map((a) => ({
+            age: a,
+            n: byAge.get(a).n,
+            killed: byAge.get(a).killed,
+            rate: byAge.get(a).killed / byAge.get(a).n,
+          }));
+        state.agg.victimsBySex = Array.from(
+          d3.rollup(
+            rows.filter((d) => d.sex === "MALE" || d.sex === "FEMALE"),
+            (v) => v.length,
+            (d) => d.sex,
+          ),
+          ([sex, n]) => ({ sex, n }),
+        );
+        return rows;
+      }
+
+      async function buildDemographics() {
+        await ensureVictims();
+        const container = document.getElementById("demo-viz");
+        container.innerHTML = "";
+
+        const W = 880;
+        const H = 560;
+        const svg = d3
+          .select(container)
+          .append("svg")
+          .attr("class", "chart")
+          .attr("viewBox", `0 0 ${W} ${H}`)
+          .attr("preserveAspectRatio", "xMidYMid meet");
+
+        svg
+          .append("text")
+          .attr("x", 30)
+          .attr("y", 28)
+          .attr("font-family", "Playfair Display, serif")
+          .attr("font-weight", 700)
+          .attr("font-size", 17)
+          .attr("fill", COLORS.primary)
+          .attr("class", "demo-title")
+          .text("Victim age distribution");
+
+        svg
+          .append("text")
+          .attr("x", 30)
+          .attr("y", 48)
+          .attr("font-family", "Source Serif 4, serif")
+          .attr("font-style", "italic")
+          .attr("font-size", 12)
+          .attr("fill", COLORS.muted)
+          .attr("class", "demo-sub")
+          .text("Number of NYPD shooting victims, 2006–present");
+
+        const margin = { top: 80, right: 40, bottom: 60, left: 110 };
+        const iw = W - margin.left - margin.right;
+        const ih = H - margin.top - margin.bottom;
+        const g = svg
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const ageData = state.agg.victimsByAge.filter(
+          (d) => d.age !== "UNKNOWN",
+        );
+        const order = ["<18", "18-24", "25-44", "45-64", "65+"];
+        ageData.sort((a, b) => order.indexOf(a.age) - order.indexOf(b.age));
+
+        const y = d3.scaleBand().domain(order).range([0, ih]).padding(0.22);
+        const x = d3
+          .scaleLinear()
+          .domain([0, d3.max(ageData, (d) => d.n) * 1.05])
+          .range([0, iw]);
+
+        const ageAxes = g.append("g").attr("class", "age-axes");
+        ageAxes
+          .append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0,${ih})`)
+          .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(",")));
+        ageAxes.append("g").attr("class", "axis").call(d3.axisLeft(y));
+
+        g.selectAll(".bar-age")
+          .data(ageData)
+          .enter()
+          .append("rect")
+          .attr("class", "bar-age")
+          .attr("x", 0)
+          .attr("y", (d) => y(d.age))
+          .attr("width", 0)
+          .attr("height", y.bandwidth())
+          .attr("fill", COLORS.primary)
+          .transition("build")
+          .delay((d, i) => i * 80)
+          .duration(700)
+          .attr("width", (d) => x(d.n));
+
+        g.selectAll(".bar-label")
+          .data(ageData)
+          .enter()
+          .append("text")
+          .attr("class", "bar-label")
+          .attr("x", (d) => x(d.n) + 6)
+          .attr("y", (d) => y(d.age) + y.bandwidth() / 2 + 4)
+          .attr("font-size", 12)
+          .attr("fill", COLORS.muted)
+          .text((d) => d3.format(",")(d.n))
+          .style("opacity", 0)
+          .transition("build")
+          .delay(900)
+          .style("opacity", 1);
+
+        // store for later step transitions
+        state.demo = { svg, g, x, y, order, W, H, margin, iw, ih, ageData };
+      }
+
+      function renderDemoStep(step) {
+        const d = state.demo;
+        if (!d) return;
+        const { g, svg } = d;
+
+        if (step === "demo-1" || step === "demo-2") {
+          d.svg.select(".demo-title").text("Victim age distribution");
+          d.svg
+            .select(".demo-sub")
+            .text(
+              step === "demo-1"
+                ? "82% of victims are 18–44 years old"
+                : "Roughly 1 in 10 victims are children under 18",
+            );
+
+          // restore bars + axes
+          g.selectAll(".bar-age").style("display", null);
+          g.selectAll(".bar-label").style("display", null);
+          g.select(".age-axes").style("display", null);
+          // remove sex / fatality charts if present
+          g.selectAll(".sex-group").remove();
+          g.selectAll(".fat-group").remove();
+
+          g.selectAll(".bar-age")
+            .transition("fill")
+            .duration(400)
+            .attr("fill", function (b) {
+              if (step === "demo-2" && b.age === "<18") return COLORS.accent;
+              if (step === "demo-1" && (b.age === "18-24" || b.age === "25-44"))
+                return COLORS.highlight;
+              return COLORS.primary;
+            });
+        } else if (step === "demo-3") {
+          d.svg.select(".demo-title").text("Victim sex");
+          d.svg
+            .select(".demo-sub")
+            .text("91% of NYC shooting victims since 2006 are male");
+
+          g.selectAll(".bar-age").style("display", "none");
+          g.selectAll(".bar-label").style("display", "none");
+          g.select(".age-axes").style("display", "none");
+          g.selectAll(".fat-group").remove();
+
+          if (g.select(".sex-group").empty()) {
+            const sexData = state.agg.victimsBySex;
+            const total = d3.sum(sexData, (s) => s.n);
+            const male = sexData.find((s) => s.sex === "MALE")?.n || 0;
+            const female = sexData.find((s) => s.sex === "FEMALE")?.n || 0;
+
+            const grp = g.append("g").attr("class", "sex-group");
+            const cx = d.iw / 2;
+            const cy = d.ih / 2;
+            const r = Math.min(d.iw, d.ih) / 2.6;
+
+            const arc = d3
+              .arc()
+              .innerRadius(r * 0.55)
+              .outerRadius(r);
+            const pie = d3
+              .pie()
+              .value((s) => s.n)
+              .sort(null);
+
+            const slices = grp
+              .selectAll("path")
+              .data(
+                pie([
+                  { sex: "MALE", n: male },
+                  { sex: "FEMALE", n: female },
+                ]),
+              )
+              .enter()
+              .append("path")
+              .attr("transform", `translate(${cx},${cy})`)
+              .attr("fill", (d) =>
+                d.data.sex === "MALE" ? COLORS.primary : COLORS.accent,
+              );
+
+            slices
+              .transition()
+              .duration(900)
+              .attrTween("d", function (d) {
+                const i = d3.interpolate({ startAngle: 0, endAngle: 0 }, d);
+                return (t) => arc(i(t));
+              });
+
+            grp
+              .append("text")
+              .attr("x", cx)
+              .attr("y", cy - 5)
+              .attr("text-anchor", "middle")
+              .attr("font-family", "Playfair Display, serif")
+              .attr("font-weight", 800)
+              .attr("font-size", 38)
+              .attr("fill", COLORS.primary)
+              .text(d3.format(".0%")(male / total));
+            grp
+              .append("text")
+              .attr("x", cx)
+              .attr("y", cy + 22)
+              .attr("text-anchor", "middle")
+              .attr("font-size", 13)
+              .attr("fill", COLORS.muted)
+              .text("male");
+
+            grp
+              .append("text")
+              .attr("x", cx + r + 12)
+              .attr("y", cy)
+              .attr("font-size", 12)
+              .attr("fill", COLORS.accent)
+              .text(`Female: ${d3.format(",")(female)}`);
+            grp
+              .append("text")
+              .attr("x", cx + r + 12)
+              .attr("y", cy + 16)
+              .attr("font-size", 12)
+              .attr("fill", COLORS.primary)
+              .text(`Male: ${d3.format(",")(male)}`);
+          }
+        } else if (step === "demo-4") {
+          d.svg.select(".demo-title").text("Fatality rate, by age");
+          d.svg
+            .select(".demo-sub")
+            .text("Older victims survive gunshot wounds less often");
+
+          g.selectAll(".bar-age").style("display", "none");
+          g.selectAll(".bar-label").style("display", "none");
+          g.select(".age-axes").style("display", "none");
+          g.selectAll(".sex-group").remove();
+
+          if (g.select(".fat-group").empty()) {
+            const fatData = state.agg.victimsByAge.filter(
+              (a) => a.age !== "UNKNOWN",
+            );
+            const order = ["<18", "18-24", "25-44", "45-64", "65+"];
+            fatData.sort((a, b) => order.indexOf(a.age) - order.indexOf(b.age));
+
+            const grp = g.append("g").attr("class", "fat-group");
+            const xb = d3
+              .scaleBand()
+              .domain(order)
+              .range([0, d.iw])
+              .padding(0.3);
+            const maxR = d3.max(fatData, (a) => a.rate);
+            const yb = d3
+              .scaleLinear()
+              .domain([0, maxR * 1.15])
+              .range([d.ih, 0]);
+
+            grp
+              .append("g")
+              .attr("class", "axis")
+              .attr("transform", `translate(0,${d.ih})`)
+              .call(d3.axisBottom(xb));
+            grp
+              .append("g")
+              .attr("class", "axis")
+              .call(d3.axisLeft(yb).tickFormat(d3.format(".0%")).ticks(5));
+
+            grp
+              .selectAll(".fat-bar")
+              .data(fatData)
+              .enter()
+              .append("rect")
+              .attr("class", "fat-bar")
+              .attr("x", (a) => xb(a.age))
+              .attr("y", d.ih)
+              .attr("width", xb.bandwidth())
+              .attr("height", 0)
+              .attr("fill", COLORS.accent)
+              .transition()
+              .delay((a, i) => i * 70)
+              .duration(600)
+              .attr("y", (a) => yb(a.rate))
+              .attr("height", (a) => d.ih - yb(a.rate));
+
+            grp
+              .selectAll(".fat-lab")
+              .data(fatData)
+              .enter()
+              .append("text")
+              .attr("x", (a) => xb(a.age) + xb.bandwidth() / 2)
+              .attr("y", (a) => yb(a.rate) - 6)
+              .attr("text-anchor", "middle")
+              .attr("font-size", 12)
+              .attr("fill", COLORS.fg)
+              .text((a) => d3.format(".0%")(a.rate))
+              .style("opacity", 0)
+              .transition()
+              .delay(800)
+              .style("opacity", 1);
+          }
+        }
+      }
+
+      // ───────────── 3.4 Time ─────────────
+      function buildTimeViz() {
+        // initialize with day-hour heatmap
+        renderTimeStep("time-1");
+      }
+
+      function renderTimeStep(step) {
+        const container = document.getElementById("time-viz");
+        container.innerHTML = "";
+
+        if (step === "time-3") {
+          // monthly bar chart
+          const W = 880;
+          const H = 560;
+          const m = { top: 80, right: 30, bottom: 60, left: 60 };
+          const svg = d3
+            .select(container)
+            .append("svg")
+            .attr("class", "chart")
+            .attr("viewBox", `0 0 ${W} ${H}`)
+            .attr("preserveAspectRatio", "xMidYMid meet");
+
+          svg
+            .append("text")
+            .attr("x", m.left)
+            .attr("y", 30)
+            .attr("font-family", "Playfair Display, serif")
+            .attr("font-weight", 700)
+            .attr("font-size", 17)
+            .attr("fill", COLORS.primary)
+            .text("Shootings by month, 2006–2025");
+          svg
+            .append("text")
+            .attr("x", m.left)
+            .attr("y", 50)
+            .attr("font-style", "italic")
+            .attr("font-size", 12)
+            .attr("fill", COLORS.muted)
+            .text("July is more than 2× February");
+
+          const iw = W - m.left - m.right;
+          const ih = H - m.top - m.bottom;
+          const g = svg
+            .append("g")
+            .attr("transform", `translate(${m.left},${m.top})`);
+
+          const data = state.agg.monthly;
+          const months = [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ];
+          const x = d3
+            .scaleBand()
+            .domain(d3.range(1, 13))
+            .range([0, iw])
+            .padding(0.18);
+          const y = d3
+            .scaleLinear()
+            .domain([0, d3.max(data, (d) => d.n) * 1.1])
+            .range([ih, 0]);
+
+          g.append("g")
+            .attr("class", "axis")
+            .attr("transform", `translate(0,${ih})`)
+            .call(d3.axisBottom(x).tickFormat((d) => months[d - 1]));
+          g.append("g")
+            .attr("class", "axis")
+            .call(d3.axisLeft(y).ticks(6).tickFormat(d3.format(",")));
+
+          g.selectAll(".m-bar")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "m-bar")
+            .attr("x", (d) => x(d.month))
+            .attr("y", ih)
+            .attr("width", x.bandwidth())
+            .attr("height", 0)
+            .attr("fill", (d) =>
+              d.month >= 6 && d.month <= 8
+                ? COLORS.accent
+                : d.month === 12 || d.month === 1 || d.month === 2
+                  ? COLORS.secondary
+                  : COLORS.primary,
+            )
+            .transition()
+            .delay((d, i) => i * 50)
+            .duration(600)
+            .attr("y", (d) => y(d.n))
+            .attr("height", (d) => ih - y(d.n));
+
+          g.selectAll(".m-lab")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("x", (d) => x(d.month) + x.bandwidth() / 2)
+            .attr("y", (d) => y(d.n) - 6)
+            .attr("text-anchor", "middle")
+            .attr("font-size", 11)
+            .attr("fill", COLORS.muted)
+            .text((d) => d3.format(",")(d.n))
+            .style("opacity", 0)
+            .transition()
+            .delay(700)
+            .style("opacity", 1);
+
+          return;
+        }
+
+        // heatmap (steps 1 & 2)
+        const W = 880;
+        const H = 560;
+        const m = { top: 80, right: 60, bottom: 50, left: 90 };
+        const iw = W - m.left - m.right;
+        const ih = H - m.top - m.bottom;
+
+        const svg = d3
+          .select(container)
+          .append("svg")
+          .attr("class", "chart")
+          .attr("viewBox", `0 0 ${W} ${H}`)
+          .attr("preserveAspectRatio", "xMidYMid meet");
+
+        svg
+          .append("text")
+          .attr("x", m.left)
+          .attr("y", 30)
+          .attr("font-family", "Playfair Display, serif")
+          .attr("font-weight", 700)
+          .attr("font-size", 17)
+          .attr("fill", COLORS.primary)
+          .text("Shootings by day & hour, 2006–2025");
+        svg
+          .append("text")
+          .attr("x", m.left)
+          .attr("y", 50)
+          .attr("font-style", "italic")
+          .attr("font-size", 12)
+          .attr("fill", COLORS.muted)
+          .text(
+            step === "time-2"
+              ? "Weekend nights — Friday into Sunday morning — dominate"
+              : "Each cell: total incidents in that hour of that weekday",
+          );
+
+        const g = svg
+          .append("g")
+          .attr("transform", `translate(${m.left},${m.top})`);
+
+        const data = state.agg.dayHour;
+        const dows = state.agg.dows;
+        const x = d3.scaleBand().domain(d3.range(0, 24)).range([0, iw]);
+        const y = d3.scaleBand().domain(dows).range([0, ih]);
+        const max = d3.max(data, (d) => d.n);
+        const color = d3
+          .scaleSequential()
+          .domain([0, max])
+          .interpolator(d3.interpolateRgb("#f5f1eb", COLORS.accent));
+
+        g.selectAll(".cell")
+          .data(data)
+          .enter()
+          .append("rect")
+          .attr("class", "cell")
+          .attr("x", (d) => x(d.hour))
+          .attr("y", (d) => y(d.day))
+          .attr("width", x.bandwidth())
+          .attr("height", y.bandwidth())
+          .attr("fill", (d) => color(d.n))
+          .attr("stroke", "#f5f1eb")
+          .attr("stroke-width", 1)
+          .style("opacity", function (d) {
+            if (step === "time-2") {
+              const isLateWeekend =
+                (d.day === "Friday" && d.hour >= 22) ||
+                (d.day === "Saturday" && (d.hour >= 20 || d.hour < 5)) ||
+                (d.day === "Sunday" && d.hour < 5);
+              return isLateWeekend ? 1 : 0.22;
+            }
+            return 1;
+          });
+
+        g.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0,${ih})`)
+          .call(
+            d3
+              .axisBottom(x)
+              .tickValues([0, 3, 6, 9, 12, 15, 18, 21])
+              .tickFormat((d) =>
+                d === 0
+                  ? "12am"
+                  : d < 12
+                    ? d + "am"
+                    : d === 12
+                      ? "12pm"
+                      : d - 12 + "pm",
+              ),
+          );
+        g.append("g").attr("class", "axis").call(d3.axisLeft(y));
+
+        // legend
+        const lg = svg
+          .append("g")
+          .attr("transform", `translate(${m.left},${H - 18})`);
+        const lw = 220,
+          lh = 8;
+        const grad = svg
+          .append("defs")
+          .append("linearGradient")
+          .attr("id", "heat-grad");
+        grad
+          .selectAll("stop")
+          .data([0, 0.25, 0.5, 0.75, 1])
+          .enter()
+          .append("stop")
+          .attr("offset", (d) => d * 100 + "%")
+          .attr("stop-color", (d) => color(d * max));
+        lg.append("rect")
+          .attr("width", lw)
+          .attr("height", lh)
+          .attr("fill", "url(#heat-grad)");
+        lg.append("text")
+          .attr("y", -4)
+          .attr("font-size", 11)
+          .attr("fill", COLORS.muted)
+          .text("Fewer incidents → more incidents");
+      }
+
+      // ───────────── 3.5 Exploration ─────────────
+      function buildExploration() {
+        const map = L.map("explore-map", {
+          zoomControl: true,
+          scrollWheelZoom: false,
+          attributionControl: false,
+          preferCanvas: true,
+        }).setView([40.72, -73.93], 11);
+        L.tileLayer(
+          "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png",
+          {
+            attribution: "© OpenStreetMap, © CARTO",
+            maxZoom: 19,
+            subdomains: "abcd",
+          },
+        ).addTo(map);
+        L.tileLayer(
+          "https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png",
+          {
+            maxZoom: 19,
+            subdomains: "abcd",
+            pane: "shadowPane",
+          },
+        ).addTo(map);
+        state.exploreMap = map;
+        setTimeout(() => map.invalidateSize(), 100);
+
+        // wire controls
+        document.getElementById("ctrl-boro").addEventListener("change", (e) => {
+          state.exploreSel.boro = e.target.value;
+          renderExploration();
+        });
+
+        const yMin = document.getElementById("ctrl-year-min");
+        const yMax = document.getElementById("ctrl-year-max");
+        const updateYears = () => {
+          let lo = +yMin.value,
+            hi = +yMax.value;
+          if (lo > hi) {
+            [lo, hi] = [hi, lo];
+          }
+          state.exploreSel.yMin = lo;
+          state.exploreSel.yMax = hi;
+          document.getElementById("year-display").textContent = `${lo} — ${hi}`;
+          renderExploration();
+        };
+        yMin.addEventListener("input", updateYears);
+        yMax.addEventListener("input", updateYears);
+
+        document.querySelectorAll("#ctrl-age button").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const v = btn.dataset.v;
+            const set = state.exploreSel.ages;
+            if (set.has(v)) set.delete(v);
+            else set.add(v);
+            btn.classList.toggle("on");
+            renderExploration();
+          });
+        });
+        document.querySelectorAll("#ctrl-sex button").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const v = btn.dataset.v;
+            const set = state.exploreSel.sexes;
+            if (set.has(v)) set.delete(v);
+            else set.add(v);
+            btn.classList.toggle("on");
+            renderExploration();
+          });
+        });
+
+        renderExploration();
+      }
+
+      function renderExploration() {
+        const sel = state.exploreSel;
+        const map = state.exploreMap;
+        if (!map) return;
+
+        const ageMatches = (groups) => {
+          if (!groups) return sel.ages.has("UNKNOWN") || true;
+          const arr = groups.split("|");
+          return arr.some((a) => sel.ages.has(a));
+        };
+        const sexMatches = (sexes) => {
+          if (!sexes) return true;
+          const arr = sexes.split("|");
+          return arr.some((s) => sel.sexes.has(s));
+        };
+
+        // We need raw incidents with victim_age_groups/sexes
+        const rows = state.incidents.filter((d) => {
+          if (d.year < sel.yMin || d.year > sel.yMax) return false;
+          if (sel.boro !== "ALL" && d.boro !== sel.boro) return false;
+          return true;
+        });
+
+        const filtered = rows.filter((d) => {
+          if (sel.ages.size === 0 || sel.sexes.size === 0) return false;
+          if (sel.ages.size < 5) {
+            if (!d.victimAgeGroups) return false;
+            const arr = d.victimAgeGroups.split("|");
+            if (!arr.some((a) => sel.ages.has(a))) return false;
+          }
+          if (sel.sexes.size < 2) {
+            if (!d.victimSexes) return false;
+            const arr = d.victimSexes.split("|");
+            if (!arr.some((s) => sel.sexes.has(s))) return false;
+          }
+          return true;
+        });
+
+        // Stats
+        const incCount = filtered.length;
+        const vicCount = d3.sum(filtered, (d) => d.numVictims);
+        const fatCount = d3.sum(filtered, (d) => d.numMurdered);
+        document.getElementById("stat-incidents").textContent =
+          d3.format(",")(incCount);
+        document.getElementById("stat-victims").textContent =
+          d3.format(",")(vicCount);
+        document.getElementById("stat-fatal").textContent =
+          d3.format(",")(fatCount);
+        document.getElementById("stat-rate").textContent = vicCount
+          ? d3.format(".1%")(fatCount / vicCount)
+          : "—";
+
+        // Map heat
+        if (state.exploreHeat) map.removeLayer(state.exploreHeat);
+        const pts = filtered
+          .filter((d) => d.lat && d.lon && d.lat > 40 && d.lat < 41)
+          .map((d) => [d.lat, d.lon, 0.5]);
+        state.exploreHeat = L.heatLayer(pts, {
+          radius: 10,
+          blur: 14,
+          minOpacity: 0.25,
+          gradient: {
+            0.2: "#fdf3c4",
+            0.4: "#f4c66c",
+            0.6: "#e08e3d",
+            0.8: "#b03a2e",
+            1.0: "#7d1e16",
+          },
+        }).addTo(map);
+      }
+
+      // ───────────── Scrollama ─────────────
+      function setupScrollama() {
+        const handlers = {
+          "sec-chapter1": renderChapter1Step,
+          "sec-map": renderMapStep,
+          "sec-demo": renderDemoStep,
+          "sec-time": renderTimeStep,
+          "sec-fatal": renderFatalStep,
+        };
+        const scrollers = [];
+
+        document.querySelectorAll(".scrolly").forEach((sec) => {
+          const id = sec.id;
+          const handler = handlers[id];
+          if (!handler) return;
+          const sc = scrollama();
+          sc.setup({
+            step: `#${id} .step`,
+            offset: 0.55,
+          }).onStepEnter((res) => {
+            const stepKey = res.element.dataset.step;
+            sec
+              .querySelectorAll(".step")
+              .forEach((s) => s.classList.remove("is-active"));
+            res.element.classList.add("is-active");
+
+            if (id === "sec-demo" && !state.demo) {
+              buildDemographics().then(() => renderDemoStep(stepKey));
+            } else {
+              handler(stepKey);
+            }
+          });
+          scrollers.push(sc);
+        });
+        window.addEventListener("resize", () => {
+          scrollers.forEach((s) => s.resize());
+          if (state.leafletMap) state.leafletMap.invalidateSize();
+        });
+      }
+
+      // ───────────── go ─────────────
+      init().catch((err) => {
+        console.error(err);
+        document
+          .querySelectorAll(".loading")
+          .forEach(
+            (el) => (el.textContent = "Failed to load data: " + err.message),
+          );
+      });
+    </script>
+  </body>
+</html>

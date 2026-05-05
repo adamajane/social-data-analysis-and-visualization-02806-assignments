@@ -1,0 +1,2 @@
+# Optional: matplotlib figures from build_visuals.ipynb
+matplotlib>=3.7
