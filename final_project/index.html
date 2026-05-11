@@ -73,7 +73,6 @@
         align-items: flex-end;
         overflow: hidden;
         padding: 6rem 1.25rem 5rem;
-        border-bottom: 1px solid var(--rule);
         background:
           linear-gradient(
             180deg,
@@ -96,14 +95,6 @@
             transparent 72px
           ),
           var(--bg-deep);
-      }
-
-      .story-hero::before {
-        content: "";
-        position: absolute;
-        inset: 1.2rem;
-        border: 1px solid rgba(31, 29, 26, 0.1);
-        pointer-events: none;
       }
 
       .story-hero::after {
@@ -766,14 +757,71 @@
         stroke-dasharray: 4 3;
       }
 
+      /* Chapter divider — line • Chapter X • line, with optional fade to title */
+      .chapter-divider {
+        display: flex;
+        align-items: center;
+        gap: 1.4rem;
+        max-width: 48rem;
+        margin: 4rem auto 1rem;
+        padding: 0 1.25rem;
+      }
+      .chapter-divider__line {
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
+      .chapter-divider__label {
+        display: grid;
+        grid-template-areas: "stack";
+        justify-items: center;
+        text-align: center;
+        font-family: "Playfair Display", Georgia, serif;
+        font-style: italic;
+        font-size: 1.05rem;
+        color: var(--muted);
+        white-space: nowrap;
+        letter-spacing: 0.01em;
+      }
+      .chapter-divider__num,
+      .chapter-divider__title {
+        grid-area: stack;
+        transition: opacity 0.55s ease;
+      }
+      .chapter-divider__title {
+        opacity: 0;
+        color: var(--fg);
+      }
+      .chapter-divider.is-active .chapter-divider__num {
+        opacity: 0;
+      }
+      .chapter-divider.is-active .chapter-divider__title {
+        opacity: 1;
+      }
+
+      /* Colophon */
+      .colophon {
+        max-width: 38rem;
+        margin: 4rem auto 0;
+        padding: 1.5rem 1.25rem 0;
+        border-top: 1px solid var(--rule);
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .colophon p {
+        margin: 0.15rem 0;
+      }
+      .colophon strong {
+        color: var(--fg);
+      }
+
       /* Mobile */
       @media (max-width: 800px) {
         .story-hero {
           min-height: 76vh;
           padding: 4.5rem 1.25rem 3.5rem;
-        }
-        .story-hero::before {
-          inset: 0.75rem;
         }
         .story-hero::after {
           right: 1.25rem;
@@ -883,24 +931,38 @@
         </div>
 
         <div class="story-hero__stats" aria-label="Story overview">
-          <strong>24,126</strong>
           <div>
+            <strong>24,126</strong>
             <span>NYPD-recorded shooting incidents in the merged file</span>
           </div>
           <div>
             <strong>29k</strong>
             <span>listed victims across the person-level records</span>
           </div>
+          <div>
+            <strong>5</strong>
+            <span>chapters</span>
+          </div>
         </div>
       </div>
     </header>
 
-    <hr />
+    <div
+      class="chapter-divider"
+      data-chapter-targets="sec-chapter1"
+      aria-hidden="true"
+    >
+      <div class="chapter-divider__line"></div>
+      <span class="chapter-divider__label">
+        <span class="chapter-divider__num">Chapter 1</span>
+        <span class="chapter-divider__title">The long decline</span>
+      </span>
+      <div class="chapter-divider__line"></div>
+    </div>
 
     <!-- ─── Chapter 1 narrative ─── -->
     <section class="act3-intro">
       <div class="prose">
-        <span class="act-label">Chapter 1 — The long decline</span>
         <h2>The arc of the city and its boroughs.</h2>
         <p>
           New York City shootings have gradually declined in the last 20 years
@@ -964,10 +1026,22 @@
       </div>
     </section>
 
+    <div
+      class="chapter-divider"
+      data-chapter-targets="sec-map"
+      aria-hidden="true"
+    >
+      <div class="chapter-divider__line"></div>
+      <span class="chapter-divider__label">
+        <span class="chapter-divider__num">Chapter 2</span>
+        <span class="chapter-divider__title">Where it happens</span>
+      </span>
+      <div class="chapter-divider__line"></div>
+    </div>
+
     <!-- ─── Chapter 2: Where it happens ─── -->
     <div class="section-intro">
       <div class="inner">
-        <span class="act-label">Chapter 2 — Where it happens</span>
         <h3
           style="
             font-family: &quot;Playfair Display&quot;, serif;
@@ -1053,10 +1127,22 @@
       </div>
     </section>
 
+    <div
+      class="chapter-divider"
+      data-chapter-targets="sec-demo,sec-offender-flow"
+      aria-hidden="true"
+    >
+      <div class="chapter-divider__line"></div>
+      <span class="chapter-divider__label">
+        <span class="chapter-divider__num">Chapter 3</span>
+        <span class="chapter-divider__title">Who it happens to</span>
+      </span>
+      <div class="chapter-divider__line"></div>
+    </div>
+
     <!-- ─── Chapter 3: Who it happens to ─── -->
     <div class="section-intro">
       <div class="inner">
-        <span class="act-label">Chapter 3 — Who it happens to</span>
         <h3
           style="
             font-family: &quot;Playfair Display&quot;, serif;
@@ -1067,19 +1153,18 @@
           Behind every dot on the map is a person.
         </h3>
         <p style="color: var(--muted)">
-          The merged person-level files list roughly 29,000 victims since 2006<a
-            href="#ref1"
-            ><sup>1</sup></a
-          >. In the aggregate, the burden is concentrated among young adults and
-          men. New York research also shows that shooting risk is deeply tied to
-          place: a small share of the city’s geography carries much of the
-          harm<a href="#ref3"><sup>3</sup></a
+          Across two decades of NYPD records, nearly 29,000 individuals have
+          been shot in New York City<a href="#ref1"><sup>1</sup></a
+          >. They are not a cross-section of the city. The burden falls
+          overwhelmingly on young men, and on the same small slice of geography
+          we just explored<a href="#ref3"><sup>3</sup></a
           >.
         </p>
         <p style="color: var(--muted)">
-          The scroll sections below keep that distinction in view. They use age
-          and sex to describe recorded victims, then shift to fatality by age
-          and the age bands NYPD recorded for alleged offenders.
+          Knowing who is shot also tells us something about who survives. Older
+          victims are far less likely to walk away from a gunshot wound, and the
+          alleged shooters NYPD does identify are even younger than the victims
+          themselves — most often teenagers and young adults.
         </p>
       </div>
     </div>
@@ -1094,33 +1179,33 @@
         <div class="step" data-step="demo-1">
           <h3>Mostly young.</h3>
           <p>
-            The largest victim age groups are 25–44 and 18–24. Together, adults
-            18–44 make up more than <span class="stat">82%</span> of victims
-            whose age group is listed.
+            The two largest victim groups are 25–44 and 18–24. Together, adults
+            18–44 make up more than <span class="stat">82%</span> of all
+            recorded victims.
           </p>
         </div>
         <div class="step" data-step="demo-2">
-          <h3>And too often, very young.</h3>
+          <h3>Children, too.</h3>
           <p>
-            Nearly <span class="stat">3,000</span> victims in the file are under
-            18, about <strong>one in ten</strong>. Highlighting that bar makes
-            the youth burden easier to see against the larger adult categories.
+            Nearly <span class="stat">3,000</span> victims since 2006 have been
+            under 18 — about <strong>one in ten</strong>. Gun violence in New
+            York reaches deep into childhood.
           </p>
         </div>
         <div class="step" data-step="demo-3">
           <h3>Almost entirely men.</h3>
           <p>
-            Where victim sex is recorded, the dataset is overwhelmingly male:
-            <span class="stat">91%</span>. The chart describes the whole pool,
-            not any one person’s story.
+            <span class="stat">91%</span> of NYC shooting victims are male. The
+            pattern holds across boroughs, across decades, and across age
+            groups.
           </p>
         </div>
         <div class="step" data-step="demo-4">
-          <h3>Lethality, by age.</h3>
+          <h3>Lethality rises with age.</h3>
           <p>
-            The view changes from counts to fatality rates: the share of victims
-            in each age band who died from the shooting. Older age bands have
-            the highest rates in this file.
+            Roughly one in six victims dies from their wounds. But age matters:
+            a 65-year-old shot in New York is far less likely to walk out of the
+            hospital than a 25-year-old.
           </p>
         </div>
       </div>
@@ -1134,44 +1219,54 @@
       </div>
       <div class="steps">
         <div class="step is-active" data-step="ob-1">
-          <h3>Youth and young adults.</h3>
+          <h3>Suspects skew young.</h3>
           <p>
-            When NYPD records a suspect age, the distribution begins heavily in
-            the youngest adult bands. The chart starts there before adding older
-            groups.
+            Where NYPD has identified a suspect, the alleged shooter is most
+            often young — under 25, sometimes under 18.
           </p>
         </div>
         <div class="step" data-step="ob-2">
           <h3>The core band.</h3>
           <p>
-            <span class="stat">18–24</span> and
-            <span class="stat">25–44</span> are the largest recorded offender
-            age groups. This does not identify who committed every shooting;
-            many incidents have no offender age.
+            <span class="stat">18–24</span> is the single largest recorded
+            offender age group. Together with <span class="stat">25–44</span>,
+            these two bands account for the majority of identified shooters.
           </p>
         </div>
         <div class="step" data-step="ob-3">
           <h3>Rarer with age.</h3>
           <p>
-            Older age groups still appear in the data, but their counts are much
-            smaller than the young-adult bands.
+            Older offenders exist, but they grow increasingly uncommon with each
+            step up the age ladder.
           </p>
         </div>
         <div class="step" data-step="ob-4">
           <h3>The missing slice.</h3>
           <p>
-            <span class="stat">UNKNOWN</span> means no age group was recorded.
-            It is not an age category, but it matters because missing offender
-            information is a substantial part of the file.
+            For a large share of incidents, NYPD records no age for any suspect
+            at all. Any picture of who pulls the trigger has to sit with that
+            gap.
           </p>
         </div>
       </div>
     </section>
 
+    <div
+      class="chapter-divider"
+      data-chapter-targets="sec-time"
+      aria-hidden="true"
+    >
+      <div class="chapter-divider__line"></div>
+      <span class="chapter-divider__label">
+        <span class="chapter-divider__num">Chapter 4</span>
+        <span class="chapter-divider__title">When it happens</span>
+      </span>
+      <div class="chapter-divider__line"></div>
+    </div>
+
     <!-- ─── Chapter 4 intro ─── -->
     <div class="section-intro">
       <div class="inner">
-        <span class="act-label">Chapter 4 — When it happens</span>
         <h3
           style="
             font-family: &quot;Playfair Display&quot;, serif;
@@ -1182,13 +1277,28 @@
           Gun violence runs on a clock and a calendar.
         </h3>
         <p style="color: var(--muted)">
-          Shootings are not evenly distributed across the week. They cluster at
-          particular hours, especially late weekend nights, and they rise in
-          warmer months when more people are outside and routines overlap.
+          Shootings in New York don't happen at random across the calendar. They
+          follow a weekly and seasonal rhythm — concentrated at night, on
+          weekends, on holidays, and in summer. A study of six major U.S. cities
+          found the same pattern showing up almost everywhere it was measured<a
+            href="#ref7"
+            ><sup>7</sup></a
+          >.
         </p>
         <p style="color: var(--muted)">
-          The next section uses only NYPD timestamps: a weekday-by-hour heatmap,
-          a focused view of the late-weekend band, and a month-by-month total.
+          What might tie those hours to those wounds? Drinking is one well
+          documented connector. A systematic review of four decades of research
+          found that more than a third of firearm-violence decedents had
+          consumed alcohol before their deaths, and that alcohol outlets are
+          statistically associated with elevated rates of firearm assault<a
+            href="#ref8"
+            ><sup>8</sup></a
+          >. Heat is another. A 2025 study of 44 U.S. cities found violent
+          crime rising measurably as daily temperatures climb from cold to
+          hot, with the strongest effects in cities with less greenspace and
+          lower air-conditioning access<a href="#ref9"><sup>9</sup></a>. Laid
+          against NYC's late-night, weekend, and summer clusters, the picture
+          begins to make uncomfortable sense.
         </p>
       </div>
     </div>
@@ -1201,35 +1311,55 @@
         <div class="step" data-step="time-1">
           <h3>Every hour of the week.</h3>
           <p>
-            Each cell is one hour of the week: weekdays down the side, hours
-            across the top. Darker cells mark the time slots where more
-            incidents accumulate.
+            Each cell is one hour of one weekday — the darker, the more
+            shootings. Routine workdays stay pale; the late-night blocks light
+            up.
           </p>
         </div>
         <div class="step" data-step="time-2">
-          <h3>Late weekend nights stand out.</h3>
+          <h3>Friday and Saturday nights.</h3>
           <p>
-            The strongest band runs from late Friday evening through Sunday
-            morning (<span class="stat">about 10pm Fri–4am Sun</span>). Sunday
-            alone accounts for about <span class="stat">4,700</span> incidents
-            in the pool.
+            The cluster is hard to miss — shootings concentrate from late Friday
+            through Sunday morning. Counting the hours just after midnight as
+            part of Sunday, Sunday alone accounts for roughly
+            <span class="stat">4,700</span> incidents, more than any other day.
+            Nightlife, weekends, and alcohol overlap heavily in this band<a
+              href="#ref8"
+              ><sup>8</sup></a
+            >.
           </p>
         </div>
         <div class="step" data-step="time-3">
-          <h3>Seasonality shows up too.</h3>
+          <h3>And then the summer surge.</h3>
           <p>
-            The view switches to monthly totals. July is highest at
-            <span class="stat">2,778</span> incidents in this dataset, while
-            February is lowest at <span class="stat">1,254</span>.
+            July counts <span class="stat">2,778</span> incidents — more than
+            double February's <span class="stat">1,254</span>. Warm weather
+            pulls people outdoors and stretches social gatherings later, and
+            hotter days themselves raise violent-crime risk across U.S.
+            cities<a href="#ref9"><sup>9</sup></a>. The same weekend and
+            late-night dynamics compound across the summer
+            months<a href="#ref7"><sup>7</sup></a>.
           </p>
         </div>
       </div>
     </section>
 
+    <div
+      class="chapter-divider"
+      data-chapter-targets="sec-fatal"
+      aria-hidden="true"
+    >
+      <div class="chapter-divider__line"></div>
+      <span class="chapter-divider__label">
+        <span class="chapter-divider__num">Chapter 5</span>
+        <span class="chapter-divider__title">Fatal vs. non-fatal</span>
+      </span>
+      <div class="chapter-divider__line"></div>
+    </div>
+
     <!-- ─── Chapter 5: Fatal vs non-fatal ─── -->
     <div class="section-intro">
       <div class="inner">
-        <span class="act-label">Chapter 5 — Fatal vs. non-fatal</span>
         <h3
           style="
             font-family: &quot;Playfair Display&quot;, serif;
@@ -1324,7 +1454,7 @@
         title="NYC shooting precinct map explorer"
         style="
           width: 100%;
-          height: min(880px, 92vh);
+          height: min(1180px, 96vh);
           border: 1px solid var(--rule);
           border-radius: 6px;
           background: var(--bg-deep);
@@ -1332,19 +1462,77 @@
       ></iframe>
     </div>
 
-    <section class="prose" style="margin-top: 3rem">
+    <div class="chapter-divider" aria-hidden="true">
+      <div class="chapter-divider__line"></div>
+      <span class="chapter-divider__label">
+        <span class="chapter-divider__num">Conclusion</span>
+      </span>
+      <div class="chapter-divider__line"></div>
+    </div>
+
+    <section class="prose" style="margin-top: 1.5rem">
       <h2 style="font-family: &quot;Playfair Display&quot;, serif">
-        An unfinished story, written in rows.
+        Patterns are clear. Causes are not.
       </h2>
       <p>
-        New York’s trajectory is neither a simple victory nor a simple failure.
-        Complete-year counts through 2025 sit below the old 2019 floor — an
-        enormous human gain — while geography remains stubbornly uneven,
-        offender records remain incomplete for a large share of incidents, and
-        no local dataset answers where firearms originate.
+        Across two decades of NYPD records, four findings hold up across every
+        slice of the data. Shootings in New York City fell substantially from
+        2006 to 2019 before the 2020 surge erased much of that progress, and
+        the city has only recently returned to its old floor. The geography is
+        remarkably stable: Brooklyn and the Bronx — and a small cluster of
+        precincts inside them — carry the bulk of the burden in every year on
+        file. The people shot are overwhelmingly young men, and roughly one in
+        six victims dies of their wounds, with the odds of survival falling as
+        age rises. And the timing follows a consistent rhythm — late weekend
+        nights and the summer months, the hours when nightlife, heat, and
+        alcohol overlap.
       </p>
-      <p>The martini glass stem ends here; the bowl below is yours to tilt.</p>
+      <p>
+        Those are the patterns the data shows confidently. It is far quieter
+        on why they exist. We can chart the 2020 surge but cannot isolate
+        whether COVID lockdowns, a pullback in proactive policing, economic
+        stress, or social unrest contributed most. We can name landmark policy
+        moments — the 2013 SAFE Act, the 2022 <em>Bruen</em> ruling, the 2023
+        Concealed Carry Improvement Act — but the trend line was already
+        moving before each, and a single city's incident file cannot causally
+        attribute a curve to a statute. About 39% of incidents have no
+        identified offender, so any picture of who pulls the trigger is
+        structurally incomplete, and nothing in this dataset says where the
+        guns themselves were bought or trafficked from.
+      </p>
+      <p>
+        The biggest blind spot is the wider structure that NYPD records do not
+        capture at all. The neighborhoods that dominate the maps — East New
+        York, Brownsville, East Flatbush — are also among the city's poorest,
+        with lower median incomes and lower educational attainment than
+        Manhattan or much of Queens. Decades of housing policy, school
+        funding, employment access, and concentrated disinvestment leave
+        fingerprints on a shooting map even though they appear nowhere in the
+        file. The same is true of forces that sit further upstream — state
+        and federal gun policy, the porous flow of firearms across state
+        lines, cultural and political attitudes toward guns and policing,
+        and what gets reported in the first place. New York's gun violence
+        is, in this sense, a downstream symptom of much larger pressures
+        that a city's own crime records were never built to measure.
+      </p>
+      <p>
+        What the data does say plainly is that the burden falls overwhelmingly
+        on a small set of neighborhoods and a small set of people. That part
+        is not in dispute. What the city, the state, and the country choose to
+        do about it sits outside this dataset.
+      </p>
     </section>
+
+    <div class="colophon">
+      <p><strong>02806 Social Data Analysis and Visualization</strong></p>
+      <p>Created by Group 70</p>
+      <p>Sævar Reynisson (s260166)</p>
+      <p>Brynjar Bjarkason (s253549)</p>
+      <p>Adam Ajane (s211048)</p>
+      <p>
+        <i>Data: NYC Open Data — NYPD Shooting Incident records, 2006–2026</i>
+      </p>
+    </div>
 
     <section class="refs" aria-labelledby="refs-heading">
       <h2 id="refs-heading">Data sources &amp; references</h2>
@@ -1417,6 +1605,43 @@
             <a
               href="https://www.cdc.gov/wisqars/about/nonfatal-injury-data.html"
               >cdc.gov/wisqars/about/nonfatal-injury-data.html</a
+            >
+          </div>
+        </li>
+        <li id="ref7">
+          Klerman EB, Affouf M, Robbins R, Iyer JM, Griggs C, Masiakos PT, Sacks
+          CA.
+          <em
+            >Characterizing Gun Violence by Time, Day of the Week, Holidays, and
+            Month in 6 US Cities, 2015–2021.</em
+          >
+          Journal of Biological Rhythms, 2024 Feb;39(1):100–108.
+          <div class="meta">
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10842407/"
+              >pmc.ncbi.nlm.nih.gov/articles/PMC10842407</a
+            >
+          </div>
+        </li>
+        <li id="ref8">
+          Branas CC, Han S, Wiebe DJ.
+          <em>Alcohol Use and Firearm Violence.</em>
+          Epidemiologic Reviews, 2016;38(1):32–45.
+          <div class="meta">
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4762248/"
+              >pmc.ncbi.nlm.nih.gov/articles/PMC4762248</a
+            >
+          </div>
+        </li>
+        <li id="ref9">
+          Heo S, Choi HM, Berman JD, Bell ML.
+          <em
+            >Temperature, violent crime, climate change, and vulnerability
+            factors in 44 United States cities.</em
+          >
+          Environment International, 2025 Jan;195:109246.
+          <div class="meta">
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11786129/"
+              >pmc.ncbi.nlm.nih.gov/articles/PMC11786129</a
             >
           </div>
         </li>
@@ -1516,8 +1741,37 @@
         // The open exploration is embedded from output/nyc_shootings_precinct_map_explorer.html.
         await loadVictimLayerCharts();
         setupScrollama();
+        setupChapterDividers();
         if (state.offenderFlow) renderOffenderFlowStep("ob-1");
         renderChapter1Step("boro-1");
+      }
+
+      function setupChapterDividers() {
+        const dividers = document.querySelectorAll(
+          ".chapter-divider[data-chapter-targets]",
+        );
+        dividers.forEach((divider) => {
+          const ids = divider.dataset.chapterTargets
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean);
+          const targets = ids
+            .map((id) => document.getElementById(id))
+            .filter(Boolean);
+          if (!targets.length) return;
+          const visible = new Set();
+          const io = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((e) => {
+                if (e.isIntersecting) visible.add(e.target);
+                else visible.delete(e.target);
+              });
+              divider.classList.toggle("is-active", visible.size > 0);
+            },
+            { rootMargin: "0px 0px -5% 0px" },
+          );
+          targets.forEach((t) => io.observe(t));
+        });
       }
 
       function parseRow(d) {
@@ -1877,8 +2131,8 @@
           );
         leg
           .append("line")
-          .attr("x1", -86)
-          .attr("x2", -52)
+          .attr("x1", -132)
+          .attr("x2", -94)
           .attr("y1", -4)
           .attr("y2", -4)
           .attr("stroke", COLORS.primary)
@@ -1897,8 +2151,8 @@
         BORO_ORDER.forEach((b) => {
           leg
             .append("line")
-            .attr("x1", -86)
-            .attr("x2", -52)
+            .attr("x1", -132)
+            .attr("x2", -94)
             .attr("y1", ly - 4)
             .attr("y2", ly - 4)
             .attr("stroke", BORO_LINE_COLORS[b])
