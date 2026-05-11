@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>The Blueprint Exists — Gun Reform from Australia to America</title>
+    <title>How New York Almost Solved Gun Violence — NYC Shootings, 2006–Present</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -234,6 +234,23 @@
       .scrolly .viz-inner .map-container {
         width: 100%;
         height: 100%;
+      }
+
+      /* Chapter 1: borough + trend charts stacked in one sticky panel */
+      .scrolly .viz-stack {
+        position: relative;
+        width: 100%;
+        height: 86vh;
+      }
+      .scrolly .viz-stack > .viz-inner {
+        position: absolute;
+        inset: 0;
+        height: auto;
+      }
+      .scrolly .viz-stack > .viz-inner.ch1-hidden {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
       }
 
       .scrolly .steps {
@@ -523,6 +540,9 @@
           z-index: 5;
           background: var(--bg);
         }
+        .scrolly .viz-stack {
+          height: 56vh;
+        }
         .scrolly .viz-inner {
           height: 56vh;
         }
@@ -563,267 +583,99 @@
   <body>
     <main class="prose">
       <article>
-        <span class="act-label">Act I — The proof it can work</span>
-        <h1>If it worked there, why hasn't it worked in America?</h1>
+        <span class="act-label">Central question</span>
+        <h1>Shootings in New York City are at an all-time low.</h1>
 
-        <p>The blueprint exists. We've seen it work.</p>
+        <p>Let that sentence land. Then complicate it.</p>
 
         <p>
-          In April 1996, a gunman killed 35 people at a tourist site in Port
-          Arthur, Tasmania. Twelve days later, Australia passed sweeping
-          national gun reform — banning semi-automatic weapons, launching a
-          mandatory buyback of over 650,000 newly prohibited firearms (643,726
-          purchased by the federal government at market value under the 1996–97
-          buyback, with more than 700,000 guns removed in total from a
-          population of about 12 million adults), and introducing uniform gun
-          registration across every state.<a href="#ref1"><sup>1</sup></a>
+          <em>How did we get here?</em> <em>Did everyone benefit equally?</em>
+          And what does twenty years of NYPD records actually say about
+          <em>who</em> gun violence happens to — and <em>when</em>?
         </p>
 
         <p>
-          The results were stark. In the 18 years before Port Arthur, Australia
-          experienced 13 mass shootings (defined in that study as incidents with
-          five or more firearm-related homicides by one or two perpetrators in a
-          civilian setting); in the 10.5 years that followed, there were zero.
-          The rate of total firearm deaths, which had already been declining,
-          accelerated — the estimated annual downward trend roughly doubled
-          after the laws (for example, total firearm deaths: about 3% per year
-          before vs about 6% after;
-          <span class="meta"><i>p</i> = 0.03</span>). Firearm suicides fell
-          faster still (<span class="meta"><i>p</i> = 0.007</span>), with no
-          evidence in that analysis that people simply switched to other methods
-          for homicide or suicide.<a href="#ref1"><sup>1</sup></a>
+          This page uses a <strong>martini glass</strong> structure (Segel &amp;
+          Heer): a guided path through five chapters of charts and maps, then an
+          open exploration where you hold the filters. Primary sources are the
+          merged incident file plus person-level victims and offenders released on
+          NYC Open Data.<a href="#ref1"><sup>1</sup></a> Annual charts use
+          complete calendar years through 2025; 2026 includes partial
+          year-to-date rows.
         </p>
-
-        <p>
-          Australia didn't eliminate guns. It didn't eliminate crime. But it
-          made a national decision, and the data shows it worked.
-        </p>
-
-        <p>
-          So the question is simple: if it worked there, why hasn't it worked in
-          America?
-        </p>
-      </article>
-
-      <hr />
-
-      <article>
-        <span class="act-label">Act II — The country that couldn't</span>
-        <h2>159 shootings. 40 states. No national reform.</h2>
-
-        <p>
-          Australia had 13 mass shootings in the 18 years before Port Arthur.
-          The United States has had 159 in the 44 years since 1982 — killing at
-          least 1,186 people, across 40 states, from Hawaii to Maine.<a
-            href="#ref2"
-            ><sup>2</sup></a
-          >
-          The frequency has not held steady. In the 1980s the country averaged
-          two or three a year. By the late 2010s it was averaging ten or more.
-          The trend runs in one direction.
-        </p>
-
-        <p>
-          But mass shootings, as visible as they are, represent only a fraction
-          of the toll. In 2022 alone, roughly 48,000 Americans died from
-          firearms — homicides, suicides, and accidents combined — about 132
-          people every single day.<a href="#ref3"><sup>3</sup></a> Firearms are
-          the leading cause of death for Americans between the ages of one and
-          44, surpassing car accidents, drug overdoses, and cancer in that age
-          group.<a href="#ref3"><sup>3</sup></a>
-          Australia's firearm death rate in 2018 was approximately 0.88 per
-          100,000 people. The United States rate that same year was more than
-          fifteen times higher.
-        </p>
-
-        <figure class="viz">
-          <img
-            src="barchart_per_year.png"
-            alt="Bar chart showing mass shootings per year in the US from 1982 to 2026, with federal legislation moments marked as vertical lines."
-          />
-          <figcaption>
-            Mass shootings per year, 1982–2026. Federal legislation moments
-            marked. The bars do not stop climbing after any single intervention.
-            Source: Mother Jones.
-          </figcaption>
-        </figure>
-
-        <p>
-          The United States has not been entirely inert. Congress has passed gun
-          legislation. It just hasn't been enough, and what was passed has often
-          been allowed to lapse.
-        </p>
-
-        <p>
-          In 1993, the Brady Handgun Violence Prevention Act introduced federal
-          background checks for firearm purchases — a genuine step that closed a
-          real gap. A year later, the Federal Assault Weapons Ban prohibited the
-          manufacture and sale of certain semi-automatic weapons and
-          large-capacity magazines. Both measures were real. The assault weapons
-          ban tracked closely with a period of relative stability in mass
-          shooting frequency.
-        </p>
-
-        <p>
-          Then, in 2004, Congress allowed the assault weapons ban to expire
-          without renewal. It has never been reinstated. In the years that
-          follow, the frequency of mass shootings accelerates markedly. In 2022
-          — after Sandy Hook, after Parkland, after Uvalde — Congress passed the
-          Bipartisan Safer Communities Act, the most significant federal gun
-          legislation in nearly 30 years. It was a genuine step. The trend has
-          not yet bent.
-        </p>
-
-        <figure class="viz">
-          <iframe
-            src="cumulative_casualties.html"
-            height="480"
-            title="Cumulative lives lost to mass shootings in the US since 1982."
-          ></iframe>
-          <figcaption>
-            Running total of lives lost to mass shootings since 1982. Hover to
-            explore by year. Source: Mother Jones.
-          </figcaption>
-        </figure>
-
-        <p>
-          One argument you hear often is that gun violence in America is really
-          a problem of particular places — specific cities, specific states,
-          specific demographics. The geography of mass shootings does not
-          support that. Shootings have occurred in 40 states. California leads
-          with 26 incidents, Texas has 15, Florida 13 — but Montana, Iowa,
-          Hawaii, and Rhode Island are on the map too.<a href="#ref2"
-            ><sup>2</sup></a
-          >
-          Workplaces, schools, places of worship, military bases, movie
-          theaters, nightclubs, shopping malls. No geography has been spared.
-          This is not a regional problem that regional policy can solve.
-        </p>
-
-        <figure class="viz">
-          <iframe
-            src="map_mass_shootings.html"
-            height="560"
-            title="Choropleth map of mass shootings by US state, 1982–2026."
-          ></iframe>
-          <figcaption>
-            Mass shootings by state, 1982–2026. Hover a state to see the count
-            and total killed. Source: Mother Jones.
-          </figcaption>
-        </figure>
       </article>
     </main>
 
     <hr />
 
-    <!-- ─── Act III intro ─── -->
+    <!-- ─── Chapter 1 narrative ─── -->
     <section class="act3-intro">
       <div class="prose">
-        <span class="act-label">Act III — New York's experiment</span>
-        <h2>If strict local laws were the answer, New York would be proof.</h2>
+        <span class="act-label">Chapter 1 — The long decline</span>
+        <h2>The arc of the city — and of each borough.</h2>
         <p>
-          America has not reformed nationally. But it has tried locally, and
-          nowhere has tried harder than New York City. The state has long had
-          some of the strictest gun laws in the country: the Sullivan Act of
-          1911 required a permit for handgun possession a full century before
-          most states even discussed it. After the Sandy Hook massacre in 2012,
-          New York passed the SAFE Act in a matter of weeks — banning a long
-          list of semi-automatic weapons, capping magazine sizes, and requiring
-          universal background checks.
+          New York City shootings have gradually declined in the last 20 years
+          and in the year 2025 shootings were at an all-time low with only 688
+          shootings.<a href="#ref1"><sup>1</sup></a> There was a hiccup during
+          the COVID pandemic when shootings rose to previous highs, one reason
+          for that is that during the crisis Americans felt they needed to
+          protect themselves and flocked to the gun store, and in 2020 there was
+          a 64% increase in gun sales compared to 2019.<a href="#ref2"
+            ><sup>2</sup></a
+          >, but has since then gotten back on track and continues to see record
+          lows to this day.
         </p>
         <p>
-          So if the argument is that strict local gun laws can solve this, New
-          York City should be the proof. Twenty years of police records let us
-          test that claim. The data — every shooting incident the NYPD has
-          recorded since 2006, more than 24,000 of them<a href="#ref4"
-            ><sup>4</sup></a
+          There are multiple explanations for the decline of shootings in NYC and
+          one of them is that gun laws are stricter in NYC than in other places
+          in the USA, and throughout the years, necessary changes have been made
+          in order to try and keep shootings under control, such as passing gun
+          control legislation like the NY SAFE Act, which among other things
+          enhanced background checks and banned assault weapons.<a href="#ref3"
+            ><sup>3</sup></a
           >
-          — tells a story that is at once encouraging, infuriating, and
-          unfinished.
         </p>
       </div>
     </section>
 
-    <!-- ─── Section 3.1: The Big Picture ─── -->
-    <div class="section-intro">
-      <div class="inner">
-        <span class="act-label">3.1 — The big picture</span>
-        <h3
-          style="
-            font-family: &quot;Playfair Display&quot;, serif;
-            font-size: 1.5rem;
-            margin: 0 0 0.8rem;
-          "
-        >
-          Two decades of NYPD shootings, in one chart.
-        </h3>
-        <p style="color: var(--muted)">
-          Scroll through the trend. Each step rewrites what the chart is showing
-          you.
-        </p>
-      </div>
-    </div>
-
-    <section class="scrolly" id="sec-trend">
+    <!-- ─── Chapter 1: Borough lines + annotated trend (single scrolly) ─── -->
+    <section class="scrolly" id="sec-chapter1">
       <div class="sticky-viz">
-        <div class="viz-inner" id="trend-viz">
-          <div class="loading">Loading 24,000 shootings…</div>
+        <div class="viz-stack">
+          <div class="viz-inner" id="borough-viz">
+            <div class="loading">Loading borough series…</div>
+          </div>
+          <div class="viz-inner ch1-hidden" id="trend-viz">
+            <div class="loading">Loading trend…</div>
+          </div>
         </div>
       </div>
       <div class="steps">
-        <div class="step" data-step="trend-1">
-          <h3>The shape of two decades.</h3>
+        <div class="step is-active" data-step="boro-1">
+          <h3>Steady decline</h3>
           <p>
-            Every year since 2006, the NYPD has logged each shooting incident in
-            the city. Plotted year by year, the line falls, then it collapses,
-            then it spikes — and then it begins to fall again.
+            Shootings in New York City have been steadily falling since 2006.
           </p>
         </div>
-        <div class="step" data-step="trend-2">
-          <h3>From 2006 to 2019: shootings cut in half.</h3>
+        <div class="step" data-step="boro-2">
+          <h3>Shootings in bouroughs</h3>
           <p>
-            <span class="stat">1,566 → 777</span> incidents per year over
-            thirteen years. A 50% decline. Whatever combination of policing,
-            policy, demographics, and economic conditions drove that drop, it
-            was real, sustained, and enormous in human terms.
+           Shootings are also falling in each borough, some faster then others.
           </p>
         </div>
-        <div class="step" data-step="trend-3">
-          <h3>Then, in a single year, it almost doubled.</h3>
+        <div class="step" data-step="boro-4">
+          <h3>2020 hit everywhere.</h3>
           <p>
-            <span class="stat">2020.</span> Shootings jumped from 777 to 1,532.
-            A decade of progress erased in one summer. Whatever you believe
-            caused it — COVID, the police pullback after the 2020 protests,
-            economic collapse, the largest spike in firearm sales in U.S.
-            history — the line on this chart does not care about explanations.
-            It just spikes.
-          </p>
-        </div>
-        <div class="step" data-step="trend-4">
-          <h3>The legal context, overlaid.</h3>
-          <p>
-            Here are the laws and rulings most often credited or blamed for New
-            York's gun-violence trajectory. None of them produces a clean
-            inflection in the data. Reform is slow, and noisy.
-          </p>
-        </div>
-        <div class="step" data-step="trend-5">
-          <h3>One number that doesn't move: lethality.</h3>
-          <p>
-            The dashed line is the share of shooting victims who die from their
-            wounds. Year after year — through the long decline, through the 2020
-            spike, through the partial recovery — it sits between
-            <span class="stat">15% and 18%</span>. Volume changes; the
-            <em>rate</em> at which shootings kill does not.
+            Gun crimes increased during the 2020 covid pandemic in every borough.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- ─── Section 3.2: Where it happens ─── -->
+    <!-- ─── Chapter 2: Where it happens ─── -->
     <div class="section-intro">
       <div class="inner">
-        <span class="act-label">3.2 — Where it happens</span>
+        <span class="act-label">Chapter 2 — Where it happens</span>
         <h3
           style="
             font-family: &quot;Playfair Display&quot;, serif;
@@ -831,12 +683,25 @@
             margin: 0 0 0.8rem;
           "
         >
-          Gun violence in NYC has a ZIP code.
+          The Bronx and Brooklyn contain the most shootings.
         </h3>
         <p style="color: var(--muted)">
-          The citywide trend obscures something important: shootings are not
-          spread evenly across New York. They are concentrated, sharply, in a
-          handful of neighborhoods.
+          Although the decline of shootings is happening in all New York City
+          boroughs, the Bronx and Brooklyn do contain the most shootings. There
+          is a multitude of factors that contribute to this. First of all
+          Brooklyn is the most populated borough in NYC, so it having the most
+          shootings is not a fair comparison.<a href="#ref4"><sup>4</sup></a>
+          The Bronx and Brooklyn are also the poorest boroughs in NYC with the
+          median income of people that live in the Bronx being 47,034 dollars
+          (~300,000 DKK) a year and 28% of people living there, live in
+          poverty.<a href="#ref4"><sup>4</sup></a>
+        </p>
+        <p style="color: var(--muted)">
+          Even though gun laws are relatively strict in NYC, that doesn’t stop a
+          stream of illegal firearms coming in from elsewhere, and a 2020 study
+          revealed that about 61.5% of recovered guns were found in Brooklyn and
+          the Bronx.<a href="#ref5"><sup>5</sup></a> Further explaining why
+          shootings seem to concentrate more in those two boroughs.
         </p>
       </div>
     </div>
@@ -845,7 +710,7 @@
       <div class="sticky-viz">
         <div class="viz-inner" id="map-viz">
           <div class="map-container" id="leaflet-map"></div>
-          <div class="viz-title" id="map-title">All shootings, 2006–2024</div>
+          <div class="viz-title" id="map-title">All shootings, 2006–2025</div>
           <div class="viz-subtitle" id="map-subtitle">
             Heatmap of every NYPD-recorded shooting incident
           </div>
@@ -855,7 +720,7 @@
         <div class="step" data-step="map-1">
           <h3>Every shooting, on one map.</h3>
           <p>
-            More than 24,000 incidents over nineteen years. The hotspots are not
+            More than 24,000 incidents over twenty years. The hotspots are not
             subtle: a thick band running through northern Brooklyn, a cluster
             covering most of the Bronx, scattered density in northern Manhattan
             and southeast Queens. Wide stretches of the city — Staten Island,
@@ -866,47 +731,23 @@
           <h3>Two boroughs carry most of the weight.</h3>
           <p>
             <span class="stat">Brooklyn (40%) and the Bronx (29%)</span> account
-            for nearly seven in ten NYC shootings. That is not because they are
-            biggest — Queens has roughly the same population as Brooklyn — it is
-            because the same conditions that produce gun violence (concentrated
-            poverty, segregated housing, under-investment) are concentrated in
-            the same neighborhoods.
+            for nearly seven in ten NYC shootings.
           </p>
         </div>
         <div class="step" data-step="map-3">
           <h3>Three precincts. One small piece of Brooklyn.</h3>
           <p>
             <span class="stat">Precincts 75, 73, and 67</span> — East New York,
-            Brownsville, East Flatbush — together cover a few square miles. They
-            alone account for a strikingly disproportionate share of the entire
-            city's shootings. The same neighborhoods that were the most
-            dangerous in 2006 are still the most dangerous today.
-          </p>
-        </div>
-        <div class="step" data-step="map-4">
-          <h3>2019: the floor.</h3>
-          <p>
-            By 2019, the long decline had thinned the map dramatically. Even the
-            historic hotspots looked manageable. This was the safest the city
-            had been in living memory.
-          </p>
-        </div>
-        <div class="step" data-step="map-5">
-          <h3>2020: the surge didn't hit equally.</h3>
-          <p>
-            One year later, the same map fills back in — but unevenly. The
-            increase concentrates in the same neighborhoods that had
-            historically borne the worst of it. The places already hit hardest
-            paid the highest price for whatever 2020 was.
+            Brownsville, East Flatbush — together cover a few square miles.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- ─── Section 3.3: Who bears the cost ─── -->
+    <!-- ─── Chapter 3: Who it happens to ─── -->
     <div class="section-intro">
       <div class="inner">
-        <span class="act-label">3.3 — Who bears the cost</span>
+        <span class="act-label">Chapter 3 — Who it happens to</span>
         <h3
           style="
             font-family: &quot;Playfair Display&quot;, serif;
@@ -917,8 +758,19 @@
           Behind every dot on the map is a person.
         </h3>
         <p style="color: var(--muted)">
-          Almost 29,000 victims since 2006. The demographic profile is
-          remarkably narrow.
+          Roughly 29,000 named victims since 2006 sit in the merged person-level
+          file. In the aggregate the portrait is narrow: injury concentrates among
+          young adults and men, and city research repeatedly ties shootings to
+          place — a small share of geography carries most of the burden.<sup
+            ><a href="#ref2">2</a></sup
+          >
+          <sup><a href="#ref3">3</a></sup>
+        </p>
+        <p style="color: var(--muted)">
+          The scroll sections below stick to what the charts show — age, sex, one
+          lethality view, then offender ages. Race is not treated here as an
+          explanatory axis on its own; structural forces live in housing, economics,
+          and institutions more than in a single demographic slice.
         </p>
       </div>
     </div>
@@ -933,52 +785,86 @@
         <div class="step" data-step="demo-1">
           <h3>Mostly young.</h3>
           <p>
-            Over <span class="stat">82%</span> of NYC shooting victims are
-            between 18 and 44. The single largest group is 25–44; the second is
-            18–24. Older victims are rare; victims over 65 are rarer still.
+            Horizontal bars are victim counts by age group. The tallest bars are
+            25–44 and 18–24. More than <span class="stat">82%</span> of listed
+            victims are 18–44; children under 18 are the smaller bar on the left.
           </p>
         </div>
         <div class="step" data-step="demo-2">
           <h3>And too often, very young.</h3>
           <p>
-            <span class="stat">2,989 victims</span> — about one in ten — were
-            under 18 when they were shot. Children are not collateral; they are
-            roughly a tenth of the entire dataset.
+            Same layout, emphasis on minors:
+            <span class="stat">2,989</span> victims — about <strong>one in
+            ten</strong> — are under 18. The bar for &lt;18 lights up so you can
+            read it against the rest.
           </p>
         </div>
         <div class="step" data-step="demo-3">
           <h3>Almost entirely men.</h3>
           <p>
-            <span class="stat">91% male.</span> Gun violence in NYC is, in the
-            aggregate, a phenomenon that happens to men. Female victims exist
-            and matter, but the volume is overwhelmingly male.
+            The view switches to a donut: <span class="stat">91% male</span> in
+            the records where sex is listed. The chart is the whole pool — not a
+            comment on any one person’s story.
           </p>
         </div>
         <div class="step" data-step="demo-4">
           <h3>Lethality, by age.</h3>
           <p>
-            About <span class="stat">1 in 6</span> of all shooting victims die.
-            That headline rate is roughly stable across age groups, but it
-            climbs sharply for the oldest victims — older bodies survive gunshot
-            wounds less often.
-          </p>
-          <p
-            style="font-size: 0.85rem; color: var(--muted); font-style: italic"
-          >
-            We are deliberately not leading with race here. The racial
-            distribution of victims tracks the geography of where shootings
-            happen, which in turn reflects decades of housing policy, economic
-            inequality, and policing patterns. Treating it as a stand-alone
-            cause would invert the actual chain of cause and effect.
+            Bars now show the share of victims in each age band who died from the
+            shooting. Overall about <span class="stat">1 in 6</span> die; the
+            tallest fatality rates sit on the oldest brackets on the axis.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- ─── Section 3.4: When it happens ─── -->
+    <section class="scrolly" id="sec-offender-flow">
+      <div class="sticky-viz">
+        <div class="viz-inner" id="offender-age-viz">
+          <div class="loading">Loading offender records…</div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step is-active" data-step="ob-1">
+          <h3>Youth and young adults.</h3>
+          <p>
+            Police logged ages for thousands of named suspects — the bulk falls
+            in the three youngest brackets before older ages even enter the
+            frame.
+          </p>
+        </div>
+        <div class="step" data-step="ob-2">
+          <h3>The core band.</h3>
+          <p>
+            <span class="stat">18–24</span> and
+            <span class="stat">25–44</span> drive the counts when NYPD attached
+            an age — together they dwarf what appears below them on the axis.
+          </p>
+        </div>
+        <div class="step" data-step="ob-3">
+          <h3>Rarer with age.</h3>
+          <p>
+            Recorded rows thin sharply for <span class="stat">45–64</span> and
+            <span class="stat">65+</span> — still real cases, but not where the
+            distribution concentrates.
+          </p>
+        </div>
+        <div class="step" data-step="ob-4">
+          <h3>The missing slice.</h3>
+          <p>
+            The grey bar is <span class="stat">UNKNOWN</span> — rows where the
+            file never recorded an age bucket. It sits beside the named brackets;
+            it does not mean “young adult in disguise,” just missing metadata. The
+            horizontal bars are only people NYPD logged this way.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Chapter 4 intro ─── -->
     <div class="section-intro">
       <div class="inner">
-        <span class="act-label">3.4 — When it happens</span>
+        <span class="act-label">Chapter 4 — When it happens</span>
         <h3
           style="
             font-family: &quot;Playfair Display&quot;, serif;
@@ -989,8 +875,14 @@
           Gun violence runs on a clock and a calendar.
         </h3>
         <p style="color: var(--muted)">
-          Aggregate twenty years of incidents by hour and day. A shape emerges,
-          and it has not changed.
+          Crime and injury data often show seasonality (more in warm months) and
+          concentration on weekend nights — routines and weather shape when people
+          cross paths.
+        </p>
+        <p style="color: var(--muted)">
+          The next section is only NYPD incident timestamps: first a week × hour
+          heatmap, then the same clock with the weekend band called out, then
+          shootings totaled by calendar month.
         </p>
       </div>
     </div>
@@ -1003,47 +895,98 @@
         <div class="step" data-step="time-1">
           <h3>168 cells, twenty years of incidents.</h3>
           <p>
-            Each cell is one hour of one day of the week, summed across every
-            year from 2006 to 2024. Darker means more shootings. The shape is
-            unmistakable.
+            Each cell is one hour of the week (rows = weekday, columns = hour).
+            Color is darker where more incidents stack in that slot. Scan for the
+            whole rhythm before zooming in.
           </p>
         </div>
         <div class="step" data-step="time-2">
           <h3>Saturday night. Sunday night. Late.</h3>
           <p>
-            The cluster glowing at the bottom-left and bottom-right is the
-            <span class="stat">weekend late-night peak</span> — roughly 10pm
-            Friday through 4am Sunday. Sunday alone records nearly
-            <span class="stat">4,700 shootings</span>. The early-morning hours
-            of weekdays — your daily commute, the school run — are by far the
-            safest.
+            Same grid — read the hot diagonal band: late Friday through Sunday
+            morning (
+            <span class="stat">≈10pm Fri–4am Sun</span>). Sunday alone accounts
+            for about <span class="stat">4,700</span> incidents in the pool;
+            weekday early morning stays pale.
           </p>
         </div>
         <div class="step" data-step="time-3">
           <h3>Now switch to the calendar.</h3>
           <p>
-            By month, July is the peak:
-            <span class="stat">2,778 incidents</span> cumulatively, more than
-            double February's <span class="stat">1,254</span>. Heat, daylight
-            hours, time spent outside — gun violence rises with the temperature,
-            every year, like a physical law.
+            The chart flips to twelve bars — total incidents by month of year.
+            July reaches <span class="stat">2,778</span> in this dataset;
+            February is lowest at <span class="stat">1,254</span>.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- ─── Section 3.5: limitations + open exploration ─── -->
+    <!-- ─── Chapter 5: Fatal vs non-fatal ─── -->
+    <div class="section-intro">
+      <div class="inner">
+        <span class="act-label">Chapter 5 — Fatal vs. non-fatal</span>
+        <h3
+          style="
+            font-family: &quot;Playfair Display&quot;, serif;
+            font-size: 1.5rem;
+            margin: 0 0 0.8rem;
+          "
+        >
+          Incidents are not all equally lethal.
+        </h3>
+        <p style="color: var(--muted)">
+          The city counts <em>incidents</em>; each can injure more than one
+          person. Fatality is not the same as “how bad the year felt” — ED-based
+          injury surveillance shows nonfatal gun wounds greatly outnumber deaths
+          nationally, though no dataset captures every wound.<sup
+            ><a href="#ref4">4</a></sup
+          >
+        </p>
+        <p style="color: var(--muted)">
+          What follows is NYPD’s own split: fatal vs nonfatal incidents by year,
+          then share of victims who died, weighted by borough. “Fatal” here follows
+          the department’s murder flag, not a clinical exam.
+        </p>
+      </div>
+    </div>
+
+    <section class="scrolly" id="sec-fatal">
+      <div class="sticky-viz">
+        <div class="viz-inner" id="fatal-viz">
+          <div class="loading">Loading fatality breakdown…</div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step" data-step="fatal-1">
+          <h3>Fatal and non-fatal incidents, year by year.</h3>
+          <p>
+            Stacked bars: each year’s incidents split into fatal (someone died)
+            vs nonfatal. Both segments rise in high-volume years — the chart shows
+            volume and the fatal share together.
+          </p>
+        </div>
+        <div class="step" data-step="fatal-2">
+          <h3>Lethality by borough.</h3>
+          <p>
+            Switches to victim-weighted rates: for each borough, what fraction of
+            <em>victims</em> died from their wounds. Bars are similar in height —
+            most shootings in the file do not kill; citywide variation is modest.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Limitations + exploration ─── -->
     <section class="act3-intro">
       <div class="prose">
-        <span class="act-label">3.5 — What the data can't tell us</span>
-        <h2>Be honest about the limits.</h2>
+        <span class="act-label">Honesty — what this data cannot prove</span>
+        <h2>Limits sit beside every chart.</h2>
         <p>
-          The line in section 3.1 cannot prove that any specific law caused — or
-          failed to cause — the trend you see. The 2013 SAFE Act and the
-          curtailment of stop-and-frisk happened in the same year as part of a
-          longer decline that was already under way. The 2020 spike has at least
-          four plausible causes, and isolating any one of them is beyond what
-          this data can support.
+          Nothing in Chapter 1's trend lines proves that any specific law caused —
+          or failed to cause — the pattern you see. The 2013 SAFE Act and the
+          curtailment of stop-and-frisk landed in the same year as a decline that
+          was already under way. The 2020 spike has competing explanations; this
+          notebook shows correlations on a map, not causes in a lab.
         </p>
         <p>
           About
@@ -1069,143 +1012,100 @@
     </section>
 
     <div class="exploration">
-      <div class="explore-grid">
-        <div class="explore-map" id="explore-map"></div>
-        <div class="explore-controls">
-          <label>Borough</label>
-          <select id="ctrl-boro">
-            <option value="ALL">All boroughs</option>
-            <option value="BRONX">Bronx</option>
-            <option value="BROOKLYN">Brooklyn</option>
-            <option value="MANHATTAN">Manhattan</option>
-            <option value="QUEENS">Queens</option>
-            <option value="STATEN ISLAND">Staten Island</option>
-          </select>
-
-          <label>Year range</label>
-          <div class="year-display" id="year-display">2006 — 2024</div>
-          <div class="year-range">
-            <input
-              type="range"
-              id="ctrl-year-min"
-              min="2006"
-              max="2024"
-              value="2006"
-            />
-            <input
-              type="range"
-              id="ctrl-year-max"
-              min="2006"
-              max="2024"
-              value="2024"
-            />
-          </div>
-
-          <label>Victim age groups</label>
-          <div class="checks" id="ctrl-age">
-            <button data-v="<18" class="on">&lt;18</button>
-            <button data-v="18-24" class="on">18–24</button>
-            <button data-v="25-44" class="on">25–44</button>
-            <button data-v="45-64" class="on">45–64</button>
-            <button data-v="65+" class="on">65+</button>
-          </div>
-
-          <label>Victim sex</label>
-          <div class="checks" id="ctrl-sex">
-            <button data-v="MALE" class="on">Male</button>
-            <button data-v="FEMALE" class="on">Female</button>
-          </div>
-
-          <div class="stats-readout">
-            <div class="stat-line">
-              <span class="l">Incidents</span>
-              <span class="v" id="stat-incidents">—</span>
-            </div>
-            <div class="stat-line">
-              <span class="l">Victims</span>
-              <span class="v" id="stat-victims">—</span>
-            </div>
-            <div class="stat-line">
-              <span class="l">Fatal</span>
-              <span class="v" id="stat-fatal">—</span>
-            </div>
-            <div class="stat-line">
-              <span class="l">Fatality rate</span>
-              <span class="v" id="stat-rate">—</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <iframe
+        src="output/nyc_shootings_precinct_map_explorer.html"
+        title="NYC shooting precinct map explorer"
+        style="
+          width: 100%;
+          height: min(880px, 92vh);
+          border: 1px solid var(--rule);
+          border-radius: 6px;
+          background: var(--bg-deep);
+        "
+      ></iframe>
     </div>
 
     <section class="prose" style="margin-top: 3rem">
       <h2 style="font-family: &quot;Playfair Display&quot;, serif">
-        The blueprint exists.
+        An unfinished story, written in rows.
       </h2>
       <p>
-        Australia made a national decision in 1996 and the data shows it worked.
-        America has never been able to make the same decision, and every year
-        roughly 48,000 of its citizens die from firearms. New York City did the
-        most that any single city can do — wrote and enforced some of the
-        strictest gun laws in the country — and the data shows what local reform
-        can buy: a real, measurable, durable cut in shootings, vulnerable to a
-        single bad year, concentrated against the same handful of neighborhoods,
-        unable to control where the guns come from.
+        New York’s trajectory is neither a simple victory nor a simple failure.
+        Complete-year counts through 2025 sit below the old 2019 floor — an
+        enormous human gain — while geography remains stubbornly uneven, offender
+        records remain incomplete for a large share of incidents, and no local
+        dataset answers where firearms originate.
       </p>
       <p>
-        The blueprint exists. The evidence is here. What is missing is not data.
+        The martini glass stem ends here; the bowl below is yours to tilt.
       </p>
     </section>
 
     <section class="refs" aria-labelledby="refs-heading">
-      <h2 id="refs-heading">References</h2>
+      <h2 id="refs-heading">Data sources &amp; references</h2>
       <ol>
         <li id="ref1">
-          Chapman S, Alpers P, Agho K, Jones M. Australia's 1996 gun law
-          reforms: faster falls in firearm deaths, firearm suicides, and a
-          decade without mass shootings. <em>Inj Prev</em>. 2006
-          Dec;12(6):365–372. doi:<a
-            href="https://doi.org/10.1136/ip.2006.013714"
-            >10.1136/ip.2006.013714</a
-          >. PMID: 17170183; PMCID: PMC2704353.
+          New York Police Department. NYPD Shooting Incident Data (Historic),
+          Year-to-Date, and derived victim/offender tables — cleaned and merged for
+          this project. NYC Open Data, accessed 2026.
           <div class="meta">
-            Full text and footnotes:
+            Portal:
             <a
-              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2704353/#fn-group1"
-              >https://pmc.ncbi.nlm.nih.gov/articles/PMC2704353/#fn-group1</a
+              href="https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Historic-/833y-fsy8"
+              >data.cityofnewyork.us</a
             >
           </div>
         </li>
         <li id="ref2">
-          Follman M, Aronsen G, Pan D. US Mass Shootings, 1982–2026: Data from
-          Mother Jones' Investigation. <em>Mother Jones</em>. Updated 2026.
+          Kochanek KD, Gardner R, Silva MA. <em>Trends in Death Rates for Leading
+          Methods of Injury: United States, 2003–2023.</em> NCHS Data Brief 526.
+          National Center for Health Statistics (CDC), June 2025.
           <div class="meta">
-            Dataset:
-            <a
-              href="https://www.motherjones.com/politics/2012/12/mass-shootings-mother-jones-full-data/"
-              >https://www.motherjones.com/politics/2012/12/mass-shootings-mother-jones-full-data/</a
+            <a href="https://www.cdc.gov/nchs/products/databriefs/db526.htm"
+              >cdc.gov/nchs/products/databriefs/db526.htm</a
             >
           </div>
         </li>
         <li id="ref3">
-          Centers for Disease Control and Prevention. Web-based Injury
-          Statistics Query and Reporting System (WISQARS). Fatal Injury Data,
-          2022. National Center for Injury Prevention and Control.
+          Butts JA, Moreno G, Espinobarros R. <em>Neighbors at Risk</em> —
+          geographic concentration of shooting incidents across NYC census block
+          groups (most neighborhoods saw few or no shootings; disadvantage
+          correlates with elevated rates). John Jay College Research &amp;
+          Evaluation Center, April 2022.
           <div class="meta">
-            Available at:
-            <a href="https://www.cdc.gov/injury/wisqars"
-              >https://www.cdc.gov/injury/wisqars</a
+            <a href="https://johnjayrec.nyc/2022/04/26/atrisk2022/"
+              >johnjayrec.nyc/2022/04/26/atrisk2022</a
             >
           </div>
         </li>
         <li id="ref4">
-          New York Police Department. NYPD Shooting Incident Data (Historic).
-          NYC Open Data, accessed 2026.
+          CDC. Web-Based Injury Statistics Query and Reporting System (WISQARS) —
+          technical notes on nonfatal firearm injury estimates (NEISS sampling,
+          confidence intervals, and limits for national counts).
           <div class="meta">
-            Dataset:
-            <a
-              href="https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Historic-/833y-fsy8"
-              >data.cityofnewyork.us</a
+            <a href="https://www.cdc.gov/wisqars/about/nonfatal-injury-data.html"
+              >cdc.gov/wisqars/about/nonfatal-injury-data.html</a
+            >
+          </div>
+        </li>
+        <li id="ref4">
+          Wikipedia contributors. "Demographics of New York City."
+          <div class="meta">
+            Article:
+            <a href="https://en.wikipedia.org/wiki/Demographics_of_New_York_City"
+              >en.wikipedia.org</a
+            >
+          </div>
+        </li>
+        <li id="ref5">
+          Braga, Anthony A.; Brunson, Rod K.; Cook, Philip J.; Turchan, Brandon;
+          and Wade, Brian. "Underground Gun Markets and the Flow of Illegal Guns
+          into the Bronx and Brooklyn: A Mixed Methods Analysis." Journal of
+          Urban Health, 2021.
+          <div class="meta">
+            Article:
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8566688/"
+              >pmc.ncbi.nlm.nih.gov</a
             >
           </div>
         </li>
@@ -1225,10 +1125,11 @@
         heatLayer: null,
         exploreMap: null,
         exploreHeat: null,
+        offendersMinimal: null,
         exploreSel: {
           boro: "ALL",
           yMin: 2006,
-          yMax: 2024,
+          yMax: 2025,
           ages: new Set(["<18", "18-24", "25-44", "45-64", "65+"]),
           sexes: new Set(["MALE", "FEMALE"]),
         },
@@ -1246,23 +1147,53 @@
       };
 
       // ───────────── Data load ─────────────
-      const TREND_END_YEAR = 2024;
+      const TREND_END_YEAR = 2025;
       const TREND_START_YEAR = 2006;
 
+      /** Integer calendar years on x-axis (avoid 2008.5-style “nice” ticks). */
+      function yearTickRange(lo, hi) {
+        const a = [];
+        for (let y = lo; y <= hi; y++) a.push(y);
+        return a;
+      }
+
       async function init() {
-        const [rows, leg] = await Promise.all([
-          d3.csv("data/nypd_shootings_combined.csv", parseRow),
-          d3.json("data/legislation_events.json"),
-        ]);
-        state.incidents = rows;
-        state.legislation = leg;
-        aggregate();
+        let dash = null;
+        try {
+          dash = await d3.json("generated/dashboard_data.json");
+        } catch (_) {
+          /* fall back to CSV pipeline */
+        }
+
+        if (dash?.incidents?.length && dash?.agg) {
+          state.incidents = dash.incidents;
+          state.legislation = dash.legislation;
+          state.agg = dash.agg;
+          state.victims = dash.victims || null;
+          state.offendersMinimal = dash.offenders_minimal || null;
+          console.info(
+            "Loaded generated/dashboard_data.json — skipping CSV aggregate.",
+          );
+        } else {
+          const [rows, leg] = await Promise.all([
+            d3.csv("data/nypd_shootings_combined.csv", parseRow),
+            d3.json("data/legislation_events.json"),
+          ]);
+          state.incidents = rows;
+          state.legislation = leg;
+          aggregate();
+        }
+
+        buildBoroughChart();
         buildTrendChart();
         buildMap();
+        buildFatalChart();
         buildTimeViz();
-        buildExploration();
+        // The open exploration is embedded from output/nyc_shootings_precinct_map_explorer.html.
+        await loadVictimLayerCharts();
         setupScrollama();
-        // lazy-load demographics on enter
+        if (state.offenderFlow) renderOffenderFlowStep("ob-1");
+        renderChapter1Step("boro-1");
       }
 
       function parseRow(d) {
@@ -1283,6 +1214,7 @@
           fatal: d.has_fatality === "True",
           victimAgeGroups: d.victim_age_groups,
           victimSexes: d.victim_sexes,
+          hasOffenderData: d.has_offender_data === "True",
         };
       }
 
@@ -1370,6 +1302,24 @@
           ([p, n]) => ({ precinct: p, n }),
         ).sort((a, b) => b.n - a.n);
 
+        // per-year × borough (for multi-line chart)
+        const BOROS = [
+          "BRONX",
+          "BROOKLYN",
+          "MANHATTAN",
+          "QUEENS",
+          "STATEN ISLAND",
+        ];
+        state.agg.boroYearRows = [];
+        for (let y = TREND_START_YEAR; y <= TREND_END_YEAR; y++) {
+          const slice = I.filter((d) => d.year === y);
+          const row = { year: y, NYC: slice.length };
+          BOROS.forEach((b) => {
+            row[b] = slice.filter((d) => d.boro === b).length;
+          });
+          state.agg.boroYearRows.push(row);
+        }
+
         // valid coords
         state.agg.coords = state.incidents
           .filter(
@@ -1388,6 +1338,247 @@
             boro: d.boro,
             precinct: d.precinct,
           }));
+      }
+
+      const BORO_ORDER = [
+        "BRONX",
+        "BROOKLYN",
+        "MANHATTAN",
+        "QUEENS",
+        "STATEN ISLAND",
+      ];
+      const BORO_SHORT = {
+        BRONX: "Bronx",
+        BROOKLYN: "Brooklyn",
+        MANHATTAN: "Manhattan",
+        QUEENS: "Queens",
+        "STATEN ISLAND": "St. Isl.",
+      };
+      const BORO_LINE_COLORS = {
+        BRONX: "#8b5a2b",
+        BROOKLYN: "#b03a2e",
+        MANHATTAN: "#2c3e50",
+        QUEENS: "#5d6d7e",
+        "STATEN ISLAND": "#95a5a6",
+      };
+
+      // ───────────── Chapter 1: borough + trend (one scrolly) ─────────────
+      function renderChapter1Step(step) {
+        const bEl = document.getElementById("borough-viz");
+        const tEl = document.getElementById("trend-viz");
+        const isBoro = step.startsWith("boro-");
+        if (bEl) bEl.classList.toggle("ch1-hidden", !isBoro);
+        if (tEl) tEl.classList.toggle("ch1-hidden", isBoro);
+        if (isBoro) renderBoroughStep(step);
+        else renderTrendStep(step);
+      }
+
+      // ───────────── Chapter 1 borough lines ─────────────
+      function buildBoroughChart() {
+        const container = document.getElementById("borough-viz");
+        container.innerHTML = "";
+        const margin = { top: 70, right: 28, bottom: 48, left: 56 };
+        const W = 880;
+        const H = 560;
+        const iw = W - margin.left - margin.right;
+        const ih = H - margin.top - margin.bottom;
+        const svg = d3
+          .select(container)
+          .append("svg")
+          .attr("class", "chart")
+          .attr("viewBox", `0 0 ${W} ${H}`)
+          .attr("preserveAspectRatio", "xMidYMid meet");
+
+        svg
+          .append("text")
+          .attr("x", margin.left)
+          .attr("y", 26)
+          .attr("font-family", "Playfair Display, serif")
+          .attr("font-weight", 700)
+          .attr("font-size", 17)
+          .attr("fill", COLORS.primary)
+          .text("Shooting incidents per year — NYC total and boroughs");
+
+        svg
+          .append("text")
+          .attr("x", margin.left)
+          .attr("y", 46)
+          .attr("font-family", "Source Serif 4, serif")
+          .attr("font-style", "italic")
+          .attr("font-size", 12)
+          .attr("fill", COLORS.muted)
+          .text(
+            "Raw counts by precinct borough. Complete years 2006–2025. Source: NYC Open Data.",
+          );
+
+        const g = svg
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const data = state.agg.boroYearRows;
+        const x = d3
+          .scaleLinear()
+          .domain([TREND_START_YEAR, TREND_END_YEAR])
+          .range([0, iw]);
+        const yMax =
+          d3.max(data, (d) =>
+            Math.max(d.NYC, ...BORO_ORDER.map((b) => d[b])),
+          ) * 1.08;
+        const y = d3.scaleLinear().domain([0, yMax]).range([ih, 0]).nice();
+
+        g.append("g")
+          .attr("class", "grid")
+          .call(d3.axisLeft(y).tickSize(-iw).tickFormat("").ticks(6));
+        g.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0,${ih})`)
+          .call(
+            d3
+              .axisBottom(x)
+              .tickValues(yearTickRange(TREND_START_YEAR, TREND_END_YEAR))
+              .tickFormat(d3.format("d")),
+          );
+        g.append("g").attr("class", "axis").call(d3.axisLeft(y).ticks(6));
+
+        g.append("text")
+          .attr("class", "axis-label")
+          .attr("transform", "rotate(-90)")
+          .attr("x", -ih / 2)
+          .attr("y", -42)
+          .attr("text-anchor", "middle")
+          .text("Incident count");
+
+        const line = d3
+          .line()
+          .x((d) => x(d.year))
+          .curve(d3.curveMonotoneX);
+
+        const nycPath = g
+          .append("path")
+          .datum(data)
+          .attr("fill", "none")
+          .attr("stroke", COLORS.primary)
+          .attr("stroke-width", 3.4)
+          .attr("d", line.y((d) => y(d.NYC)));
+
+        const boroPaths = {};
+        BORO_ORDER.forEach((b) => {
+          boroPaths[b] = g
+            .append("path")
+            .datum(data)
+            .attr("fill", "none")
+            .attr("stroke", BORO_LINE_COLORS[b])
+            .attr("stroke-width", 2)
+            .attr("opacity", 0)
+            .attr("d", line.y((d) => y(d[b])));
+        });
+
+        const dotNyc = g
+          .selectAll(".dot-nyc")
+          .data(data)
+          .enter()
+          .append("circle")
+          .attr("class", "dot-nyc")
+          .attr("cx", (d) => x(d.year))
+          .attr("cy", (d) => y(d.NYC))
+          .attr("r", 3)
+          .attr("fill", COLORS.primary);
+
+        const bandDecline = g
+          .append("rect")
+          .attr("x", x(2006))
+          .attr("width", x(2019) - x(2006))
+          .attr("y", 0)
+          .attr("height", ih)
+          .attr("fill", COLORS.highlight)
+          .attr("opacity", 0);
+
+        const line2020 = g
+          .append("line")
+          .attr("x1", x(2020))
+          .attr("x2", x(2020))
+          .attr("y1", 0)
+          .attr("y2", ih)
+          .attr("stroke", COLORS.accent)
+          .attr("stroke-dasharray", "4 3")
+          .attr("opacity", 0);
+
+        const leg = svg
+          .append("g")
+          .attr(
+            "transform",
+            `translate(${margin.left + iw - 8},${margin.top + 8})`,
+          );
+        leg
+          .append("text")
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("text-anchor", "end")
+          .attr("font-size", 11)
+          .attr("fill", COLORS.primary)
+          .attr("font-weight", 700)
+          .text("NYC total");
+        let ly = 16;
+        BORO_ORDER.forEach((b) => {
+          leg
+            .append("line")
+            .attr("x1", -42)
+            .attr("x2", -6)
+            .attr("y1", ly - 4)
+            .attr("y2", ly - 4)
+            .attr("stroke", BORO_LINE_COLORS[b])
+            .attr("stroke-width", 2);
+          leg
+            .append("text")
+            .attr("x", 0)
+            .attr("y", ly)
+            .attr("text-anchor", "end")
+            .attr("font-size", 10)
+            .attr("fill", COLORS.muted)
+            .text(BORO_SHORT[b]);
+          ly += 14;
+        });
+
+        state.borough = {
+          g,
+          nycPath,
+          boroPaths,
+          bandDecline,
+          line2020,
+          dotNyc,
+          y,
+          x,
+        };
+      }
+
+      function renderBoroughStep(step) {
+        const b = state.borough;
+        if (!b) return;
+        const { nycPath, boroPaths, bandDecline, line2020, dotNyc } = b;
+        const showBoro = step !== "boro-1";
+        const showBand = step === "boro-3";
+        const show2020 = step === "boro-4" || step === "boro-5";
+
+        BORO_ORDER.forEach((k) => {
+          boroPaths[k]
+            .transition()
+            .duration(450)
+            .attr("opacity", showBoro ? 0.92 : 0);
+        });
+
+        bandDecline.transition().duration(400).attr("opacity", showBand ? 0.09 : 0);
+
+        line2020.transition().duration(400).attr("opacity", show2020 ? 0.55 : 0);
+
+        nycPath
+          .transition()
+          .duration(350)
+          .attr("stroke-width", step === "boro-1" || step === "boro-3" ? 3.8 : 2.8);
+
+        dotNyc
+          .transition()
+          .duration(350)
+          .attr("opacity", step === "boro-5" ? 0.85 : 1);
       }
 
       // ───────────── 3.1 Trend chart ─────────────
@@ -1428,7 +1619,7 @@
           .attr("font-size", 12)
           .attr("fill", COLORS.muted)
           .text(
-            "Each point: one calendar year. 2006 through 2024. Source: NYC Open Data.",
+            "Each point: one calendar year. 2006 through 2025. Source: NYC Open Data.",
           );
 
         const g = svg
@@ -1450,7 +1641,12 @@
         g.append("g")
           .attr("class", "axis")
           .attr("transform", `translate(0,${ih})`)
-          .call(d3.axisBottom(x).tickFormat(d3.format("d")).ticks(10));
+          .call(
+            d3
+              .axisBottom(x)
+              .tickValues(yearTickRange(TREND_START_YEAR, TREND_END_YEAR))
+              .tickFormat(d3.format("d")),
+          );
 
         g.append("g").attr("class", "axis").call(d3.axisLeft(y).ticks(6));
 
@@ -1570,9 +1766,6 @@
           legGroup,
           total,
         };
-
-        // animate the line in (initial state = step 1)
-        renderTrendStep("trend-1");
       }
 
       function renderTrendStep(step) {
@@ -1699,7 +1892,7 @@
         }
 
         let pts = state.agg.coords;
-        let title = "All shootings, 2006–2024";
+        let title = "All shootings, 2006–2025";
         let subtitle = "Heatmap of every NYPD-recorded shooting incident";
         let center = [40.72, -73.93];
         let zoom = 11;
@@ -1747,6 +1940,424 @@
         }).addTo(map);
 
         map.flyTo(center, zoom, { duration: 1.0 });
+      }
+
+      // ───────────── Chapter 5 fatal chart ─────────────
+      function buildFatalChart() {
+        const container = document.getElementById("fatal-viz");
+        container.innerHTML = "";
+        const margin = { top: 64, right: 28, bottom: 56, left: 54 };
+        const W = 880;
+        const H = 560;
+        const iw = W - margin.left - margin.right;
+        const ih = H - margin.top - margin.bottom;
+
+        const svg = d3
+          .select(container)
+          .append("svg")
+          .attr("class", "chart")
+          .attr("viewBox", `0 0 ${W} ${H}`)
+          .attr("preserveAspectRatio", "xMidYMid meet");
+
+        const I = state.incidents.filter(
+          (d) =>
+            d.year >= TREND_START_YEAR && d.year <= TREND_END_YEAR,
+        );
+        const rows = Array.from(
+          d3.rollup(
+            I,
+            (v) => ({
+              fatal: v.filter((d) => d.fatal).length,
+              nonfatal: v.filter((d) => !d.fatal).length,
+            }),
+            (d) => d.year,
+          ),
+          ([year, v]) => ({ year, ...v }),
+        ).sort((a, b) => a.year - b.year);
+
+        const titleTop = svg
+          .append("text")
+          .attr("x", margin.left)
+          .attr("y", 26)
+          .attr("font-family", "Playfair Display, serif")
+          .attr("font-weight", 700)
+          .attr("font-size", 17)
+          .attr("fill", COLORS.primary);
+
+        const subTop = svg
+          .append("text")
+          .attr("x", margin.left)
+          .attr("y", 46)
+          .attr("font-family", "Source Serif 4, serif")
+          .attr("font-style", "italic")
+          .attr("font-size", 12)
+          .attr("fill", COLORS.muted);
+
+        const g0 = svg
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const years = rows.map((d) => d.year);
+        const x = d3.scaleBand().domain(years).range([0, iw]).padding(0.15);
+        const y = d3
+          .scaleLinear()
+          .domain([
+            0,
+            d3.max(rows, (d) => d.fatal + d.nonfatal) * 1.08,
+          ])
+          .range([ih, 0]);
+
+        const stack = d3
+          .stack()
+          .keys(["nonfatal", "fatal"])(rows);
+
+        g0.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0,${ih})`)
+          .call(d3.axisBottom(x).tickValues(x.domain()));
+
+        g0.append("g")
+          .attr("class", "axis")
+          .call(d3.axisLeft(y).ticks(6).tickFormat(d3.format(",")));
+
+        const sg = g0.append("g").attr("class", "fatal-stack-layer");
+
+        const lyr = sg
+          .selectAll("g.layer")
+          .data(stack)
+          .enter()
+          .append("g")
+          .attr("class", "layer")
+          .attr("fill", (d, i) =>
+            i === 0 ? COLORS.primary : COLORS.accent,
+          );
+
+        lyr
+          .selectAll("rect")
+          .data((d) => d)
+          .enter()
+          .append("rect")
+          .attr("x", (d) => x(d.data.year))
+          .attr("y", ih)
+          .attr("width", x.bandwidth())
+          .attr("height", 0)
+          .transition()
+          .duration(700)
+          .attr("y", (d) => y(d[1]))
+          .attr("height", (d) => y(d[0]) - y(d[1]));
+
+        // Legend mini
+        const leg = svg.append("g").attr(
+          "transform",
+          `translate(${margin.left},${margin.top + ih + 36})`,
+        );
+        leg
+          .append("rect")
+          .attr("width", 14)
+          .attr("height", 10)
+          .attr("fill", COLORS.primary);
+        leg
+          .append("text")
+          .attr("x", 20)
+          .attr("y", 10)
+          .attr("font-size", 11)
+          .attr("fill", COLORS.muted)
+          .text("No homicide flag");
+        leg
+          .append("rect")
+          .attr("x", 130)
+          .attr("width", 14)
+          .attr("height", 10)
+          .attr("fill", COLORS.accent);
+        leg
+          .append("text")
+          .attr("x", 150)
+          .attr("y", 10)
+          .attr("font-size", 11)
+          .attr("fill", COLORS.muted)
+          .text("At least one fatality");
+
+        const g1 = svg
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`)
+          .style("opacity", 0);
+
+        const boroFatal = BORO_ORDER.map((b) => {
+          const slice = I.filter((d) => d.boro === b);
+          const vic = d3.sum(slice, (d) => d.numVictims);
+          const mur = d3.sum(slice, (d) => d.numMurdered);
+          return {
+            boro: b,
+            label: BORO_SHORT[b],
+            rate: vic ? mur / vic : 0,
+            vic,
+          };
+        }).sort((a, b) => b.rate - a.rate);
+
+        const yb = d3
+          .scaleBand()
+          .domain(boroFatal.map((d) => d.boro))
+          .range([0, ih])
+          .padding(0.22);
+        const xb = d3
+          .scaleLinear()
+          .domain([0, d3.max(boroFatal, (d) => d.rate) * 1.15])
+          .range([0, iw]);
+
+        g1.append("g")
+          .attr("class", "axis")
+          .call(d3.axisLeft(yb).tickFormat((d) => BORO_SHORT[d]));
+        g1.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0,${ih})`)
+          .call(d3.axisBottom(xb).tickFormat(d3.format(".0%")).ticks(5));
+
+        g1.selectAll(".bf-bar")
+          .data(boroFatal)
+          .enter()
+          .append("rect")
+          .attr("class", "bf-bar")
+          .attr("x", 0)
+          .attr("y", (d) => yb(d.boro))
+          .attr("height", yb.bandwidth())
+          .attr("width", 0)
+          .attr("fill", COLORS.accent)
+          .transition()
+          .duration(800)
+          .attr("width", (d) => xb(d.rate));
+
+        g1.selectAll(".bf-lab")
+          .data(boroFatal)
+          .enter()
+          .append("text")
+          .attr("x", (d) => xb(d.rate) + 6)
+          .attr("y", (d) => yb(d.boro) + yb.bandwidth() / 2 + 4)
+          .attr("font-size", 11)
+          .attr("fill", COLORS.muted)
+          .text((d) => d3.format(".1%")(d.rate));
+
+        state.fatal = {
+          titleTop,
+          subTop,
+          g0,
+          g1,
+          stackLayer: sg,
+        };
+
+        titleTop.text("Fatal vs. non-fatal incidents by year");
+        subTop.text(
+          "Incident counts — “fatal” means ≥1 victim killed (NYPD flags). 2006–2025.",
+        );
+        renderFatalStep("fatal-1");
+      }
+
+      function renderFatalStep(step) {
+        const f = state.fatal;
+        if (!f) return;
+        const showBoro = step === "fatal-2";
+        f.g0.transition().duration(450).style("opacity", showBoro ? 0 : 1);
+        f.g1.transition().duration(450).style("opacity", showBoro ? 1 : 0);
+        f.titleTop.text(
+          showBoro
+            ? "Victims killed / victims shot, by borough"
+            : "Fatal vs. non-fatal incidents by year",
+        );
+        f.subTop.text(
+          showBoro
+            ? "Share of all victims in each borough who died from their wounds (victim-weighted)."
+            : "Incident counts — “fatal” means ≥1 victim killed (NYPD flags). 2006–2025.",
+        );
+      }
+
+      async function loadVictimLayerCharts() {
+        await ensureVictims();
+        if (state.offendersMinimal && state.offendersMinimal.length) {
+          buildOffenderAgeFlowChart(state.offendersMinimal);
+        } else {
+          const offenders = await d3.csv("data/nypd_offenders_clean.csv", (d) => ({
+            age: d.PERP_AGE_GROUP || "UNKNOWN",
+          }));
+          buildOffenderAgeFlowChart(offenders);
+        }
+      }
+
+      function buildOffenderAgeFlowChart(offenders) {
+        const container = document.getElementById("offender-age-viz");
+        if (!container) return;
+        const el = d3.select(container);
+        el.html("");
+        const order = ["<18", "18-24", "25-44", "45-64", "65+", "UNKNOWN"];
+        const counts = d3.rollup(
+          offenders,
+          (v) => v.length,
+          (d) => d.age,
+        );
+        const data = order
+          .filter((a) => counts.has(a))
+          .map((a) => ({ age: a, n: counts.get(a) }))
+          .sort((a, b) => order.indexOf(a.age) - order.indexOf(b.age));
+
+        const margin = { top: 76, right: 24, bottom: 44, left: 100 };
+        const W = 880;
+        const H = 320;
+        const iw = W - margin.left - margin.right;
+        const ih = H - margin.top - margin.bottom;
+
+        const svg = el
+          .append("svg")
+          .attr("class", "chart")
+          .attr("viewBox", `0 0 ${W} ${H}`)
+          .attr("preserveAspectRatio", "xMidYMid meet");
+
+        svg
+          .append("text")
+          .attr("class", "off-title")
+          .attr("x", margin.left)
+          .attr("y", 28)
+          .attr("font-family", "Playfair Display, serif")
+          .attr("font-weight", 700)
+          .attr("font-size", 16)
+          .attr("fill", COLORS.primary)
+          .text("Recorded offenders by age group");
+
+        svg
+          .append("text")
+          .attr("class", "off-sub")
+          .attr("x", margin.left)
+          .attr("y", 50)
+          .attr("font-family", "Source Serif 4, serif")
+          .attr("font-style", "italic")
+          .attr("font-size", 12)
+          .attr("fill", COLORS.muted)
+          .text("");
+
+        const g = svg
+          .append("g")
+          .attr("transform", `translate(${margin.left},${margin.top})`);
+
+        const y = d3
+          .scaleBand()
+          .domain(data.map((d) => d.age))
+          .range([0, ih])
+          .padding(0.2);
+        const x = d3
+          .scaleLinear()
+          .domain([0, d3.max(data, (d) => d.n) * 1.05])
+          .range([0, iw]);
+
+        g.append("g")
+          .attr("class", "axis")
+          .call(d3.axisLeft(y));
+        g.append("g")
+          .attr("class", "axis")
+          .attr("transform", `translate(0,${ih})`)
+          .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(",")));
+
+        const barsByAge = new Map();
+        const labelsByAge = new Map();
+
+        g.selectAll(".ob-bar")
+          .data(data)
+          .join("rect")
+          .attr("class", "ob-bar")
+          .attr("x", 0)
+          .attr("y", (d) => y(d.age))
+          .attr("height", y.bandwidth())
+          .attr("width", 0)
+          .attr("fill", (d) =>
+            d.age === "UNKNOWN" ? COLORS.secondary : COLORS.primary,
+          )
+          .attr("stroke", "none")
+          .each(function (d) {
+            barsByAge.set(d.age, d3.select(this));
+          });
+
+        g.selectAll(".ob-label")
+          .data(data)
+          .join("text")
+          .attr("class", "ob-label")
+          .attr("x", 6)
+          .attr("y", (d) => y(d.age) + y.bandwidth() / 2 + 4)
+          .attr("font-size", 11)
+          .attr("fill", COLORS.muted)
+          .text((d) => d3.format(",")(d.n))
+          .style("opacity", 0)
+          .each(function (d) {
+            labelsByAge.set(d.age, d3.select(this));
+          });
+
+        state.offenderFlow = {
+          svg,
+          g,
+          x,
+          y,
+          data,
+          barsByAge,
+          labelsByAge,
+        };
+      }
+
+      function renderOffenderFlowStep(step) {
+        const F = state.offenderFlow;
+        if (!F) return;
+        const dur = 520;
+        const { svg, data, x, barsByAge, labelsByAge } = F;
+
+        const subtitles = {
+          "ob-1":
+            "One row per person in the offenders file — revealing the dense youth and young-adult bands first.",
+          "ob-2":
+            "18–24 and 25–44 are the two largest bars when NYPD attached an age — minors sit below them on the axis.",
+          "ob-3":
+            "Older brackets fill in but stay thin next to the core working-age counts.",
+          "ob-4":
+            "Last bar: no age on file — not a proxy for youth, just missing data.",
+        };
+        svg
+          .select(".off-sub")
+          .text(subtitles[step] || subtitles["ob-4"]);
+
+        const visible = {
+          "ob-1": new Set(["<18", "18-24", "25-44"]),
+          "ob-2": new Set(["<18", "18-24", "25-44"]),
+          "ob-3": new Set(["<18", "18-24", "25-44", "45-64", "65+"]),
+          "ob-4": new Set(orderOffenderAges(data)),
+        };
+        const vis = visible[step] || visible["ob-4"];
+        const hi =
+          step === "ob-2" ? new Set(["18-24", "25-44"]) : null;
+
+        data.forEach((d) => {
+          const rect = barsByAge.get(d.age);
+          const lab = labelsByAge.get(d.age);
+          if (!rect || !lab) return;
+          const show = vis.has(d.age);
+          const w = show ? x(d.n) : 0;
+          let opacity = 1;
+          if (step === "ob-2" && show && hi && !hi.has(d.age)) {
+            opacity = d.age === "<18" ? 0.42 : 1;
+          }
+          rect
+            .transition()
+            .duration(dur)
+            .attr("width", w)
+            .attr("opacity", opacity)
+            .attr("stroke", hi && hi.has(d.age) ? COLORS.accent : "none")
+            .attr("stroke-width", hi && hi.has(d.age) ? 2.5 : 0);
+
+          lab.transition()
+            .duration(dur)
+            .style("opacity", show ? 1 : 0)
+            .attr("x", show ? x(d.n) + 6 : 6);
+        });
+      }
+
+      /** Stable category order for offender-flow visibility (all rows in data). */
+      function orderOffenderAges(data) {
+        const order = ["<18", "18-24", "25-44", "45-64", "65+", "UNKNOWN"];
+        return data.map((d) => d.age).sort(
+          (a, b) => order.indexOf(a) - order.indexOf(b),
+        );
       }
 
       // ───────────── 3.3 Demographics ─────────────
@@ -2109,7 +2720,7 @@
             .attr("font-weight", 700)
             .attr("font-size", 17)
             .attr("fill", COLORS.primary)
-            .text("Shootings by month, 2006–2024");
+            .text("Shootings by month, 2006–2025");
           svg
             .append("text")
             .attr("x", m.left)
@@ -2220,7 +2831,7 @@
           .attr("font-weight", 700)
           .attr("font-size", 17)
           .attr("fill", COLORS.primary)
-          .text("Shootings by day & hour, 2006–2024");
+          .text("Shootings by day & hour, 2006–2025");
         svg
           .append("text")
           .attr("x", m.left)
@@ -2465,10 +3076,12 @@
       // ───────────── Scrollama ─────────────
       function setupScrollama() {
         const handlers = {
-          "sec-trend": renderTrendStep,
+          "sec-chapter1": renderChapter1Step,
           "sec-map": renderMapStep,
           "sec-demo": renderDemoStep,
+          "sec-offender-flow": renderOffenderFlowStep,
           "sec-time": renderTimeStep,
+          "sec-fatal": renderFatalStep,
         };
         const scrollers = [];
 
@@ -2489,6 +3102,10 @@
 
             if (id === "sec-demo" && !state.demo) {
               buildDemographics().then(() => renderDemoStep(stepKey));
+            } else if (id === "sec-offender-flow" && !state.offenderFlow) {
+              loadVictimLayerCharts().then(() =>
+                renderOffenderFlowStep(stepKey),
+              );
             } else {
               handler(stepKey);
             }
@@ -2498,7 +3115,6 @@
         window.addEventListener("resize", () => {
           scrollers.forEach((s) => s.resize());
           if (state.leafletMap) state.leafletMap.invalidateSize();
-          if (state.exploreMap) state.exploreMap.invalidateSize();
         });
       }
 
