@@ -29,7 +29,7 @@ final_project/
 
 ## Data
 
-All shooting data comes from **[NYC Open Data — NYPD Shooting Incident Data (Historic + Year-To-Date)](https://opendata.cityofnewyork.us/)**. The three raw exports in `data/raw/` cover incidents, victims, and offenders (2006–2026). Precinct geometry is the city's published precinct GeoJSON; the legislation timeline is hand-curated from public sources cited in the notebook.
+All shooting data comes from **[NYC Open Data — NYPD Shooting Incident Data (Historic + Year-To-Date)](https://data.cityofnewyork.us/browse?q=&sortBy=relevance&utf8=%E2%9C%93&pageSize=20&Data-Collection_Data-Collection=NYPD+Shootings&page=1)**. The three raw exports in `data/raw/` cover incidents, victims, and offenders (2006–2026). Precinct geometry is the city's published precinct GeoJSON; the legislation timeline is hand-curated from public sources cited in the notebook.
 
 ## Running the notebook
 
